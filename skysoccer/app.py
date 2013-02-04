@@ -1,13 +1,15 @@
 from pyramid.config import Configurator
-from pyramid.response import Response
-
-
-def hello_world(request):
-    return Response('Hello !')
-
+from skysoccer.controllers import homepage
 
 def main(settings):
     config = Configurator()
-    config.add_route('hello', '/')
-    config.add_view(hello_world, route_name='hello')
+
+    config.add_route('index', '/')
+    config.add_view(homepage.index_view,route_name='index')
+
+    config.add_notfound_view(homepage.not_found, append_slash=True)
+
+    config.add_static_view(name='static', path='skysoccer:static')
+
+
     return config.make_wsgi_app()

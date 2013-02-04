@@ -1,0 +1,40 @@
+<html>
+<head>
+    <title>{% block title %}{% endblock %} - SkySoccer webpage.</title>
+    <link rel="stylesheet" href="{{url("skysoccer:static/style.css")}}" type="text/css" />
+</head>
+
+<h1>SkySoccer</h1>
+
+<form name="input" action="" method="get">
+Username: <input type="text" name="user"><br>
+Password: <input type="password" name="password"><br>
+<input type="submit" value="Submit">
+<small><a href="">Register</a></small>
+</form>
+
+<table border='1' width="400px">
+
+    <tr>
+        <td>Top10 graczy: </td>
+        <td>Ostatnie mecze: </td>
+        <td>Najlepsze drużyny: </td>
+    </tr>
+    <tr>
+        <td>{% block players %}{% endblock %}</td>
+        <td>{% block games %}{% endblock %}</td>
+        <td>{% block teams %}{% endblock %}</td>
+    </tr>
+    <tr>
+        <td>Ilość graczy:</td>
+        <td>{% block players_count %}{% endblock %}</td>
+    </tr>
+    <tr>
+        <td>Ilość meczy:</td>
+        <td>{% block games_count %}{% endblock %}</td>
+    </tr>
+</table>
+
+{% block footer %}{% endblock %}
+</body>
+</html>

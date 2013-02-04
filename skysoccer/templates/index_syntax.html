@@ -1,0 +1,41 @@
+{% extends "index.html" %}
+
+
+{% block title %} {{title}} {% endblock %}
+
+
+{% block players %}
+{% if players %}
+    {% for player in players %}
+        {{player}}</br>
+    {% endfor %}
+{% else %}
+    Nie ma graczy
+{% endif %}
+{% endblock %}
+
+
+{% block teams %}
+    {% for player in players %}
+        {{player}}
+        {% if loop.index is divisibleby(2) %}
+            </br>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+
+{% block players_count %}
+    {{players_count}}
+{% endblock %}
+
+
+{% block games_count %}
+    {{games_count}}
+{% endblock %}
+
+
+{% block footer %}
+<hr>
+<small>SkyGate 2013</small>
+{% endblock %}
