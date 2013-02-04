@@ -9,4 +9,7 @@ def main(settings):
 
     config.add_notfound_view(homepage.not_found, append_slash=True)
 
+    config.add_static_view(name='static', path='skysoccer:static')
+
+
     return config.make_wsgi_app()
