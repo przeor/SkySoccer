@@ -5,10 +5,7 @@ from pyramid.httpexceptions import HTTPNotFound, HTTPFound
 #/index.html
 def index_view(request):
     def get_template():
-        from jinja2 import Environment, PackageLoader
-        env = Environment(loader=PackageLoader('skysoccer', 'templates'))
-
-        return env.get_template('index_syntax.html')
+        return request.registry['jinja2'].get_template('index_syntax.html')
 
     def get_players():
         players = []
