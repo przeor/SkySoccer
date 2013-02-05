@@ -4,16 +4,15 @@ from pymongo import MongoClient
 
 
 def index_view(request):
-    def connect_database():
-        connection = MongoClient()
-        return connection['test']
+    def get_database(database='test'):
+        return request.registry['mongodb'][database]
 
     def get_template():
         return request.registry['jinja2'].get_template('index_syntax.html')
 
     def get_players():
         players = []
-        db = connect_database()
+        db = get_database()
         users = db.users
         for value in users.find():
             players.append("%s %s" % (value['name'], value['surname']))

@@ -1,6 +1,7 @@
 from pyramid.config import Configurator
 from skysoccer.controllers import homepage, pages
 from jinja2 import Environment, PackageLoader
+from pymongo import MongoClient
 
 
 def make_routes(config):
@@ -17,8 +18,13 @@ def register_jinja(config):
         loader=PackageLoader('skysoccer', 'templates'))
 
 
+def register_mongodb(config, host='localhost', port=27017):
+    config.registry['mongodb'] = MongoClient(host, port)
+
+
 def main(settings):
     config = Configurator()
     register_jinja(config)
     make_routes(config)
+    register_mongodb(config)
     return config.make_wsgi_app()
