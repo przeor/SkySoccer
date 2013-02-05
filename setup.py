@@ -5,6 +5,7 @@ install_requires=[
     'pyramid',
     'jinja2',
     'waitress',
+    'pymongo',
 ]
 
 dependency_links = [
@@ -12,7 +13,7 @@ dependency_links = [
 
 if __name__ == '__main__':
     setup(name='SkySoccer',
-        version='0.1.0',
+        version='0.1.1',
         author=['Dawid Fajkowski',],
         author_email=['dawidfajkowski@gmail.com',],
         packages=find_packages(),
