@@ -36,13 +36,9 @@ def index_view(request):
             print "User not found"
             return False
     #-------------------------------------------------------------------------
-    print "START"
     template = get_template()
     data_for_template = get_initial_data()
     data_for_template["players"] = get_players()
     if check_user(request):
-        print "LOL"
         return HTTPFound(location="/admin.html")
-        print "D@"
-    print "==="
     return Response(template.render(**data_for_template))
