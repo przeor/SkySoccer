@@ -1,6 +1,4 @@
 from pyramid.response import Response
-from pyramid.httpexceptions import HTTPNotFound, HTTPFound
-from pymongo import MongoClient
 
 
 def index_view(request):
