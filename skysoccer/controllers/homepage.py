@@ -1,5 +1,5 @@
 from pyramid.response import Response
-
+from pyramid.httpexceptions import HTTPFound
 
 def index_view(request):
     def get_database(database='test'):
@@ -23,8 +23,26 @@ def index_view(request):
             "players_count": 15,
             "url": request.static_url,
         }
+
+    def check_user(request):
+        username = ""
+        for k, v in request.POST.items():
+            username = username + v + " "
+        username = username[:-1]
+        if username in data_for_template['players']:
+            print "User found"
+            return True
+        else:
+            print "User not found"
+            return False
     #-------------------------------------------------------------------------
+    print "START"
     template = get_template()
     data_for_template = get_initial_data()
     data_for_template["players"] = get_players()
+    if check_user(request):
+        print "LOL"
+        return HTTPFound(location="/admin.html")
+        print "D@"
+    print "==="
     return Response(template.render(**data_for_template))

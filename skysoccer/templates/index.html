@@ -3,10 +3,10 @@
     <title>{% block title %}{% endblock %} - SkySoccer webpage.</title>
     <link rel="stylesheet" href="{{url("skysoccer:static/style.css")}}" type="text/css" />
 </head>
-
+<body>
 <h1>SkySoccer</h1>
 
-<form name="input" action="" method="get">
+<form name="input" method="post">
 Username: <input type="text" name="user"><br>
 Password: <input type="password" name="password"><br>
 <input type="submit" value="Submit">
