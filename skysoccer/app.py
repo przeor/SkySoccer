@@ -3,7 +3,6 @@ from skysoccer.controllers import homepage, pages
 from jinja2 import Environment, PackageLoader
 from pyramid.config import Configurator
 from pymongo import MongoClient
-from os.path import dirname
 
 
 def make_routes(config):

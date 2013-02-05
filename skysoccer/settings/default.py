@@ -1,6 +1,3 @@
-from os import path
-
-
 def make_settings(settings):
     settings['project_name'] = 'SkySoccer'
     settings['dbhost'] = 'localhost'
