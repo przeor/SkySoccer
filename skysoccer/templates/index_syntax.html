@@ -3,6 +3,8 @@
 
 {% block title %} {{title}} {% endblock %}
 
+{% block login %} {{login_status}} {% endblock %}
+
 
 {% block players %}
 {% if players %}
@@ -13,11 +15,6 @@
     Nie ma graczy
 {% endif %}
 {% endblock %}
-
-0 - pierwszy
-1 - pierwszy
-2 - drugi
-3 - drugi
 
 {% block teams %}
     {% for player in players %}

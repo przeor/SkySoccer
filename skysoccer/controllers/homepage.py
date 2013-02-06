@@ -28,12 +28,13 @@ def index_view(request):
     def check_user(request):
         if request.POST.get('name') and request.POST.get('surname'):
             username = request.POST.get('name') + " " + request.POST.get('surname')
-            print username
             if username in data_for_template['players']:
                 return True
             else:
+                data_for_template["login_status"] = "Nie ma takiego uzytkownika" 
                 return False
         else:
+            data_for_template["login_status"] = "Nie wpisano uzytkownika/hasla"
             return False
 
     #-------------------------------------------------------------------------
@@ -44,5 +45,5 @@ def index_view(request):
         if check_user(request):
             return HTTPFound(location="/admin.html")
         else:
-            return HTTPNotFound("Niepoprawne dane do logowania lub brak danych do logowania")
+            return Response(template.render(**data_for_template))
     return Response(template.render(**data_for_template))
