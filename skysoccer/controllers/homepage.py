@@ -1,5 +1,6 @@
 from pyramid.response import Response
-from pyramid.httpexceptions import HTTPFound
+from pyramid.httpexceptions import HTTPFound, HTTPNotFound
+
 
 def index_view(request):
     def get_database(database='test'):
@@ -25,20 +26,23 @@ def index_view(request):
         }
 
     def check_user(request):
-        username = ""
-        for k, v in request.POST.items():
-            username = username + v + " "
-        username = username[:-1]
-        if username in data_for_template['players']:
-            print "User found"
-            return True
+        if request.POST.get('name') and request.POST.get('surname'):
+            username = request.POST.get('name') + " " + request.POST.get('surname')
+            print username
+            if username in data_for_template['players']:
+                return True
+            else:
+                return False
         else:
-            print "User not found"
             return False
+
     #-------------------------------------------------------------------------
     template = get_template()
     data_for_template = get_initial_data()
     data_for_template["players"] = get_players()
-    if check_user(request):
-        return HTTPFound(location="/admin.html")
+    if request.POST.get('submit'):
+        if check_user(request):
+            return HTTPFound(location="/admin.html")
+        else:
+            return HTTPNotFound("Niepoprawne dane do logowania lub brak danych do logowania")
     return Response(template.render(**data_for_template))
