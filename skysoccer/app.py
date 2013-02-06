@@ -1,5 +1,5 @@
 from skysoccer.settings import make_settings
-from skysoccer.controllers import homepage, pages
+from skysoccer.controllers import homepage, pages, adminpage
 from jinja2 import Environment, PackageLoader
 from pyramid.config import Configurator
 from pymongo import MongoClient
@@ -8,6 +8,9 @@ from pymongo import MongoClient
 def make_routes(config):
     config.add_route('index', '/')
     config.add_view(homepage.index_view, route_name='index')
+
+    config.add_route('admin', '/admin.html')
+    config.add_view(adminpage.admin_view, route_name='admin')
 
     config.add_notfound_view(pages.redirect_page, append_slash=True)
 

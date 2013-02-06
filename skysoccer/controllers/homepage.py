@@ -1,4 +1,5 @@
 from pyramid.response import Response
+from pyramid.httpexceptions import HTTPFound, HTTPNotFound
 
 
 def index_view(request):
@@ -23,8 +24,26 @@ def index_view(request):
             "players_count": 15,
             "url": request.static_url,
         }
+
+    def check_user(request):
+        if request.POST.get('name') and request.POST.get('surname'):
+            username = request.POST.get('name') + " " + request.POST.get('surname')
+            if username in data_for_template['players']:
+                return True
+            else:
+                data_for_template["login_status"] = "Nie ma takiego uzytkownika" 
+                return False
+        else:
+            data_for_template["login_status"] = "Nie wpisano uzytkownika/hasla"
+            return False
+
     #-------------------------------------------------------------------------
     template = get_template()
     data_for_template = get_initial_data()
     data_for_template["players"] = get_players()
+    if request.POST.get('submit'):
+        if check_user(request):
+            return HTTPFound(location="/admin.html")
+        else:
+            return Response(template.render(**data_for_template))
     return Response(template.render(**data_for_template))
