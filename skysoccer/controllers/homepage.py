@@ -11,8 +11,8 @@ def index_view(request):
 
     def get_players():
         players = []
-        db = get_database()
-        users = db.users
+        database = get_database()
+        users = database.users
         for value in users.find():
             players.append("%s %s" % (value['name'], value['surname']))
         return players
@@ -31,7 +31,7 @@ def index_view(request):
             if username in data_for_template['players']:
                 return True
             else:
-                data_for_template["login_status"] = "Nie ma takiego uzytkownika" 
+                data_for_template["login_status"] = "Nie ma takiego uzytkownika"
                 return False
         else:
             data_for_template["login_status"] = "Nie wpisano uzytkownika/hasla"
@@ -44,6 +44,4 @@ def index_view(request):
     if request.POST.get('submit'):
         if check_user(request):
             return HTTPFound(location="/admin.html")
-        else:
-            return Response(template.render(**data_for_template))
     return Response(template.render(**data_for_template))
