@@ -4,7 +4,7 @@
     
 </head>
 <body>
-<h1>SkySoccer - {{title}}</h1>
+<h1>SkySoccer - {{title}}</h1>pyramid
 <h2>Witaj |{{name}}| |{{surname}}|</h2>
 
 <table border='1' width="800px">
@@ -16,9 +16,10 @@
     <tr>
         <td>
             <form name="input" method="post">
-            Name: <input type="text" name="add_name"><br>
-            Surname: <input type="text" name="add_surname"><br>
-            <input type="submit" value="Submit" name="add_submit">
+                Name: <input type="text" name="add_name"><br>
+                Surname: <input type="text" name="add_surname"><br>
+                <input type="submit" value="Submit" name="add_submit">
+            </form>
             {{register_status}}
         </td>
         <td>B</td>
@@ -31,11 +32,16 @@
     </tr>
     <tr>
         <td>
-            <form name="input" method="post">
-            Name: <input type="text" name="delete_name"><br>
-            Surname: <input type="text" name="delete_surname"><br>
-            <input type="submit" value="Submit" name="delete_submit">
-            {{delete_status}}
+            {% if players %}
+                {% for player in players %}
+                    <form name="input" method="post">
+                        {{player}}
+                        <input type="submit" value="x" onclick="return confirm('pewien?')" name="{{player}}">
+                    </form>
+                {% endfor %}
+            {% else %}
+                Nie ma graczy
+            {% endif %}
         </td>
         <td>cos</td>
         <td>cos</td>
