@@ -31,12 +31,18 @@ def register_settings(config, settings, test_config=False):
     config.registry['settings'] = make_settings(settings, test_config)
 
 
+def make_pyramid_includes(config, settings):
+    for include in settings['includes']:
+        config.include(include)
+
+
 def create_config(settings={}, test_config=False):
     config = Configurator()
     register_settings(config, settings, test_config)
     register_jinja(config, settings)
     make_routes(config)
     register_mongodb(config, settings)
+    make_pyramid_includes(config, settings)
     return config
 
 
