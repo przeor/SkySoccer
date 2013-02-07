@@ -7,7 +7,7 @@ def index_view(request):
         return request.registry['mongodb'][database]
 
     def get_template():
-        return request.registry['jinja2'].get_template('index_syntax.html')
+        return request.registry['jinja2'].get_template('index2.html')
 
     def get_players():
         players = []
