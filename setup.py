@@ -7,6 +7,7 @@ install_requires = [
     'waitress',
     'pymongo',
     'webtest',
+    'pyramid_beaker',
 ]
 
 dependency_links = [
