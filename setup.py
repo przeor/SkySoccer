@@ -6,6 +6,7 @@ install_requires=[
     'jinja2',
     'waitress',
     'pymongo',
+    'webtest',
 ]
 
 dependency_links = [
@@ -19,6 +20,7 @@ if __name__ == '__main__':
         packages=find_packages(),
         install_requires=install_requires,
         dependency_links=dependency_links,
+        test_suite='skysoccer.test.get_all_test_suite',
         entry_points="""\
             [paste.app_factory]
                 main = skysoccer.app:main

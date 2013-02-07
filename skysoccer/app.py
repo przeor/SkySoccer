@@ -23,17 +23,23 @@ def register_jinja(config, settings):
 
 
 def register_mongodb(config, settings):
-    config.registry['mongodb'] = MongoClient(settings['dbhost'], settings['dbport'])
+    config.registry['mongodb_client'] = MongoClient(settings['dbhost'], settings['dbport'])
+    config.registry['mongodb'] = config.registry['mongodb_client'][settings['dbname']]
 
 
-def register_settings(config, settings):
-    config.registry['settings'] = make_settings(settings)
+def register_settings(config, settings, test_config=False):
+    config.registry['settings'] = make_settings(settings, test_config)
 
 
-def main(settings):
+def create_config(settings={}, test_config=False):
     config = Configurator()
-    register_settings(config, settings)
+    register_settings(config, settings, test_config)
     register_jinja(config, settings)
     make_routes(config)
     register_mongodb(config, settings)
+    return config
+
+
+def main(settings, test_config=False):
+    config = create_config(settings, test_config)
     return config.make_wsgi_app()
