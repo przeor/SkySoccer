@@ -7,6 +7,7 @@ import logging
 
 logger = logging.getLogger('pymk')
 
+
 @AddTask
 class clear(BaseTask):
 
@@ -26,7 +27,7 @@ class bootstrap(BaseTask):
     url = 'http://svn.zope.org/*checkout*/zc.buildout/trunk/bootstrap/bootstrap.py'
 
     def build(self):
-        run_cmd(['wget ' + self.url ], True)
+        run_cmd(['wget ' + self.url], True)
         run_cmd(['python2 bootstrap.py'], True)
 
 
@@ -88,3 +89,12 @@ class frontend(BaseTask):
 
     def build(self):
         run_cmd('./bin/pserve --reload %s' % (frontendini.output_file), True)
+
+
+@AddTask
+class test(BaseTask):
+    dependencys = [
+        AlwaysRebuild()
+    ]
+    def build(self):
+        run_cmd(['./bin/tests'],True)

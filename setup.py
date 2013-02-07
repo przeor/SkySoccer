@@ -24,5 +24,7 @@ if __name__ == '__main__':
           entry_points="""\
             [paste.app_factory]
                 main = skysoccer.app:main
+            [console_scripts]
+                tests = skysoccer.test:run
 """,
           )
