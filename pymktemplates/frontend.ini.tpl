@@ -11,27 +11,49 @@ port = 6543
 # Begin logging configuration
 
 [loggers]
-keys = root, {{project_name}}
+keys = root, {{project_name}}, beaker.container
 
 [handlers]
-keys = console
+keys = console, beaker, all
 
 [formatters]
 keys = generic
 
 [logger_root]
-level = {{inifile_logger_root}}
-handlers = console
+level = DEBUG
+handlers = all
 
 [logger_{{project_name}}]
 level = {{inifile_logger_module}}
-handlers =
+handlers = console
 qualname = {{project_name}}
+
+[logger_beaker.container]
+level = DEBUG
+handlers = beaker
+qualname = beaker.container
+
+[logger_routes]
+level = INFO
+handlers = console
+qualname = routes.middleware
 
 [handler_console]
 class = StreamHandler
 args = (sys.stderr,)
-level = NOTSET
+level = DEBUG
+formatter = generic
+
+[handler_beaker]
+class = FileHandler
+args = ('{{beaker_log_file}}',)
+level = DEBUG
+formatter = generic
+
+[handler_all]
+class = FileHandler
+args = ('{{all_path}}',)
+level = DEBUG
 formatter = generic
 
 [formatter_generic]

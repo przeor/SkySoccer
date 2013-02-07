@@ -41,6 +41,10 @@ class data_dir(BaseTask):
             os.mkdir(self.output_file)
         except OSError:
             pass
+        try:
+            os.mkdir(os.path.join(self.output_file, 'logs'))
+        except OSError:
+            pass
 
 
 @AddTask
@@ -67,15 +71,19 @@ class frontendini(BaseTask):
     dependencys = [
         buildout.dependency_FileChanged(),
         FileChanged('pymktemplates/frontend.ini.tpl'),
+        FileChanged('mkfile.py'),
     ]
 
     def build(self):
+        here = os.path.dirname(__file__)
+        log_dir = os.path.join(here, 'data', 'logs')
         data = {
             'project_name': 'skysoccer',
             'inifile_with_server': True,
-            'inifile_logger_root': 'DEBUG',
             'inifile_logger_module': 'DEBUG',
-            'here': os.path.dirname(__file__),
+            'beaker_log_file': os.path.join(log_dir, 'baker.log'),
+            'all_path': os.path.join(log_dir, 'all.log'),
+            'here': here,
         }
         mktemplate('frontend.ini.tpl', self.output_file, data)
 
@@ -97,5 +105,6 @@ class test(BaseTask):
         frontendini.dependency_FileExists(),
         AlwaysRebuild()
     ]
+
     def build(self):
-        run_cmd(['./bin/tests'],True)
+        run_cmd(['./bin/tests'], True)

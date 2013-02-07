@@ -27,8 +27,8 @@ def register_mongodb(config, settings):
     config.registry['mongodb'] = config.registry['mongodb_client'][settings['dbname']]
 
 
-def register_settings(config, settings, test_config=False):
-    config.registry['settings'] = make_settings(settings, test_config)
+def register_settings(config, settings):
+    config.registry['settings'] = settings
 
 
 def make_pyramid_includes(config, settings):
@@ -37,8 +37,9 @@ def make_pyramid_includes(config, settings):
 
 
 def create_config(settings={}, test_config=False):
-    config = Configurator()
-    register_settings(config, settings, test_config)
+    settings = make_settings(settings, test_config)
+    config = Configurator(settings=settings)
+    register_settings(config, settings)
     register_jinja(config, settings)
     make_routes(config)
     register_mongodb(config, settings)
