@@ -4,7 +4,7 @@
     
 </head>
 <body>
-<h1>SkySoccer - {{title}}</h1>pyramid
+<h1>SkySoccer - {{title}}</h1>
 <h2>Witaj |{{name}}| |{{surname}}|</h2>
 
 <table border='1' width="800px">
@@ -36,7 +36,7 @@
                 {% for player in players %}
                     <form name="input" method="post">
                         {{player}}
-                        <input type="submit" value="x" onclick="return confirm('pewien?')" name="{{player}}">
+                        <input type="submit" value="x" onclick="return confirm('Jestes pewien?')" name="{{player}}">
                     </form>
                 {% endfor %}
             {% else %}
