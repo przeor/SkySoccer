@@ -5,9 +5,8 @@ from .base import JinjaResponse
 def index_view(request):
     def get_players():
         players = []
-        db = request.registry['mongodb']
-        users = db.users
-        for value in users.find():
+        database = request.registry['mongodb']
+        for value in database.users.find():
             players.append("%s %s" % (value['name'], value['surname']))
         return players
 
@@ -15,7 +14,6 @@ def index_view(request):
         return {
             "title": "Some title",
             "games_count": 100,
-            "players_count": 15,
             "url": request.static_url,
         }
 
@@ -31,9 +29,14 @@ def index_view(request):
             data_for_template["login_status"] = "Nie wpisano uzytkownika/hasla"
             return False
 
+    def get_numer_players():
+        database = request.registry['mongodb']
+        return database.users.find().count()
+
     #-------------------------------------------------------------------------
     data_for_template = get_initial_data()
     data_for_template["players"] = get_players()
+    data_for_template["players_count"] = get_numer_players()
     if request.POST.get('submit'):
         if check_user(request):
             return HTTPFound(location="/admin.html")

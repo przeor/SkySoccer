@@ -9,14 +9,42 @@
 
 <table border='1' width="800px">
     <tr>
-        <td>Dodaj użytkownika</td>
-        <td>Ustawianie meczy</td>
-        <td>c</td>
+        <td><b>Dodaj użytkownika</b></td>
+        <td><b>Ustawianie meczy</b></td>
+        <td><b>c</b></td>
     </tr>
     <tr>
-        <td>A</td>
+        <td>
+            <form name="input" method="post">
+                Name: <input type="text" name="add_name"><br>
+                Surname: <input type="text" name="add_surname"><br>
+                <input type="submit" value="Submit" name="add_submit">
+            </form>
+            {{register_status}}
+        </td>
         <td>B</td>
         <td>C</td>
+    </tr>
+    <tr>
+        <td><b>Usun użytkownika</b></td>
+        <td><b>Do wykorzystania</b></td>
+        <td><b>Do wykorzystania</b></td>
+    </tr>
+    <tr>
+        <td>
+            {% if players %}
+                {% for player in players %}
+                    <form name="input" method="post">
+                        {{player}}
+                        <input type="submit" value="x" onclick="return confirm('Jestes pewien?')" name="{{player}}">
+                    </form>
+                {% endfor %}
+            {% else %}
+                Nie ma graczy
+            {% endif %}
+        </td>
+        <td>cos</td>
+        <td>cos</td>
     </tr>
 </table>
 
