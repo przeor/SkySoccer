@@ -29,14 +29,18 @@ def index_view(request):
             data_for_template["login_status"] = "Nie wpisano uzytkownika/hasla"
             return False
 
-    def get_numer_players():
+    def get_number_players():
         database = request.registry['mongodb']
         return database.users.find().count()
+    def get_number_matches():
+        database = request.registry['mongodb']
+        return database.match.find().count()
 
     #-------------------------------------------------------------------------
     data_for_template = get_initial_data()
     data_for_template["players"] = get_players()
-    data_for_template["players_count"] = get_numer_players()
+    data_for_template["matches_count"] = get_number_matches()
+    data_for_template["players_count"] = get_number_players()
     if request.POST.get('submit'):
         if check_user(request):
             return HTTPFound(location="/admin.html")

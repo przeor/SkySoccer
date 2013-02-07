@@ -15,9 +15,9 @@ class IndexControllerTest(ControllerTest):
 
         db = self.request.registry['mongodb']
         db.users.insert({
-            'name' : 's',
-            'surname' : 'd',
-            })
+            'name': 's',
+            'surname': 'd',
+        })
         res = index_view(self.request)
 
         self.assertTrue('players' in res.data)
@@ -26,9 +26,9 @@ class IndexControllerTest(ControllerTest):
         self.assertEqual('s d', players[0])
 
         db.users.insert({
-            'name' : 's2',
-            'surname' : 'd2',
-            })
+            'name': 's2',
+            'surname': 'd2',
+        })
 
         res = index_view(self.request)
 

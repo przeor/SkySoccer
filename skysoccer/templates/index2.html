@@ -63,9 +63,9 @@
     <center>
       <div class="row">
         <div class="span2">Liczba graczy:</div>
-        <div class="span2">13</div>
+        <div class="span2">{{players_count}}</div>
         <div class="span2">Liczba meczy:</div>
-        <div class="span2">15</div>
+        <div class="span2">{{matches_count}}</div>
         <div class="span2">Liczba drużyn:</div>
         <div class="span2">10</div>
       </div>
@@ -161,46 +161,24 @@
       <thead>
         <tr>
           <th>#</th>
-          <th>Imię</th>
-          <th>Nazwisko</th>
+          <th>Gracz</th>
           <th>Punkty</th>
           <th>Punkty stracone</th>
           <th>Mecze</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>11</td>
-          <td>1</td>
-          <td>20</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>1</td>
-          <td>11</td>
-          <td>10</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>21</td>
-          <td>11</td>
-          <td>13</td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>21</td>
-          <td>11</td>
-          <td>13</td>
-        </tr>
+        {% if players %}
+          {% for player in players %}
+            <tr>
+              <td>{{loop.index}}</td>
+              <td>{{player}}</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+            </tr>
+          {% endfor %}
+        {% endif %}
       </tbody>
     </table>
     <!-- ##################################################### -->

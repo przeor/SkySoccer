@@ -94,6 +94,7 @@ class frontend(BaseTask):
 @AddTask
 class test(BaseTask):
     dependencys = [
+        frontendini.dependency_FileExists(),
         AlwaysRebuild()
     ]
     def build(self):
