@@ -1,5 +1,5 @@
 from pymk.task import BaseTask, AddTask
-from pymk.dependency import FileChanged, AlwaysRebuild
+from pymk.dependency import FileChanged, AlwaysRebuild, FileDoesNotExists
 from pymk.extra import find_files, run_cmd, touch
 from pymk.template import mktemplate
 import os
@@ -34,17 +34,32 @@ class bootstrap(BaseTask):
 class data_dir(BaseTask):
     output_file = 'data'
 
-    dependencys = []
+    paths = [
+        ['logs', ],
+    ]
+
+    dependencys = [
+        FileDoesNotExists('data/logs')
+    ]
+
+    def _generate_paths(self):
+        paths = [self.output_file]
+        for path_list in self.paths:
+            paths.append(
+                os.path.join(self.output_file, *path_list)
+            )
+        return paths
 
     def build(self):
-        try:
-            os.mkdir(self.output_file)
-        except OSError:
-            pass
-        try:
-            os.mkdir(os.path.join(self.output_file, 'logs'))
-        except OSError:
-            pass
+        def create_dir_without_errors(path):
+            try:
+                os.mkdir(path)
+            except OSError:
+                pass
+        #-----------------------------------------------------------------------
+        paths = self._generate_paths()
+        for path in paths:
+            create_dir_without_errors(path)
 
 
 @AddTask
