@@ -71,7 +71,6 @@ class frontendini(BaseTask):
     dependencys = [
         buildout.dependency_FileChanged(),
         FileChanged('pymktemplates/frontend.ini.tpl'),
-        FileChanged('mkfile.py'),
     ]
 
     def build(self):
