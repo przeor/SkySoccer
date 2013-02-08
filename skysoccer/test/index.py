@@ -8,6 +8,7 @@ class IndexAppTest(AppTest):
         self.failUnless('SkySoccer' in res.body)
 
 
+
 class IndexControllerTest(ControllerTest):
 
     def test_index(self):
@@ -37,3 +38,28 @@ class IndexControllerTest(ControllerTest):
         self.assertEqual(2, len(players))
         self.assertEqual('s d', players[0])
         self.assertEqual('s2 d2', players[1])
+
+    def test_count_matches(self):
+        from skysoccer.controllers.homepage import index_view
+        db = self.request.registry['mongodb']
+        db.match.insert({'one': 1})
+
+        res = index_view(self.request)
+        self.assertTrue('matches_count' in res.data)
+
+        matches = res.data['matches_count']
+        self.assertEqual(1, matches)
+
+    def test_player_count(self):
+        from skysoccer.controllers.homepage import index_view
+        db = self.request.registry['mongodb']
+        db.users.insert({
+            'name': 's',
+            'surname': 'd',
+        })
+
+        res = index_view(self.request)
+        self.assertTrue('players_count' in res.data)
+
+        matches = res.data['players_count']
+        self.assertEqual(1, matches)

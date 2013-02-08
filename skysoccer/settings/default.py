@@ -16,7 +16,7 @@ def make_settings(settings):
     def database(settings):
         settings['dbhost'] = 'localhost'
         settings['dbport'] = 27017
-        settings['dbname'] = 'skysoccer'
+        settings['dbname'] = 'test'
         return settings
 
     def baker_session(settings):
