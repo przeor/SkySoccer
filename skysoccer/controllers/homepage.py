@@ -37,6 +37,11 @@ def index_view(request):
         return database.match.find().count()
 
     #-------------------------------------------------------------------------
+    if not 'klucz' in request.session:
+        request.session['klucz'] = 0
+    request.session['klucz'] += 1
+    print request.session['klucz']
+
     data_for_template = get_initial_data()
     data_for_template["players"] = get_players()
     data_for_template["matches_count"] = get_number_matches()
