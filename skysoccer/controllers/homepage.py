@@ -40,7 +40,7 @@ def index_view(request):
     if not 'klucz' in request.session:
         request.session['klucz'] = 0
     request.session['klucz'] += 1
-    print request.session['klucz']
+    # print request.session['klucz']
 
     data_for_template = get_initial_data()
     data_for_template["players"] = get_players()

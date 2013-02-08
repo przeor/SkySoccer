@@ -18,8 +18,7 @@ def make_routes(config):
 
 
 def register_jinja(config, settings):
-    config.registry['jinja2'] = Environment(
-        loader=PackageLoader('skysoccer', 'templates'))
+    config.registry['jinja2'] = config.get_jinja2_environment()
 
 
 def register_mongodb(config, settings):
@@ -39,11 +38,11 @@ def make_pyramid_includes(config, settings):
 def create_config(settings={}, test_config=False):
     settings = make_settings(settings, test_config)
     config = Configurator(settings=settings)
+    make_pyramid_includes(config, settings)
     register_settings(config, settings)
     register_jinja(config, settings)
     make_routes(config)
     register_mongodb(config, settings)
-    make_pyramid_includes(config, settings)
     return config
 
 
