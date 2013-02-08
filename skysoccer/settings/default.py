@@ -32,6 +32,7 @@ def make_settings(settings):
 
     def jinja2(settings):
         settings['jinja2.directories'] = 'skysoccer:templates'
+        settings['pyramid.reload_templates'] = True
         settings['includes'].append('pyramid_jinja2')
         return settings
     #---------------------------------------------------------------------------
