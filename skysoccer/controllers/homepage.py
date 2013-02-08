@@ -32,6 +32,7 @@ def index_view(request):
     def get_number_players():
         database = request.registry['mongodb']
         return database.users.find().count()
+
     def get_number_matches():
         database = request.registry['mongodb']
         return database.match.find().count()
@@ -40,13 +41,13 @@ def index_view(request):
     if not 'klucz' in request.session:
         request.session['klucz'] = 0
     request.session['klucz'] += 1
-    print request.session['klucz']
+    # print request.session['klucz']
 
     data_for_template = get_initial_data()
     data_for_template["players"] = get_players()
     data_for_template["matches_count"] = get_number_matches()
     data_for_template["players_count"] = get_number_players()
-    if request.POST.get('submit'):
+    if request.POST.get('submit') == "":
         if check_user(request):
             return HTTPFound(location="/admin.html")
 
