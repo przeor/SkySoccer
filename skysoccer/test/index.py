@@ -108,12 +108,19 @@ class LoginControllerTest(ControllerTest):
         self.assertTrue('login_status' in res.data)
         self.assertEqual(u"Nie ma takiego użytkownika", res.data['login_status'])
 
+    def test_failed(self):
+        self.request.POST['submit_login'] = ''
+        self.request.POST['name'] = self.bad_user['name']
+        self.request.POST['surname'] = self.bad_user['surname']
+
+        res = index_view(self.request)
+        self.assertFalse('logged' in res.data)
+
     def test_success(self):
-        from pyramid.httpexceptions import HTTPFound
         self.request.POST['submit_login'] = ''
         self.request.POST['name'] = self.good_user['name']
         self.request.POST['surname'] = self.good_user['surname']
 
         res = index_view(self.request)
-        self.assertEqual(HTTPFound, type(res))
-        self.assertEqual(res.location, self.request.route_path('admin'))
+        self.assertEqual(1, res.data['logged'])
+       
