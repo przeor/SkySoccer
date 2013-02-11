@@ -14,7 +14,6 @@ def index_view(request):
         return {
             "title": "Some title",
             "games_count": 100,
-            "url": request.static_url,
         }
 
     def check_user(request):
@@ -50,5 +49,4 @@ def index_view(request):
     if request.POST.get('submit') == "":
         if check_user(request):
             return HTTPFound(location="/admin.html")
-
     return JinjaResponse(request, 'index2.html', data_for_template)

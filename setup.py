@@ -8,6 +8,7 @@ install_requires = [
     'pymongo',
     'webtest',
     'pyramid_beaker',
+    'pyramid_jinja2',
 ]
 
 dependency_links = [

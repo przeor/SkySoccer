@@ -1,5 +1,6 @@
 import unittest
 from skysoccer.app import main, create_config
+from skysoccer.subscribers import add_render_globals, init_render_globals
 from webtest import TestApp
 from pyramid import testing
 
@@ -27,7 +28,9 @@ class ControllerTest(BaseTest):
 
         self._clear_db(config)
         self.request = testing.DummyRequest()
+        init_render_globals(self.request)
         self.config = testing.setUp(registry=config.registry, request=self.request, settings=config.registry['settings'])
+        add_render_globals(self.request)
 
     def tearDown(self):
         testing.tearDown()

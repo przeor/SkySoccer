@@ -29,9 +29,16 @@ def make_settings(settings):
         settings['session.cookie_on_exception'] = True
         settings['includes'].append('pyramid_beaker')
         return settings
+
+    def jinja2(settings):
+        settings['jinja2.directories'] = 'skysoccer:templates'
+        settings['pyramid.reload_templates'] = True
+        settings['includes'].append('pyramid_jinja2')
+        return settings
     #---------------------------------------------------------------------------
     settings['project_name'] = 'SkySoccer'
     settings = project_paths(settings)
     settings = database(settings)
     settings = baker_session(settings)
+    settings = jinja2(settings)
     return settings
