@@ -25,7 +25,6 @@ class ControllerTest(BaseTest):
 
     def setUp(self):
         config = create_config({}, True)
-
         self._clear_db(config)
         self.request = testing.DummyRequest()
         init_render_globals(self.request)
