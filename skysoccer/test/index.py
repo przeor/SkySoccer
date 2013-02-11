@@ -63,5 +63,3 @@ class IndexControllerTest(ControllerTest):
     def test_login(self):
         res = index_view(self.request)
         self.assertFalse('login_status' in res.data)
-
-
