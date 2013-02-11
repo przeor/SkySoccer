@@ -61,7 +61,7 @@ class IndexControllerTest(ControllerTest):
         matches = res.data['players_count']
         self.assertEqual(1, matches)
 
-    def test_redirect_admim(self):
+    def test_redirect_admim_succ(self):
         from pyramid.httpexceptions import HTTPFound
         good_user = {'name': 'name', 'surname': 'surname'}
         self.request.POST['submit_login'] = ''
@@ -77,6 +77,20 @@ class IndexControllerTest(ControllerTest):
         self.assertEqual(HTTPFound, type(res))
         self.assertEqual(res.location, self.request.route_path('admin'))
 
+    def test_redirect_admin_fail(self):
+        bad_user = {'name': 'name bad', 'surname': 'surname bad'}
+        self.request.POST['submit_login'] = ''
+        self.request.POST['name'] = bad_user['name']
+        self.request.POST['surname'] = bad_user['surname']
+
+        res = index_view(self.request)
+
+        self.request.POST['submit_admin'] = ''
+
+        res = index_view(self.request)
+
+        self.assertFalse(u'Panel administracyjny' in res.body)
+
 class LoginControllerTest(ControllerTest):
     good_user = {'name': 'name', 'surname': 'surname'}
     bad_user = {'name': 'name bad', 'surname': 'surname bad'}
@@ -85,10 +99,6 @@ class LoginControllerTest(ControllerTest):
         super(LoginControllerTest, self).setUp()
         db = self.request.registry['mongodb']
         db.users.insert(self.good_user)
-
-    def test_no_submit(self):
-        res = index_view(self.request)
-        self.assertFalse('login_status' in res.data)
 
     def test_no_inputed_data(self):
         self.request.POST['submit_login'] = ''
