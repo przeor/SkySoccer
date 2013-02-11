@@ -31,6 +31,7 @@ def index_view(request):
     def get_number_players():
         database = request.registry['mongodb']
         return database.users.find().count()
+
     def get_number_matches():
         database = request.registry['mongodb']
         return database.match.find().count()
@@ -45,7 +46,7 @@ def index_view(request):
     data_for_template["players"] = get_players()
     data_for_template["matches_count"] = get_number_matches()
     data_for_template["players_count"] = get_number_players()
-    if request.POST.get('submit'):
+    if request.POST.get('submit') == "":
         if check_user(request):
             return HTTPFound(location="/admin.html")
     return JinjaResponse(request, 'index2.html', data_for_template)
