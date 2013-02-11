@@ -20,6 +20,8 @@ def index_view(request):
         if request.POST.get('name') and request.POST.get('surname'):
             username = request.POST.get('name') + " " + request.POST.get('surname')
             if username in data_for_template['players']:
+                data_for_template['logged'] = request.session['logged'] = 1
+                data_for_template['username'] = username
                 return True
             else:
                 data_for_template["login_status"] = "Nie ma takiego uzytkownika"
@@ -37,16 +39,17 @@ def index_view(request):
         return database.match.find().count()
 
     #-------------------------------------------------------------------------
-    if not 'klucz' in request.session:
-        request.session['klucz'] = 0
-    request.session['klucz'] += 1
-    print request.session['klucz']
+    if not 'logged' in request.session:
+        request.session['logged'] = 0
 
     data_for_template = get_initial_data()
     data_for_template["players"] = get_players()
     data_for_template["matches_count"] = get_number_matches()
     data_for_template["players_count"] = get_number_players()
-    if request.POST.get('submit') == "":
-        if check_user(request):
-            return HTTPFound(location="/admin.html")
+    if request.POST.get('submit_login') == "":
+        check_user(request)
+    if request.POST.get('submit_logout') == "":
+        data_for_template['logged'] = 0
+    if request.POST.get('submit_admin') == "":
+        return HTTPFound(location="/admin.html")
     return JinjaResponse(request, 'index2.html', data_for_template)

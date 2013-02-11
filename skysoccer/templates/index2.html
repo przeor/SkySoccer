@@ -39,15 +39,25 @@
             <li class="inactive"><a href="#">Home</a></li>
             <li><a href="#stats">Statystyki</a></li>
             <li><form class="form-game" method="POST"><button class="btn btn-medium btn-primary" type="submit">Nowa gra</button></form></li>
+            {% if logged%}
+            <li class="inactive"><div class="login">Zalogowany jako {{username}}</div></li>
+            <li>
+              <form class="form-search" method="POST">
+                <button class="btn btn-small btn-success" type="submit" name="submit_admin" value"submitting">Panel Admin.</button>
+                <button class="btn btn-small btn-primary" type="submit" name="submit_logout" value"submitting">Wyloguj</button>
+              </form>
+            </li>
+            {% else %}
             <li class="inactive"><div class="login">Logowanie :</div></li>
             <li>
               <form class="form-search" method="POST">
                 <input type="text" class="input" placeholder="login" name="name">
                 <input type="text" class="input" placeholder="hasło" name="surname">
 
-                <button class="btn btn-small btn-primary" type="submit" name="submit">Zaloguj</button>
+                <button class="btn btn-small btn-primary" type="submit" name="submit_login">Zaloguj</button>
               </form>
             </li>
+            {% endif %}
           </ul>
         </div><!--/.nav-collapse -->
       </div>
