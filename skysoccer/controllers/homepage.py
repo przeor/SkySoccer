@@ -1,3 +1,4 @@
+# encoding: utf8
 from pyramid.httpexceptions import HTTPFound
 from .base import JinjaResponse
 
@@ -24,10 +25,10 @@ def index_view(request):
                 data_for_template['username'] = username
                 return True
             else:
-                data_for_template["login_status"] = "Nie ma takiego uzytkownika"
+                data_for_template["login_status"] = u"Nie ma takiego użytkownika"
                 return False
         else:
-            data_for_template["login_status"] = "Nie wpisano uzytkownika/hasla"
+            data_for_template["login_status"] = u"Nie wpisano użytkownika/hasła"
             return False
 
     def get_number_players():
@@ -46,10 +47,11 @@ def index_view(request):
     data_for_template["players"] = get_players()
     data_for_template["matches_count"] = get_number_matches()
     data_for_template["players_count"] = get_number_players()
-    if request.POST.get('submit_login') == "":
+
+    if request.POST.get('submit_login') == "submitting":
         check_user(request)
-    if request.POST.get('submit_logout') == "":
+    if request.POST.get('submit_logout') == "submitting":
         data_for_template['logged'] = 0
-    if request.POST.get('submit_admin') == "":
+    if request.POST.get('submit_admin') == "submitting":
         return HTTPFound(location="/admin.html")
     return JinjaResponse(request, 'index2.html', data_for_template)
