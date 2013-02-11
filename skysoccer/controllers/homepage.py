@@ -1,14 +1,14 @@
 # encoding: utf8
 from pyramid.httpexceptions import HTTPFound
 from .base import JinjaResponse
-
+from skysoccer.models.user import User
+from skysoccer.models.match import Match
 
 def index_view(request):
     def get_players():
         players = []
-        database = request.registry['mongodb']
-        for value in database.users.find():
-            players.append("%s %s" % (value['name'], value['surname']))
+        for user in User.objects():
+            players.append(user.fullname())
         return players
 
     def get_initial_data():
@@ -19,10 +19,12 @@ def index_view(request):
 
     def check_user(request):
         if request.POST.get('name') and request.POST.get('surname'):
-            username = request.POST.get('name') + " " + request.POST.get('surname')
-            if username in data_for_template['players']:
+            name = request.POST['name']
+            surname = request.POST['surname']
+            if User.is_user_valid(name, surname):
+                user = User.objects().get(name=name, surname=surname)
                 data_for_template['logged'] = request.session['logged'] = 1
-                data_for_template['username'] = username
+                data_for_template['username'] = user.fullname()
                 return True
             else:
                 data_for_template["login_status"] = u"Nie ma takiego użytkownika"
@@ -32,12 +34,10 @@ def index_view(request):
             return False
 
     def get_number_players():
-        database = request.registry['mongodb']
-        return database.users.find().count()
+        return User.objects().count()
 
     def get_number_matches():
-        database = request.registry['mongodb']
-        return database.match.find().count()
+        return Match.objects().count()
 
     #-------------------------------------------------------------------------
     if not 'logged' in request.session:

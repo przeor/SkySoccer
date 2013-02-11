@@ -1,7 +1,7 @@
 # encoding: utf8
 from .base import AppTest, ControllerTest
 from skysoccer.controllers.homepage import index_view
-
+from skysoccer.models import User, Match
 
 class IndexAppTest(AppTest):
 
@@ -13,11 +13,8 @@ class IndexAppTest(AppTest):
 class IndexControllerTest(ControllerTest):
 
     def test_index(self):
-        db = self.request.registry['mongodb']
-        db.users.insert({
-            'name': 's',
-            'surname': 'd',
-        })
+
+        User(name='s', surname='d').save()
         res = index_view(self.request)
 
         self.assertTrue('players' in res.data)
@@ -25,10 +22,7 @@ class IndexControllerTest(ControllerTest):
         self.assertEqual(1, len(players))
         self.assertEqual('s d', players[0])
 
-        db.users.insert({
-            'name': 's2',
-            'surname': 'd2',
-        })
+        User(name='s2', surname='d2').save()
 
         res = index_view(self.request)
 
@@ -39,8 +33,7 @@ class IndexControllerTest(ControllerTest):
         self.assertEqual('s2 d2', players[1])
 
     def test_count_matches(self):
-        db = self.request.registry['mongodb']
-        db.match.insert({'one': 1})
+        Match().save()
 
         res = index_view(self.request)
         self.assertTrue('matches_count' in res.data)
@@ -49,11 +42,7 @@ class IndexControllerTest(ControllerTest):
         self.assertEqual(1, matches)
 
     def test_player_count(self):
-        db = self.request.registry['mongodb']
-        db.users.insert({
-            'name': 's',
-            'surname': 'd',
-        })
+        User(name='s', surname='d').save()
 
         res = index_view(self.request)
         self.assertTrue('players_count' in res.data)
@@ -68,8 +57,7 @@ class LoginControllerTest(ControllerTest):
 
     def setUp(self):
         super(LoginControllerTest, self).setUp()
-        db = self.request.registry['mongodb']
-        db.users.insert(self.good_user)
+        User(**self.good_user).save()
 
     def test_no_submit(self):
         res = index_view(self.request)
@@ -123,4 +111,4 @@ class LoginControllerTest(ControllerTest):
 
         res = index_view(self.request)
         self.assertEqual(1, res.data['logged'])
-       
+
