@@ -8,9 +8,10 @@ from pyramid import testing
 class BaseTest(unittest.TestCase):
 
     def _clear_db(self, config):
-        client = config.registry['mongodb_client']
-        dbname = config.registry['settings']['dbname']
-        client.drop_database(dbname)
+        db = config.registry['mongodb']
+
+        for collection_name in ['users', 'match']:
+            db.drop_collection(collection_name)
 
 
 class AppTest(BaseTest):

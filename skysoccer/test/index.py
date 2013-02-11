@@ -61,6 +61,21 @@ class IndexControllerTest(ControllerTest):
         matches = res.data['players_count']
         self.assertEqual(1, matches)
 
+    def test_redirect_admim(self):
+        from pyramid.httpexceptions import HTTPFound
+        good_user = {'name': 'name', 'surname': 'surname'}
+        self.request.POST['submit_login'] = ''
+        self.request.POST['name'] = good_user['name']
+        self.request.POST['surname'] = good_user['surname']
+
+        res = index_view(self.request)
+
+        self.request.POST['submit_admin'] = ''
+
+        res = index_view(self.request)
+
+        self.assertEqual(HTTPFound, type(res))
+        self.assertEqual(res.location, self.request.route_path('admin'))
 
 class LoginControllerTest(ControllerTest):
     good_user = {'name': 'name', 'surname': 'surname'}
@@ -161,3 +176,4 @@ class LogoutControllerTest(ControllerTest):
         res = index_view(self.request)
         self.assertTrue('login_status' in res.data)
         self.assertEqual(u"Wylogowano", res.data['login_status'])
+        self.assertEqual(0, res.data['logged'])
