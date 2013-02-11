@@ -48,10 +48,11 @@ def index_view(request):
     data_for_template["matches_count"] = get_number_matches()
     data_for_template["players_count"] = get_number_players()
 
-    if request.POST.get('submit_login') == "submitting":
+    if request.POST.get('submit_login') == "":
         check_user(request)
     if request.POST.get('submit_logout') == "submitting":
         data_for_template['logged'] = 0
     if request.POST.get('submit_admin') == "submitting":
         return HTTPFound(location="/admin.html")
+
     return JinjaResponse(request, 'index2.html', data_for_template)

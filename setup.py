@@ -9,9 +9,12 @@ install_requires = [
     'webtest',
     'pyramid_beaker',
     'pyramid_jinja2',
+    'minimongo==0.2.6-custom',
 ]
 
 dependency_links = [
+    'https://github.com/socek/minimongo/tarball/master#egg=minimongo-0.2.6-custom',
+    'https://github.com/socek/hatak/tarball/master#egg=hatak-0.1',
 ]
 
 if __name__ == '__main__':

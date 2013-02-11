@@ -76,13 +76,13 @@ class LoginControllerTest(ControllerTest):
         self.assertFalse('login_status' in res.data)
 
     def test_no_inputed_data(self):
-        self.request.POST['submit_login'] = 'submitting'
+        self.request.POST['submit_login'] = ''
         res = index_view(self.request)
         self.assertTrue('login_status' in res.data)
         self.assertEqual(u"Nie wpisano użytkownika/hasła", res.data['login_status'])
 
     def test_bad_data_1(self):
-        self.request.POST['submit_login'] = 'submitting'
+        self.request.POST['submit_login'] = ''
         self.request.POST['name'] = self.bad_user['name']
         self.request.POST['surname'] = self.bad_user['surname']
 
@@ -91,7 +91,7 @@ class LoginControllerTest(ControllerTest):
         self.assertEqual(u"Nie ma takiego użytkownika", res.data['login_status'])
 
     def test_bad_data_2(self):
-        self.request.POST['submit_login'] = 'submitting'
+        self.request.POST['submit_login'] = ''
         self.request.POST['name'] = self.bad_user['name']
         self.request.POST['surname'] = self.good_user['surname']
 
@@ -100,7 +100,7 @@ class LoginControllerTest(ControllerTest):
         self.assertEqual(u"Nie ma takiego użytkownika", res.data['login_status'])
 
     def test_bad_data_3(self):
-        self.request.POST['submit_login'] = 'submitting'
+        self.request.POST['submit_login'] = ''
         self.request.POST['name'] = self.good_user['name']
         self.request.POST['surname'] = self.bad_user['surname']
 
@@ -110,7 +110,7 @@ class LoginControllerTest(ControllerTest):
 
     def test_success(self):
         from pyramid.httpexceptions import HTTPFound
-        self.request.POST['submit_login'] = 'submitting'
+        self.request.POST['submit_login'] = ''
         self.request.POST['name'] = self.good_user['name']
         self.request.POST['surname'] = self.good_user['surname']
 
