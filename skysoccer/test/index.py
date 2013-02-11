@@ -108,7 +108,7 @@ class LoginControllerTest(ControllerTest):
         self.assertTrue('login_status' in res.data)
         self.assertEqual(u"Nie ma takiego użytkownika", res.data['login_status'])
 
-    def test_failed(self):
+    def test_bad_data_4(self):
         self.request.POST['submit_login'] = ''
         self.request.POST['name'] = self.bad_user['name']
         self.request.POST['surname'] = self.bad_user['surname']
@@ -123,4 +123,41 @@ class LoginControllerTest(ControllerTest):
 
         res = index_view(self.request)
         self.assertEqual(1, res.data['logged'])
-       
+
+
+class LogoutControllerTest(ControllerTest):
+    good_user = {'name': 'name', 'surname': 'surname'}
+
+    def setUp(self):
+        super(LogoutControllerTest, self).setUp()
+        db = self.request.registry['mongodb']
+        db.users.insert(self.good_user)
+
+    def test_no_submit(self):
+        res = index_view(self.request)
+        self.assertFalse('login_status' in res.data)
+
+    def test_not_login(self):
+        res = index_view(self.request)
+        self.assertFalse('submit_logout' in res.body)
+
+    def test_when_login(self):
+        self.request.POST['submit_login'] = ''
+        self.request.POST['name'] = self.good_user['name']
+        self.request.POST['surname'] = self.good_user['surname']
+
+        res = index_view(self.request)
+        self.assertTrue('submit_logout' in res.body)
+
+    def test_logout(self):
+        self.request.POST['submit_login'] = ''
+        self.request.POST['name'] = self.good_user['name']
+        self.request.POST['surname'] = self.good_user['surname']
+
+        res = index_view(self.request)
+
+        self.request.POST['submit_logout'] = ''
+
+        res = index_view(self.request)
+        self.assertTrue('login_status' in res.data)
+        self.assertEqual(u"Wylogowano", res.data['login_status'])

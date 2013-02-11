@@ -1,4 +1,4 @@
-#encoding: utf8
+# encoding: utf8
 from pyramid.httpexceptions import HTTPFound
 from .base import JinjaResponse
 
@@ -52,6 +52,7 @@ def index_view(request):
         check_user(request)
     if request.POST.get('submit_logout') == "":
         data_for_template['logged'] = 0
+        data_for_template['login_status'] = u"Wylogowano"
     if request.POST.get('submit_admin') == "":
         return HTTPFound(location="/admin.html")
 

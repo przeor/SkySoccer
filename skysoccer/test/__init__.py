@@ -1,12 +1,13 @@
 import unittest
 import logging
 
-from .index import IndexAppTest, IndexControllerTest, LoginControllerTest
+from .index import IndexAppTest, IndexControllerTest, LoginControllerTest, LogoutControllerTest
 
 all_test_cases = [
     IndexAppTest,
     IndexControllerTest,
     LoginControllerTest,
+    LogoutControllerTest,
 ]
 
 
