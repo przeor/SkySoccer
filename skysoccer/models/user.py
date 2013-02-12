@@ -1,7 +1,7 @@
-from .base import Model
-from mongoengine import StringField, queryset
+from mongoengine import Document, StringField, queryset
 
-class User(Model):
+
+class User(Document):
     name = StringField(max_length=120)
     surname = StringField(max_length=120)
 
@@ -15,5 +15,3 @@ class User(Model):
             return True
         except queryset.DoesNotExist:
             return False
-
-

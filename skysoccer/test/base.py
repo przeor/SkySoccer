@@ -3,13 +3,15 @@ from skysoccer.app import main, create_config
 from skysoccer.subscribers import add_render_globals, init_render_globals
 from webtest import TestApp
 from pyramid import testing
-from skysoccer.models import Model
-
+from mongoengine import Document
+from mongoengine.document import DynamicDocument
 
 class BaseTest(unittest.TestCase):
 
     def _clear_db(self, config):
-        for model in Model.__subclasses__():
+        for model in Document.__subclasses__():
+            if model == DynamicDocument:
+                continue
             model.drop_collection()
 
 
