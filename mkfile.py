@@ -1,11 +1,12 @@
 from pymk.task import BaseTask, AddTask
-from pymk.dependency import FileChanged, AlwaysRebuild
+from pymk.dependency import FileChanged, AlwaysRebuild, FileDoesNotExists
 from pymk.extra import find_files, run_cmd, touch
 from pymk.template import mktemplate
 import os
 import logging
 
 logger = logging.getLogger('pymk')
+
 
 @AddTask
 class clear(BaseTask):
@@ -26,20 +27,39 @@ class bootstrap(BaseTask):
     url = 'http://svn.zope.org/*checkout*/zc.buildout/trunk/bootstrap/bootstrap.py'
 
     def build(self):
-        run_cmd(['wget ' + self.url ], True)
+        run_cmd(['wget ' + self.url], True)
         run_cmd(['python2 bootstrap.py'], True)
 
 
 class data_dir(BaseTask):
     output_file = 'data'
 
-    dependencys = []
+    paths = [
+        ['logs', ],
+    ]
+
+    dependencys = [
+        FileDoesNotExists('data/logs')
+    ]
+
+    def _generate_paths(self):
+        paths = [self.output_file]
+        for path_list in self.paths:
+            paths.append(
+                os.path.join(self.output_file, *path_list)
+            )
+        return paths
 
     def build(self):
-        try:
-            os.mkdir(self.output_file)
-        except OSError:
-            pass
+        def create_dir_without_errors(path):
+            try:
+                os.mkdir(path)
+            except OSError:
+                pass
+        #-----------------------------------------------------------------------
+        paths = self._generate_paths()
+        for path in paths:
+            create_dir_without_errors(path)
 
 
 @AddTask
@@ -69,12 +89,15 @@ class frontendini(BaseTask):
     ]
 
     def build(self):
+        here = os.path.dirname(__file__)
+        log_dir = os.path.join(here, 'data', 'logs')
         data = {
             'project_name': 'skysoccer',
             'inifile_with_server': True,
-            'inifile_logger_root': 'DEBUG',
             'inifile_logger_module': 'DEBUG',
-            'here': os.path.dirname(__file__),
+            'beaker_log_file': os.path.join(log_dir, 'baker.log'),
+            'all_path': os.path.join(log_dir, 'all.log'),
+            'here': here,
         }
         mktemplate('frontend.ini.tpl', self.output_file, data)
 
@@ -88,3 +111,14 @@ class frontend(BaseTask):
 
     def build(self):
         run_cmd('./bin/pserve --reload %s' % (frontendini.output_file), True)
+
+
+@AddTask
+class test(BaseTask):
+    dependencys = [
+        frontendini.dependency_FileExists(),
+        AlwaysRebuild()
+    ]
+
+    def build(self):
+        run_cmd(['./bin/tests'], True)
