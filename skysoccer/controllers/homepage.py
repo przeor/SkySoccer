@@ -48,12 +48,12 @@ def index_view(request):
     if not 'logged' in request.session:
         data_for_template['logged'] = request.session['logged'] = 0
 
-    if request.POST.get('submit_login') == "":
+    if request.POST.get('submit_login') == "submitting":
         check_user(request)
-    if request.POST.get('submit_logout') == "":
+    if request.POST.get('submit_logout') == "submitting":
         data_for_template['logged'] = request.session['logged'] = 0
         data_for_template['login_status'] = u"Wylogowano"
-    if request.POST.get('submit_admin') == "":
+    if request.POST.get('submit_admin') == "submitting":
         return HTTPFound(location="/admin.html")
 
     return JinjaResponse(request, 'index2.html', data_for_template)
