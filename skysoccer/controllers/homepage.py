@@ -21,7 +21,9 @@ def index_view(request):
         if request.POST.get('name') and request.POST.get('surname'):
             name = request.POST['name']
             surname = request.POST['surname']
+            print "jeden"
             if User.is_user_valid(name, surname):
+                print "dwa"
                 user = User.objects().get(name=name, surname=surname)
                 data_for_template['logged'] = request.session['logged'] = 1
                 data_for_template['username'] = request.session['username'] = user.fullname()
@@ -40,6 +42,7 @@ def index_view(request):
         return Match.objects().count()
 
     #-------------------------------------------------------------------------
+    print dict(request.POST)
     data_for_template = get_initial_data()
     data_for_template["players"] = get_players()
     data_for_template["matches_count"] = get_number_matches()

@@ -1,9 +1,10 @@
-from mongoengine import Document, StringField, queryset
-
+from mongoengine import Document, StringField, queryset, DateTimeField
+import datetime
 
 class User(Document):
     name = StringField(max_length=120)
     surname = StringField(max_length=120)
+    date = DateTimeField(default=datetime.datetime.now)
 
     def fullname(self):
         return "%s %s" % (self.name, self.surname)

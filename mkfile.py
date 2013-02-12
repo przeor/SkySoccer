@@ -24,7 +24,7 @@ class bootstrap(BaseTask):
 
     dependencys = []
 
-    url = 'http://svn.zope.org/*checkout*/zc.buildout/trunk/bootstrap/bootstrap.py'
+    url = 'http://svn.zope.org/*checkout*/zc.buildout/branches/1.4/bootstrap/bootstrap.py'
 
     def build(self):
         run_cmd(['wget ' + self.url], True)
