@@ -9,6 +9,7 @@ install_requires = [
     'webtest',
     'pyramid_beaker',
     'pyramid_jinja2',
+    'mongoengine',
 ]
 
 dependency_links = [

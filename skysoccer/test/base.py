@@ -3,15 +3,14 @@ from skysoccer.app import main, create_config
 from skysoccer.subscribers import add_render_globals, init_render_globals
 from webtest import TestApp
 from pyramid import testing
+from skysoccer.models import Model
 
 
 class BaseTest(unittest.TestCase):
 
     def _clear_db(self, config):
-        db = config.registry['mongodb']
-
-        for collection_name in ['users', 'match']:
-            db.drop_collection(collection_name)
+        for model in Model.__subclasses__():
+            model.drop_collection()
 
 
 class AppTest(BaseTest):
