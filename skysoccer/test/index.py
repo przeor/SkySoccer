@@ -53,13 +53,13 @@ class IndexControllerTest(ControllerTest):
     def test_redirect_admim_succ(self):
         from pyramid.httpexceptions import HTTPFound
         good_user = {'name': 'name', 'surname': 'surname'}
-        self.request.POST['submit_login'] = ''
+        self.request.POST['submit_login'] = 'submitting'
         self.request.POST['name'] = good_user['name']
         self.request.POST['surname'] = good_user['surname']
 
         res = index_view(self.request)
 
-        self.request.POST['submit_admin'] = ''
+        self.request.POST['submit_admin'] = 'submitting'
 
         res = index_view(self.request)
 
@@ -68,13 +68,13 @@ class IndexControllerTest(ControllerTest):
 
     def test_redirect_admin_fail(self):
         bad_user = {'name': 'name bad', 'surname': 'surname bad'}
-        self.request.POST['submit_login'] = ''
+        self.request.POST['submit_login'] = 'submitting'
         self.request.POST['name'] = bad_user['name']
         self.request.POST['surname'] = bad_user['surname']
 
         res = index_view(self.request)
 
-        self.request.POST['submit_admin'] = ''
+        self.request.POST['submit_admin'] = 'submitting'
 
         res = index_view(self.request)
 
@@ -89,13 +89,13 @@ class LoginControllerTest(ControllerTest):
         User(**self.good_user).save()
 
     def test_no_inputed_data(self):
-        self.request.POST['submit_login'] = ''
+        self.request.POST['submit_login'] = 'submitting'
         res = index_view(self.request)
         self.assertTrue('login_status' in res.data)
         self.assertEqual(u"Nie wpisano użytkownika/hasła", res.data['login_status'])
 
     def test_bad_data_1(self):
-        self.request.POST['submit_login'] = ''
+        self.request.POST['submit_login'] = 'submitting'
         self.request.POST['name'] = self.bad_user['name']
         self.request.POST['surname'] = self.bad_user['surname']
 
@@ -104,7 +104,7 @@ class LoginControllerTest(ControllerTest):
         self.assertEqual(u"Nie ma takiego użytkownika", res.data['login_status'])
 
     def test_bad_data_2(self):
-        self.request.POST['submit_login'] = ''
+        self.request.POST['submit_login'] = 'submitting'
         self.request.POST['name'] = self.bad_user['name']
         self.request.POST['surname'] = self.good_user['surname']
 
@@ -113,7 +113,7 @@ class LoginControllerTest(ControllerTest):
         self.assertEqual(u"Nie ma takiego użytkownika", res.data['login_status'])
 
     def test_bad_data_3(self):
-        self.request.POST['submit_login'] = ''
+        self.request.POST['submit_login'] = 'submitting'
         self.request.POST['name'] = self.good_user['name']
         self.request.POST['surname'] = self.bad_user['surname']
 
@@ -122,7 +122,7 @@ class LoginControllerTest(ControllerTest):
         self.assertEqual(u"Nie ma takiego użytkownika", res.data['login_status'])
 
     def test_bad_data_4(self):
-        self.request.POST['submit_login'] = ''
+        self.request.POST['submit_login'] = 'submitting'
         self.request.POST['name'] = self.bad_user['name']
         self.request.POST['surname'] = self.bad_user['surname']
 
@@ -130,7 +130,7 @@ class LoginControllerTest(ControllerTest):
         self.assertEqual(0, res.data['logged'])
 
     def test_success(self):
-        self.request.POST['submit_login'] = ''
+        self.request.POST['submit_login'] = 'submitting'
         self.request.POST['name'] = self.good_user['name']
         self.request.POST['surname'] = self.good_user['surname']
 
@@ -153,7 +153,7 @@ class LogoutControllerTest(ControllerTest):
         self.assertFalse('submit_logout' in res.body)
 
     def test_when_login(self):
-        self.request.POST['submit_login'] = ''
+        self.request.POST['submit_login'] = 'submitting'
         self.request.POST['name'] = self.good_user['name']
         self.request.POST['surname'] = self.good_user['surname']
 
@@ -161,13 +161,13 @@ class LogoutControllerTest(ControllerTest):
         self.assertTrue('submit_logout' in res.body)
 
     def test_logout(self):
-        self.request.POST['submit_login'] = ''
+        self.request.POST['submit_login'] = 'submitting'
         self.request.POST['name'] = self.good_user['name']
         self.request.POST['surname'] = self.good_user['surname']
 
         res = index_view(self.request)
 
-        self.request.POST['submit_logout'] = ''
+        self.request.POST['submit_logout'] = 'submitting'
 
         res = index_view(self.request)
         self.assertTrue('login_status' in res.data)
