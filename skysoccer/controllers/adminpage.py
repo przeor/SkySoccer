@@ -1,4 +1,5 @@
 from pyramid.response import Response
+from skysoccer.models.user import User
 
 
 def admin_view(request):
@@ -7,9 +8,8 @@ def admin_view(request):
 
     def get_players():
         players = []
-        database = get_database()
-        for value in database.users.find():
-            players.append("%s %s" % (value['name'], value['surname']))
+        for user in User.objects():
+            players.append(user.fullname())
         return players
 
     def get_template():
@@ -34,14 +34,13 @@ def admin_view(request):
             'surname': request.POST.get('add_surname'),
             'name': request.POST.get('add_name')
         }
-        database = get_database()
-        database.users.insert(user)
+        User(name=user['name'], surname=user['surname']).save()
         data_for_template['register_status'] = "Uzytkownik dodany"
 
     def delete_user_from_db(username):
         username = username.split()
-        database = get_database()
-        database.users.remove({'name': username[0], 'surname': username[1]})
+        user = User.objects().get(name=username[0], surname=username[1])
+        user.delete()
 
     #-------------------------------------------------------------------------
     template = get_template()
