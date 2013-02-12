@@ -1,4 +1,4 @@
-from pyramid.response import Response
+from .base import JinjaResponse
 from skysoccer.models.user import User
 
 
@@ -58,4 +58,4 @@ def admin_view(request):
                 delete_user_from_db(key)
     data_for_template['players'] = get_players()
 
-    return Response(template.render(**data_for_template))
+    return JinjaResponse(request, 'admin.html', data_for_template)
