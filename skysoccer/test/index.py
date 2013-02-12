@@ -139,7 +139,7 @@ class LoginControllerTest(ControllerTest):
         self.request.POST['surname'] = self.bad_user['surname']
 
         res = index_view(self.request)
-        self.assertFalse('logged' in res.data)
+        self.assertEqual(0, res.data['logged'])
 
     def test_success(self):
         self.request.POST['submit_login'] = ''

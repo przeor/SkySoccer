@@ -5,7 +5,10 @@
 </head>
 <body>
 <h1>SkySoccer - {{title}}</h1>
-<h2>Witaj |{{name}}| |{{surname}}|</h2>
+
+
+{% if logged %}
+<h2>Zalogowany jako {{username}}</h2>
 
 <table border='1' width="800px">
     <tr>
@@ -47,6 +50,8 @@
         <td>cos</td>
     </tr>
 </table>
-
+{% else %}
+Brak dostępu!
+{% endif %}
 </body>
 </html>

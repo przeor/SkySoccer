@@ -22,7 +22,7 @@ def index_view(request):
             username = request.POST.get('name') + " " + request.POST.get('surname')
             if username in data_for_template['players']:
                 data_for_template['logged'] = request.session['logged'] = 1
-                data_for_template['username'] = username
+                data_for_template['username'] = request.session['username'] = username
                 return True
             else:
                 data_for_template["login_status"] = u"Nie ma takiego użytkownika"
@@ -40,18 +40,18 @@ def index_view(request):
         return database.match.find().count()
 
     #-------------------------------------------------------------------------
-    if not 'logged' in request.session:
-        request.session['logged'] = 0
-
     data_for_template = get_initial_data()
     data_for_template["players"] = get_players()
     data_for_template["matches_count"] = get_number_matches()
     data_for_template["players_count"] = get_number_players()
 
+    if not 'logged' in request.session:
+        data_for_template['logged'] = request.session['logged'] = 0
+
     if request.POST.get('submit_login') == "":
         check_user(request)
     if request.POST.get('submit_logout') == "":
-        data_for_template['logged'] = 0
+        data_for_template['logged'] = request.session['logged'] = 0
         data_for_template['login_status'] = u"Wylogowano"
     if request.POST.get('submit_admin') == "":
         return HTTPFound(location="/admin.html")

@@ -47,6 +47,10 @@ def admin_view(request):
     template = get_template()
     data_for_template = set_initial_data()
     data_for_template['players'] = get_players()
+    data_for_template['logged'] = request.session['logged']
+    if 'username' in request.session:
+        data_for_template['username'] = request.session['username']
+
     if request.POST.get('add_submit') and check_filled_inputs_register():
         insert_user_to_db()
     if request.POST.items():
