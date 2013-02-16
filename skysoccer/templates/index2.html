@@ -1,7 +1,7 @@
   <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-<title>SkySoccer</title>
+<title>SkySoccer - {% block title %}{% endblock %}</title>
 <style>
   body {
             padding-top: 50px;
@@ -25,171 +25,16 @@
 <link rel="stylesheet" href="{{surl("skysoccer:static/bootstrap.css")}}" type="text/css">
 </head>
 <body>
-  <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-      <div class="container">
-        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </a>
-        <a class="brand" href="index.html">SkySoccer</a>
-        <div class="nav-collapse collapse">
-          <ul class="nav">
-            <li class="inactive"><a href="#">Home</a></li>
-            <li><a href="#stats">Statystyki</a></li>
-            <li><form class="form-game" method="POST"><button class="btn btn-medium btn-primary" type="submit">Nowa gra</button></form></li>
-            {% if logged%}
-            <li class="inactive"><div class="login">Zalogowany jako {{username}}</div></li>
-            <li>
-              <form class="form-search" method="POST">
-                <button class="btn btn-small btn-success" type="submit" name="submit_admin" value="submitting">Panel Admin.</button>
-                <button class="btn btn-small btn-primary" type="submit" name="submit_logout" value="submitting">Wyloguj</button>
-              </form>
-            </li>
-            {% else %}
-            <li class="inactive"><div class="login">Logowanie :</div></li>
-            <li>
-              <form class="form-search" method="POST">
-                <input type="text" class="input" placeholder="login" name="name">
-                <input type="text" class="input" placeholder="hasło" name="surname">
-                <button class="btn btn-small btn-primary" type="submit" name="submit_login" value="submitting">Zaloguj</button>
-              </form>
-            </li>
-            {% endif %}
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </div>
-  </div>
+  {% block menu %}
+  {% endblock %}
 
   <div class="container">
-    <h2>System rozgrywek w piłkażyki SkyGate</h2>
-    a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-    <h3>Statystyki</h3>
-    <legend>Podstawowe</legend>
-    <center>
-      <div class="row">
-        <div class="span2">Liczba graczy:</div>
-        <div class="span2">{{players_count}}</div>
-        <div class="span2">Liczba meczy:</div>
-        <div class="span2">{{matches_count}}</div>
-        <div class="span2">Liczba drużyn:</div>
-        <div class="span2">10</div>
-      </div>
-    </center>
-
-    <!-- ##################################################### -->
-    <legend>Top 10</legend>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Gracz</th>
-          <th>Punkty zdobyte</th>
-          <th>Punkty stracone</th>
-          <th>Rozegrane mecze</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Dawid Fajkowski</td>
-          <td>2</td>
-          <td>1</td>
-          <td>3</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Dawid Fajkowski</td>
-          <td>2</td>
-          <td>1</td>
-          <td>3</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Dawid Fajkowski</td>
-          <td>2</td>
-          <td>1</td>
-          <td>3</td>
-        </tr>
-      </tbody>
-    </table>
-    <!-- ##################################################### -->
-    <legend>Ostatnie mecze</legend>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Drużyna 1</th>
-          <th>Drużyna 2</th>
-          <th>Punkty zdobyte</th>
-          <th>Punkty stracone</th>
-          <th>Mecze razem</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td><p>Dawid Fajkowski</p><p>Dawid Fajkowski</p></td>
-          <td><p>Dawid Fajkowski</p><p>Dawid Fajkowski</p></td>
-          <td>2</td>
-          <td>1</td>
-          <td>3</td>
-        </tr>
-      </tbody>
-    </table>
-    <!-- ##################################################### -->
-    <legend>Najlepsze drużyny</legend>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Gracz1</th>
-          <th>Gracz2</th>
-          <th>Punkty zdobyte</th>
-          <th>Punkty stracone</th>
-          <th>Mecze razem</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Dawid Fajkowski</td>
-          <td>Dawid Fajkowski</td>
-          <td>2</td>
-          <td>1</td>
-          <td>3</td>
-        </tr>
-      </tbody>
-    </table>
-    <!-- ##################################################### -->
-    <legend>Lista wszystkich graczy</legend>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Gracz</th>
-          <th>Punkty</th>
-          <th>Punkty stracone</th>
-          <th>Mecze</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% if players %}
-          {% for player in players %}
-            <tr>
-              <td>{{loop.index}}</td>
-              <td>{{player}}</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-            </tr>
-          {% endfor %}
-        {% endif %}
-      </tbody>
-    </table>
-    <!-- ##################################################### -->
+    {% block plot %}
+    {% endblock %}
+    {% block statistic %}
+    {% endblock %}
+    {% block footer %}
+    {% endblock %}
   </div> <!-- /container -->
 </div>
 

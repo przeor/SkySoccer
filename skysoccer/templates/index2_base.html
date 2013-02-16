@@ -1,0 +1,45 @@
+{% extends "index2_child.html" %}
+
+{% block menu%}
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </a>
+        <a class="brand" href="index.html">SkySoccer</a>
+        <div class="nav-collapse collapse">
+          <ul class="nav">
+            <li class="inactive"><a href="#">Home</a></li>
+            <li><a href="#stats">Statystyki</a></li>
+            <li><form class="form-game" method="POST"><button class="btn btn-medium btn-primary" type="submit">Nowa gra</button></form></li>
+            {% if logged%}
+            <li class="inactive"><div class="login">Zalogowany jako {{username}}</div></li>
+            <li>
+              <form class="form-search" method="POST">
+                <button class="btn btn-small btn-success" type="submit" name="submit_admin" value="submitting">Panel Admin.</button>
+                <button class="btn btn-small btn-primary" type="submit" name="submit_logout" value="submitting">Wyloguj</button>
+              </form>
+            </li>
+            {% else %}
+            <li class="inactive"><div class="login">Logowanie :</div></li>
+            <li>
+              <form class="form-search" method="POST">
+                <input type="text" class="input" placeholder="login" name="name">
+                <input type="text" class="input" placeholder="hasło" name="surname">
+                <button class="btn btn-small btn-primary" type="submit" name="submit_login" value="submitting">Zaloguj</button>
+              </form>
+            </li>
+            {% endif %}
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block footer %}
+    <hr><p>Skygate 2003</p>
+{% endblock %}

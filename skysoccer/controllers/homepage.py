@@ -56,4 +56,4 @@ def index_view(request):
     if request.POST.get('submit_admin') == "submitting":
         return HTTPFound(location="/admin.html")
 
-    return JinjaResponse(request, 'index2.html', data_for_template)
+    return JinjaResponse(request, 'index2_base.html', data_for_template)
