@@ -58,4 +58,4 @@ def admin_view(request):
                 delete_user_from_db(key)
     data_for_template['players'] = get_players()
 
-    return JinjaResponse(request, 'admin.html', data_for_template)
+    return JinjaResponse(request, 'admin_base.html', data_for_template)
