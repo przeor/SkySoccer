@@ -12,10 +12,6 @@
                     <span class="icon-bar"></span>
                 </a>
                 <a class="brand" href="index.html">SkySoccer - {{title}}</a>
-                <div class="nav-collapse collapse">
-                  <ul class="nav">
-                  </ul>
-              </div><!--/.nav-collapse -->
             </div>
         </div>
     </div>
@@ -31,10 +27,71 @@
   </ul>
   <div class="tab-content">
     <div class="tab-pane active" id="tab1">
-      <p>I'm in Section 1.</p>
+      <p>
+        <legend>Podstawowe:</legend>
+        <center>
+          <div class="row">
+            <div class="span2">Liczba graczy:</div>
+            <div class="span2">{{players_count}}</div>
+            <div class="span2">Liczba meczy:</div>
+            <div class="span2">{{matches_count}}</div>
+            <div class="span2">Liczba drużyn:</div>
+            <div class="span2">10</div>
+          </div>
+        </center>
+      </p>
     </div>
     <div class="tab-pane" id="tab2">
-      <p>Howdy, I'm in Section 2.</p>
+      <p>
+        <legend>Dodaj użytkownika:</legend>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Imię</th>
+              <th>Nazwisko</th>
+              <th>Hasło</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <form class="form-search" method="POST">
+              <td><input type="text" class="input" name="add_name"></td>
+              <td><input type="text" class="input" name="add_surname"></td>
+              <td><input type="password" class="input" name="password"></td>
+              <td><button class="btn btn-medium btn-primary" type="submit" name="add_submit" value="submitting">Zatwierdz</button></td>
+              </form>
+            </tr>
+          </tbody>
+        </table>
+        {{register_status}}
+      </p>
+      <p>
+        <legend>Usuń użytkownika:</legend>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Gracz</th>
+                  <th>Usuń</th>
+                </tr>
+              </thead>
+        {% if players %}
+          {% for player in players %}
+              <tbody>
+                <tr>
+                  <td>{{loop.index}}</td>
+                  <td>{{player}}</td>
+                  <td>
+                    <form class="form-search" method="POST">
+                      <button class="btn btn-small btn-primary" type="submit" name="submit_delete" value="{{player}}">X</button>
+                    </form>
+                  </td>
+                </tr>
+              </tbody>
+          {% endfor %}
+        {% endif %}
+            </table>
+      </p>     
     </div>
     <div class="tab-pane" id="tab3">
       <p>Howdy, I'm in Section 3.</p>
