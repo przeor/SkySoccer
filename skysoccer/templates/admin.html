@@ -1,11 +1,17 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
+<!doctype html>
+<html>
 <head>
 <title>SkySoccer - {% block title %}{% endblock %}</title>
 <link rel="stylesheet" href="{{surl("skysoccer:static/bootstrap.css")}}" type="text/css">
 <script src="{{surl("skysoccer:static/jquery.js")}}"></script>
 <script src="{{surl("skysoccer:static/bootstrap-tab.js")}}"></script>
-
+<script>
+    $('#tabs a').click(function (e) {
+        console.log('LOL');
+      e.preventDefault();
+      $(this).tab('show');
+    });
+</script>
 <style>
     body {
             padding-top: 50px;
@@ -13,6 +19,7 @@
 </style>
 <meta charset="utf-8">
 </head>
+<body>
 {% if logged %}
     <div class="container">
         {% block menu %}{% endblock %}
