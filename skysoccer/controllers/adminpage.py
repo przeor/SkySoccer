@@ -23,7 +23,7 @@ def admin_view(request):
         }
 
     def check_filled_inputs_register():
-        if request.POST.get('add_name') != '' and request.POST.get('add_surname') != '':
+        if request.POST.get('add_name') and request.POST.get('add_surname'):
             return True
         else:
             data_for_template['register_status'] = "Brakuje danych"
@@ -55,7 +55,7 @@ def admin_view(request):
     if 'username' in request.session:
         data_for_template['username'] = request.session['username']
 
-    if request.POST.get('add_submit') and check_filled_inputs_register():
+    if request.POST.get('add_submit') == 'submitting' and check_filled_inputs_register():
         insert_user_to_db()
 
     if request.POST.get('submit_delete'):

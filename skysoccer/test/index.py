@@ -47,8 +47,8 @@ class IndexControllerTest(ControllerTest):
         res = index_view(self.request)
         self.assertTrue('players_count' in res.data)
 
-        matches = res.data['players_count']
-        self.assertEqual(1, matches)
+        players = res.data['players_count']
+        self.assertEqual(1, players)
 
     def test_redirect_admim_succ(self):
         from pyramid.httpexceptions import HTTPFound
