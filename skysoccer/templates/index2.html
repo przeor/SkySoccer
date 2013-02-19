@@ -22,7 +22,16 @@
 
 </style>
 <meta charset="utf-8">
-<link rel="stylesheet" href="{{surl("skysoccer:static/bootstrap.css")}}" type="text/css">
+<link rel="stylesheet" href="{{surl("skysoccer:static/bootstrap.css")}}" type="text/css" />
+<link rel="stylesheet" href="{{surl("skysoccer:static/messi.min.css")}}" type="text/css" />
+<script src="{{surl("skysoccer:static/jquery.js")}}"></script>
+<script src="{{surl("skysoccer:static/messi.min.js")}}"></script>
+<script>
+  $('#close-button').on('click', function() {
+          console.log("LOL");
+          new Messi('This is a message with Messi with custom buttons.', {title: 'Buttons', buttons: [{id: 0, label: 'Close', val: 'X'}]});
+        });
+</script>
 </head>
 <body>
   {% block menu %}

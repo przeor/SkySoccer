@@ -4,6 +4,7 @@ from .base import JinjaResponse
 from skysoccer.models.user import User
 from skysoccer.models.match import Match
 
+
 def index_view(request):
     def get_players():
         players = []
@@ -50,10 +51,10 @@ def index_view(request):
 
     if request.POST.get('submit_login') == "submitting":
         check_user(request)
-    if request.POST.get('submit_logout') == "submitting":
+    elif request.POST.get('submit_logout') == "submitting":
         data_for_template['logged'] = request.session['logged'] = 0
         data_for_template['login_status'] = u"Wylogowano"
-    if request.POST.get('submit_admin') == "submitting":
+    elif request.POST.get('submit_admin') == "submitting":
         return HTTPFound(location="/admin.html")
-
+    
     return JinjaResponse(request, 'index2_base.html', data_for_template)
