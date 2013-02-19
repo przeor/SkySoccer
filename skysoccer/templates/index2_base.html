@@ -14,8 +14,8 @@
           <ul class="nav">
             <li class="inactive"><a href="#">Home</a></li>
             <li><a href="#stats">Statystyki</a></li>
-            <li><form class="form-game" method="POST"><button class="btn btn-medium btn-primary" type="submit">Nowa gra</button></form></li>
             {% if logged%}
+            <li><form class="form-game" method="POST"><button class="btn btn-medium btn-primary" type="submit">Nowa gra</button></form></li>
             <li class="inactive"><div class="login">Zalogowany jako {{username}}</div></li>
             <li>
               <form class="form-search" method="POST">
