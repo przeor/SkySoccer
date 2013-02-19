@@ -1,0 +1,104 @@
+{% extends "admin.html" %}
+
+{% block title %}Panel administracyjny{% endblock %}
+
+{% block menu %}
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand" href="index.html">SkySoccer - {{title}}</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block options %}
+<div class="tabbable"> <!-- Only required for left/right tabs -->
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#tab1" data-toggle="tab">Informacje</a></li>
+    <li><a href="#tab2" data-toggle="tab">Użytkownicy</a></li>
+    <li><a href="#tab3" data-toggle="tab">Mecze</a></li>
+    <li><a href="#tab4" data-toggle="tab">Inne</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="tab1">
+      <p>
+        <legend>Podstawowe:</legend>
+        <center>
+          <div class="row">
+            <div class="span2">Liczba graczy:</div>
+            <div class="span2">{{players_count}}</div>
+            <div class="span2">Liczba meczy:</div>
+            <div class="span2">{{matches_count}}</div>
+            <div class="span2">Liczba drużyn:</div>
+            <div class="span2">10</div>
+          </div>
+        </center>
+      </p>
+    </div>
+    <div class="tab-pane" id="tab2">
+      <p>
+        <legend>Dodaj użytkownika:</legend>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Imię</th>
+              <th>Nazwisko</th>
+              <th>Hasło</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <form class="form-search" method="POST">
+              <td><input type="text" class="input" name="add_name"></td>
+              <td><input type="text" class="input" name="add_surname"></td>
+              <td><input type="password" class="input" name="password"></td>
+              <td><button class="btn btn-medium btn-primary" type="submit" name="add_submit" value="submitting">Zatwierdz</button></td>
+              </form>
+            </tr>
+          </tbody>
+        </table>
+        {{register_status}}
+      </p>
+      <p>
+        <legend>Usuń użytkownika:</legend>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Gracz</th>
+                  <th>Usuń</th>
+                </tr>
+              </thead>
+        {% if players %}
+          {% for player in players %}
+              <tbody>
+                <tr>
+                  <td>{{loop.index}}</td>
+                  <td>{{player}}</td>
+                  <td>
+                    <form class="form-search" method="POST">
+                      <button class="btn btn-small btn-primary" type="submit" name="submit_delete" value="{{player}}">X</button>
+                    </form>
+                  </td>
+                </tr>
+              </tbody>
+          {% endfor %}
+        {% endif %}
+            </table>
+      </p>     
+    </div>
+    <div class="tab-pane" id="tab3">
+      <p>Howdy, I'm in Section 3.</p>
+    </div>
+    <div class="tab-pane" id="tab4">
+      <p>Howdy, I'm in Section 4.</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

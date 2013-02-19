@@ -1,57 +1,37 @@
+<!doctype html>
 <html>
 <head>
-    <title>{{title}} - SkySoccer webpage.</title>
-    
+<title>SkySoccer - {% block title %}{% endblock %}</title>
+<link rel="stylesheet" href="{{surl("skysoccer:static/bootstrap.css")}}" type="text/css">
+<script src="{{surl("skysoccer:static/jquery.js")}}"></script>
+<script src="{{surl("skysoccer:static/bootstrap-tab.js")}}"></script>
+<script>
+    $('#tabs a').click(function (e) {
+        console.log('LOL');
+      e.preventDefault();
+      $(this).tab('show');
+    });
+</script>
+<style>
+    body {
+            padding-top: 60px;
+  }
+</style>
+<meta charset="utf-8">
 </head>
 <body>
-<h1>SkySoccer - {{title}}</h1>
-
-
 {% if logged %}
-<h2>Zalogowany jako {{username}}</h2>
+    <div class="container">
+        {% block menu %}{% endblock %}
 
-<table border='1' width="800px">
-    <tr>
-        <td><b>Dodaj użytkownika</b></td>
-        <td><b>Ustawianie meczy</b></td>
-        <td><b>c</b></td>
-    </tr>
-    <tr>
-        <td>
-            <form name="input" method="post">
-                Name: <input type="text" name="add_name"><br>
-                Surname: <input type="text" name="add_surname"><br>
-                <input type="submit" value="Submit" name="add_submit">
-            </form>
-            {{register_status}}
-        </td>
-        <td>B</td>
-        <td>C</td>
-    </tr>
-    <tr>
-        <td><b>Usun użytkownika</b></td>
-        <td><b>Do wykorzystania</b></td>
-        <td><b>Do wykorzystania</b></td>
-    </tr>
-    <tr>
-        <td>
-            {% if players %}
-                {% for player in players %}
-                    <form name="input" method="post">
-                        {{player}}
-                        <input type="submit" value="x" onclick="return confirm('Jestes pewien?')" name="{{player}}">
-                    </form>
-                {% endfor %}
-            {% else %}
-                Nie ma graczy
-            {% endif %}
-        </td>
-        <td>cos</td>
-        <td>cos</td>
-    </tr>
-</table>
+        {% block options %} {% endblock %}
+    </div>
+
+
 {% else %}
-Brak dostępu!
+    <div class="container">
+        <p>Brak dostępu!</p>
+    </div>
 {% endif %}
 </body>
 </html>
