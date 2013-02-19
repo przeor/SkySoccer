@@ -1,5 +1,6 @@
 from .base import JinjaResponse
 from skysoccer.models.user import User
+from skysoccer.models.match import Match
 
 
 def admin_view(request):
@@ -45,12 +46,16 @@ def admin_view(request):
     def get_number_players():
         return User.objects().count()
 
+    def get_number_matches():
+        return Match.objects().count()
+
     #-------------------------------------------------------------------------
     template = get_template()
     data_for_template = set_initial_data()
     data_for_template['players'] = get_players()
     data_for_template['logged'] = request.session['logged']
     data_for_template["players_count"] = get_number_players()
+    data_for_template["matches_count"] = get_number_matches()
 
     if 'username' in request.session:
         data_for_template['username'] = request.session['username']
