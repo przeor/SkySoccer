@@ -42,7 +42,7 @@
   </div> <!-- /container -->
   <script>
   $('#close-button').on('click', function() {
-          new Messi('<h3> Wybór graczy:</h3> coś tam coś tam <h3>Rozgrywka:</h3>', {title: 'Nowa gra', center: false, viewport: {top: '120px', left: '100px'}});
+          new Messi("\{% block new_game %}{% endblock %}", {title: 'Nowa gra', center: false, viewport: {top: '90px', left: '120px'}});
         });
   </script>
 </body>

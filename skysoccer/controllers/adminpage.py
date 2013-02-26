@@ -19,8 +19,6 @@ def admin_view(request):
     def set_initial_data():
         return {
             "title": "Panel administracyjny",
-            "name": "name",
-            "surname": "surname"
         }
 
     def check_filled_inputs_register():

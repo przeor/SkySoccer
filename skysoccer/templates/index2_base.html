@@ -43,8 +43,45 @@
 {% endblock %}
 
 {% block statistics %}
+
+{% endblock %}
+
+{% block new_game %}
+  <h3> Wybór graczy:</h3>     \
+    <table class='table'> \
+      <thead> \
+        <tr>\
+          <th>Drużyna 1</th>\
+          <th>Drużyna 2</th>\
+        </tr>\
+      </thead>\
+      <tbody>\
+        <tr>\
+          <td>\
+            Gracz1: <select class='span2'>\
+                      {% for player in players %}<option>{{player}}</option>{% endfor %}\
+                    </select> \
+            Gracz2: <select class='span2'>\
+                      {% for player in players %}<option>{{player}}</option>{% endfor %}\
+                    </select>\
+          </td>\
+          <td>\
+            Gracz1: <select class='span2'>\
+                      {% for player in players %}<option>{{player}}</option>{% endfor %}\
+                    </select> \
+            Gracz2: <select class='span2'>\
+                      {% for player in players %}<option>{{player}}</option>{% endfor %}\
+                    </select>\
+          </td>\
+        </tr>\
+      </tbody>\
+    </table>\
+  <h3>Rozgrywka:</h3>         \
+    <form class='form-search' method='POST'><button class='btn btn-small btn-primary' type='submit' name='submit_game' value='submitting'>Rozpocznij</button></form>\
 {% endblock %}
 
 {% block footer %}
     <hr><p>Skygate 2013</p>
 {% endblock %}
+
+

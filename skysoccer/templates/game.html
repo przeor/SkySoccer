@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+<title>SkySoccer - {{title}}</title>
+<style>
+  body {
+            padding-top: 50px;
+  }
+</style>
+<meta charset="utf-8">
+<link rel="stylesheet" href="{{surl("skysoccer:static/bootstrap.css")}}" type="text/css" />
+</head>
+<body>
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="index.html">SkySoccer - {{title}}</a>
+      </div>
+    </div>
+  </div>
+  {% if logged %}
+  <div class="container">
+    DOSTĘP JEST!
+  </div> 
+  {% else %}
+  <div class="container">
+    <p>BRAK DOSTĘPU</p>
+  </div> 
+  {% endif %}
+</body>
+</html>
