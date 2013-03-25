@@ -25,7 +25,21 @@
   </div>
   {% if logged %}
   <div class="container">
-    
+    <legend>Gracze:</legend>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Drużyna 1</th>
+          <th>Drużyna 2</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{% for player in team1 %} <p>{{player}}</p> {% endfor %}</td>
+          <td>{% for player in team2 %} <p>{{player}}</p> {% endfor %}</td>
+        </tr>
+      </tbody>
+    </table>
   </div> 
   {% else %}
   <div class="container">
