@@ -48,6 +48,7 @@
 
 {% block new_game %}
   <h3> Wybór graczy:</h3>     \
+  <form class='form-search' method='POST'> \
     <table class='table'> \
       <thead> \
         <tr>\
@@ -58,26 +59,25 @@
       <tbody>\
         <tr>\
           <td>\
-            Gracz1: <select class='span2'>\
+            Gracz1: <select class='span2' name='d1g1'>\
                       {% for player in players %}<option>{{player}}</option>{% endfor %}\
                     </select> \
-            Gracz2: <select class='span2'>\
+            Gracz2: <select class='span2' name='d1g2'>\
                       {% for player in players %}<option>{{player}}</option>{% endfor %}\
                     </select>\
           </td>\
           <td>\
-            Gracz1: <select class='span2'>\
+            Gracz1: <select class='span2' name='d2g1'>\
                       {% for player in players %}<option>{{player}}</option>{% endfor %}\
                     </select> \
-            Gracz2: <select class='span2'>\
+            Gracz2: <select class='span2' name='d2g2'>\
                       {% for player in players %}<option>{{player}}</option>{% endfor %}\
                     </select>\
           </td>\
         </tr>\
       </tbody>\
     </table>\
-  <h3>Rozgrywka:</h3>         \
-    <form class='form-search' method='POST'><button class='btn btn-small btn-primary' type='submit' name='submit_game' value='submitting'>Rozpocznij</button></form>\
+    <button class='btn btn-small btn-primary' type='submit' name='submit_game' value='submitting'>Rozpocznij</button></form>\
 {% endblock %}
 
 {% block footer %}

@@ -14,7 +14,7 @@ def admin_view(request):
         return players
 
     def get_template():
-        return request.registry['jinja2'].get_template('admin.html')
+        return request.registry['jinja2'].get_template('admin_base.html')
 
     def set_initial_data():
         return {

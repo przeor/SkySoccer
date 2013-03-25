@@ -57,6 +57,7 @@ def index_view(request):
     elif request.POST.get('submit_admin') == "submitting":
         return HTTPFound(location="/admin.html")
     elif request.POST.get('submit_game') == "submitting":
+        request.session['players'] = request.POST.items()
         return HTTPFound(location="/game.html")
     
     return JinjaResponse(request, 'index2_base.html', data_for_template)
