@@ -25,12 +25,29 @@
   </div>
   {% if logged %}
   <div class="container">
+    <legend>Mecz:</legend>
+    <center>
+      <h1>
+      <input class="input-mini" type="text" id="big_score_team1" value="0"/> :  <input class="input-mini" type="text" id="big_score_team2" value="0"/>
+      </h1>
+      <h3> 
+        <input class="input-mini" type="text" id="score_team1" value="0"/> :  <input class="input-mini" type="text" id="score_team2" value="0"/>
+      </h3>
+    </center>
     <legend>Gracze:</legend>
     <table class="table">
       <thead>
         <tr>
-          <th>Drużyna 1</th>
-          <th>Drużyna 2</th>
+          <th>
+            Drużyna 1
+            <button id="close-button" class="btn btn-mini btn-success" onclick="addScoreTeam1()">+</button>
+            <button id="close-button" class="btn btn-mini btn-danger" onclick="oddScoreTeam1()">-</button>
+          </th>
+          <th>
+            Drużyna 2
+            <button id="close-button" class="btn btn-mini btn-success" onclick="addScoreTeam2()">+</button>
+            <button id="close-button" class="btn btn-mini btn-danger" onclick="oddScoreTeam2()">-</button>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -41,6 +58,40 @@
       </tbody>
     </table>
   </div> 
+  <form>
+
+  <script>
+    var team1Score = 0;
+    var team2Score = 0;
+    var bigTeam1Score = 0;
+    var bigTeam2Score = 0;
+    function addScoreTeam1() {
+        team1Score++;
+        if (team1Score == 15) {
+          team1Score = 0;
+          bigTeam1Score++;
+        }
+        document.getElementById('score_team1').value = team1Score;
+        document.getElementById('big_score_team1').value = bigTeam1Score;
+    }
+    function oddScoreTeam1() {
+        if(team1Score > 0) {team1Score--;}
+        document.getElementById('score_team1').value = team1Score;
+    }
+    function addScoreTeam2() {
+        team2Score++;
+        if (team2Score == 15) {
+          team2Score = 0;
+          bigTeam2Score++;
+        }
+        document.getElementById('score_team2').value = team2Score;
+        document.getElementById('big_score_team2').value = bigTeam2Score;
+    }
+    function oddScoreTeam2() {
+        if(team2Score > 0) {team2Score--;}
+        document.getElementById('score_team2').value = team2Score;
+    }
+  </script>
   {% else %}
   <div class="container">
     <p>BRAK DOSTĘPU</p>
