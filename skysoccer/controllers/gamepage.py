@@ -1,4 +1,5 @@
 from .base import JinjaResponse
+from pyramid.httpexceptions import HTTPFound
 from skysoccer.models.user import User
 from skysoccer.models.match import Match
 
@@ -18,7 +19,10 @@ def game_view(request):
         return players_in_team
 
     def submit_score(request):
+        Match(number="1", score="1:2").save()
         print request.POST.get('big_score_team1'), request.POST.get('big_score_team2')
+        return HTTPFound(location="/index2.html")
+
     #-------------------------------------------------------------------------
     data_for_template = set_initial_data()
     data_for_template['logged'] = request.session['logged']
@@ -26,5 +30,5 @@ def game_view(request):
     data_for_template['team2'] = set_teams('d2', request)
     # print request.session['players']
     if request.POST.get('submit_end_game') == "submitting":
-        submit_score(request)
+        return submit_score(request)
     return JinjaResponse(request, 'game.html', data_for_template)

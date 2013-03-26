@@ -1,7 +1,8 @@
-from mongoengine import Document, StringField
+from mongoengine import Document, StringField, DateTimeField
+import datetime
 
 
 class Match(Document):
     number = StringField(max_length=5)
-    name = StringField(max_length=120)
-    surname = StringField(max_length=120)
+    score = StringField(max_length=3)
+    date = DateTimeField(default=datetime.datetime.now)
