@@ -25,28 +25,22 @@
   </div>
   {% if logged %}
   <div class="container">
-    <legend>Mecz:</legend>
-    <center>
-      <h1>
-      <input class="input-mini" type="text" id="big_score_team1" value="0"/> :  <input class="input-mini" type="text" id="big_score_team2" value="0"/>
-      </h1>
-      <h3> 
-        <input class="input-mini" type="text" id="score_team1" value="0"/> :  <input class="input-mini" type="text" id="score_team2" value="0"/>
-      </h3>
-    </center>
+    
     <legend>Gracze:</legend>
     <table class="table">
       <thead>
         <tr>
           <th>
-            Drużyna 1
-            <button id="close-button" class="btn btn-mini btn-success" onclick="addScoreTeam1()">+</button>
+            <p>Drużyna 1
+            <button id="close-button" class="btn btn-mini btn-success" onclick="addScoreTeam1()">GOOL!</button>
             <button id="close-button" class="btn btn-mini btn-danger" onclick="oddScoreTeam1()">-</button>
+            </p>
           </th>
           <th>
-            Drużyna 2
-            <button id="close-button" class="btn btn-mini btn-success" onclick="addScoreTeam2()">+</button>
+            <p>Drużyna 2
+            <button id="close-button" class="btn btn-mini btn-success" onclick="addScoreTeam2()">GOOL!</button>
             <button id="close-button" class="btn btn-mini btn-danger" onclick="oddScoreTeam2()">-</button>
+            </p>
           </th>
         </tr>
       </thead>
@@ -57,9 +51,28 @@
         </tr>
       </tbody>
     </table>
+    <legend>Mecz:</legend>
+    <form class="form-search" method="POST">
+    <center>
+      <h1>
+      <input class="input-mini" type="text" id="big_score_team1" name="big_score_team1" value="0"/> :  <input class="input-mini" type="text" id="big_score_team2" name="big_score_team2" value="0"/>
+      </h1>
+      <h3> 
+        <input class="input-mini" type="text" id="score_team1" value="0"/> :  <input class="input-mini" type="text" id="score_team2" value="0"/>
+      </h3>
+    </center>
+    
+      <center><button class="btn btn-large btn-inverse" type="submit" name="submit_end_game" value="submitting">Zakończ mecz!</button></center>
+    </form>
   </div> 
-  <form>
+  
 
+  
+  {% else %}
+  <div class="container">
+    <p>BRAK DOSTĘPU</p>
+  </div> 
+  {% endif %}
   <script>
     var team1Score = 0;
     var team2Score = 0;
@@ -92,10 +105,5 @@
         document.getElementById('score_team2').value = team2Score;
     }
   </script>
-  {% else %}
-  <div class="container">
-    <p>BRAK DOSTĘPU</p>
-  </div> 
-  {% endif %}
 </body>
 </html>
