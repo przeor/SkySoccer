@@ -5,12 +5,17 @@ import datetime
 class User(Document):
     name = StringField(max_length=120)
     surname = StringField(max_length=120)
+    login = StringField(max_length=120)
+    password = StringField(max_length=120)
     date = DateTimeField(default=datetime.datetime.now)
-    wins_point = IntField(default=0)
-    match_count = IntField(default=0)
+    # wins_point = IntField(default=0)
+    # match_count = IntField(default=0)
 
-    def fullname(self):
+    def get_fullname(self):
         return "%s %s" % (self.name, self.surname)
+
+    def get_login(self):
+        return "%s" % (self.login)
 
     def get_match_count():
         pass
@@ -25,9 +30,9 @@ class User(Document):
         pass
 
     @classmethod
-    def is_user_valid(cls, name, surname):
+    def is_user_valid(cls, login, password):
         try:
-            cls.objects().get(name=name, surname=surname)
+            cls.objects().get(login=login, password=password)
             return True
         except queryset.DoesNotExist:
             return False

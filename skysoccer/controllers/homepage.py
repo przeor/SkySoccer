@@ -9,7 +9,7 @@ def index_view(request):
     def get_players():
         players = []
         for user in User.objects():
-            players.append(user.fullname())
+            players.append(user.get_fullname())
         return players
 
     def get_initial_data():
@@ -19,13 +19,13 @@ def index_view(request):
         }
 
     def check_user(request):
-        if request.POST.get('name') and request.POST.get('surname'):
-            name = request.POST['name']
-            surname = request.POST['surname']
-            if User.is_user_valid(name, surname):
-                user = User.objects().get(name=name, surname=surname)
+        if request.POST.get('login') and request.POST.get('password'):
+            login = request.POST['login']
+            password = request.POST['password']
+            if User.is_user_valid(login, password):
+                user = User.objects().get(login=login, password=password)
                 data_for_template['logged'] = request.session['logged'] = 1
-                data_for_template['username'] = request.session['username'] = user.fullname()
+                data_for_template['username'] = request.session['username'] = user.get_fullname()
                 return True
             else:
                 data_for_template["login_status"] = u"Nie ma takiego użytkownika"
