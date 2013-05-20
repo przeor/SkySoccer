@@ -25,13 +25,16 @@ def index_view(request):
             if User.is_user_valid(login, password):
                 user = User.objects().get(login=login, password=password)
                 data_for_template['logged'] = request.session['logged'] = 1
-                data_for_template['username'] = request.session['username'] = user.get_fullname()
+                data_for_template['username'] = request.session[
+                    'username'] = user.get_fullname()
                 return True
             else:
-                data_for_template["login_status"] = u"Nie ma takiego użytkownika"
+                data_for_template[
+                    "login_status"] = u"Nie ma takiego użytkownika"
                 return False
         else:
-            data_for_template["login_status"] = u"Nie wpisano użytkownika/hasła"
+            data_for_template[
+                "login_status"] = u"Nie wpisano użytkownika/hasła"
             return False
 
     def get_number_players():
@@ -59,5 +62,5 @@ def index_view(request):
     elif request.POST.get('submit_game') == "submitting":
         request.session['players'] = request.POST.items()
         return HTTPFound(location="/game.html")
-    
+
     return JinjaResponse(request, 'index2_base.html', data_for_template)

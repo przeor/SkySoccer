@@ -8,8 +8,6 @@ class User(Document):
     login = StringField(max_length=120)
     password = StringField(max_length=120)
     date = DateTimeField(default=datetime.datetime.now)
-    # wins_point = IntField(default=0)
-    # match_count = IntField(default=0)
 
     def get_fullname(self):
         return "%s %s" % (self.name, self.surname)
