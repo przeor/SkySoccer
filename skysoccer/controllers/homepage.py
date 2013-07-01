@@ -63,4 +63,5 @@ def index_view(request):
         request.session['players'] = request.POST.items()
         return HTTPFound(location="/game.html")
 
+    # print data_for_template
     return JinjaResponse(request, 'index2_base.html', data_for_template)
