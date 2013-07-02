@@ -12,8 +12,10 @@ class IndexAppTest(AppTest):
 
 
 class IndexControllerTest(ControllerTest):
-    good_user = {'login': 'name', 'password': 'surname', 'name': 'name', 'surname': 'surname'}
-    bad_user = {'login': 'name bad', 'password': 'surname bad', 'name': 'name bad', 'surname': 'surname bad'}
+    good_user = {'login': 'name', 'password':
+                 'surname', 'name': 'name', 'surname': 'surname'}
+    bad_user = {'login': 'name bad', 'password': 'surname bad',
+                'name': 'name bad', 'surname': 'surname bad'}
 
     def test_index(self):
         User(name='s', surname='d', login='s', password='d').save()
@@ -44,7 +46,7 @@ class IndexControllerTest(ControllerTest):
         self.assertEqual(1, matches)
 
     def test_player_count(self):
-        User(name='s', surname='d',login='s', password='d').save()
+        User(name='s', surname='d', login='s', password='d').save()
 
         res = index_view(self.request)
         self.assertTrue('players_count' in res.data)
@@ -69,7 +71,7 @@ class IndexControllerTest(ControllerTest):
         self.assertEqual(res.location, self.request.route_path('admin'))
 
     def test_redirect_admin_fail(self):
-        
+
         self.request.POST['submit_login'] = 'submitting'
         self.request.POST['login'] = self.bad_user['login']
         self.request.POST['password'] = self.bad_user['password']
@@ -83,8 +85,10 @@ class IndexControllerTest(ControllerTest):
 
 
 class LoginControllerTest(ControllerTest):
-    good_user = {'login': 'name', 'password': 'surname', 'name': 'name', 'surname': 'surname'}
-    bad_user = {'login': 'name bad', 'password': 'surname bad', 'name': 'name bad', 'surname': 'surname bad'}
+    good_user = {'login': 'name', 'password':
+                 'surname', 'name': 'name', 'surname': 'surname'}
+    bad_user = {'login': 'name bad', 'password': 'surname bad',
+                'name': 'name bad', 'surname': 'surname bad'}
 
     def setUp(self):
         super(LoginControllerTest, self).setUp()
@@ -145,7 +149,8 @@ class LoginControllerTest(ControllerTest):
 
 
 class LogoutControllerTest(ControllerTest):
-    good_user = {'login': 'name', 'password': 'surname', 'name': 'name', 'surname': 'surname'}
+    good_user = {'login': 'name', 'password':
+                 'surname', 'name': 'name', 'surname': 'surname'}
 
     def setUp(self):
         super(LogoutControllerTest, self).setUp()
@@ -173,12 +178,23 @@ class LogoutControllerTest(ControllerTest):
         self.request.POST['password'] = self.good_user['password']
 
         res = index_view(self.request)
-        # print res.body
         self.request.POST['submit_login'] = ''
         self.request.POST['submit_logout'] = 'submitting'
 
         res = index_view(self.request)
-        
+
         self.assertEqual(0, res.data['logged'])
         self.assertTrue('login_status' in res.data)
         self.assertEqual(u"Wylogowano", res.data['login_status'])
+
+
+class GameControllerTest(ControllerTest):
+    good_user = {'login': 'name', 'password':
+                 'surname', 'name': 'name', 'surname': 'surname'}
+
+    def setUp(self):
+        super(GameControllerTest, self).setUp()
+        User(**self.good_user).save()
+
+    def test_game_redirect(self):
+        pass

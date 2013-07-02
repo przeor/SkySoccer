@@ -1,8 +1,9 @@
 import unittest
 import logging
 
-from .index import IndexAppTest, IndexControllerTest, LoginControllerTest, LogoutControllerTest
+from .index import IndexAppTest, IndexControllerTest, LoginControllerTest, LogoutControllerTest, GameControllerTest
 from .admin import AdminControllerTest, RegisterControllerTest, DeleteControllerTest
+from .game  import GamePageControllerTest
 
 all_test_cases = [
     IndexAppTest,
@@ -11,7 +12,9 @@ all_test_cases = [
     LogoutControllerTest,
     AdminControllerTest,
     RegisterControllerTest,
-    DeleteControllerTest
+    DeleteControllerTest,
+    GameControllerTest,
+    GamePageControllerTest
 ]
 
 

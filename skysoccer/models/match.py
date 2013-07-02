@@ -7,7 +7,7 @@ class Match(Document):
     score = ListField()
     date = DateTimeField(default=datetime.datetime.now)
     win_team = ListField()
-    lost_team = ListField()
+    defeat_team = ListField()
 
     def get_last_match_number(self):
         pass

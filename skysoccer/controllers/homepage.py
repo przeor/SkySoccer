@@ -14,7 +14,7 @@ def index_view(request):
 
     def get_initial_data():
         return {
-            "title": "Some title",
+            "title": u"Strona główna",
             "games_count": 100,
         }
 

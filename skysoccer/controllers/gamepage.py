@@ -23,12 +23,12 @@ def game_view(request):
             'big_score_team1'), request.POST.get('big_score_team2')]
         if score[0] > score[1]:
             win_team = data_for_template['team1']
-            lost_team = data_for_template['team2']
+            defeat_team = data_for_template['team2']
         else:
             win_team = data_for_template['team2']
-            lost_team = data_for_template['team1']
+            defeat_team = data_for_template['team1']
 
-        Match(score=score, win_team=win_team, lost_team=lost_team).save()
+        Match(score=score, win_team=win_team, defeat_team=defeat_team).save()
         return HTTPFound(location="/index2.html")
 
     #-------------------------------------------------------------------------
