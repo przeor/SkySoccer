@@ -53,19 +53,19 @@ class IndexControllerTest(ControllerTest):
         self.assertEqual(1, players)
 
     def test_redirect_admim_succ(self):
-        from skysoccer.controllers.base import JinjaResponse
+        from pyramid.httpexceptions import HTTPFound
         User(**self.good_user).save()
 
         self.request.POST['submit_login'] = 'submitting'
         self.request.POST['login'] = self.good_user['login']
         self.request.POST['password'] = self.good_user['password']
         res = index_view(self.request)
-        
-        self.request.POST['submit_admin'] = 'submitting'
 
+        self.request.POST['submit_login'] = ''
+        self.request.POST['submit_admin'] = 'submitting'
         res = index_view(self.request)
-        print res.body
-        self.assertEqual(JinjaResponse, type(res))
+
+        self.assertEqual(HTTPFound, type(res))
         self.assertEqual(res.location, self.request.route_path('admin'))
 
     def test_redirect_admin_fail(self):
@@ -73,8 +73,8 @@ class IndexControllerTest(ControllerTest):
         self.request.POST['submit_login'] = 'submitting'
         self.request.POST['login'] = self.bad_user['login']
         self.request.POST['password'] = self.bad_user['password']
-
         res = index_view(self.request)
+
         self.request.POST['submit_admin'] = 'submitting'
         res = index_view(self.request)
 
@@ -145,7 +145,7 @@ class LoginControllerTest(ControllerTest):
 
 
 class LogoutControllerTest(ControllerTest):
-    good_user = {'login': 'name', 'password': 'surname'}
+    good_user = {'login': 'name', 'password': 'surname', 'name': 'name', 'surname': 'surname'}
 
     def setUp(self):
         super(LogoutControllerTest, self).setUp()
@@ -173,11 +173,12 @@ class LogoutControllerTest(ControllerTest):
         self.request.POST['password'] = self.good_user['password']
 
         res = index_view(self.request)
-
+        # print res.body
+        self.request.POST['submit_login'] = ''
         self.request.POST['submit_logout'] = 'submitting'
 
         res = index_view(self.request)
-
+        
+        self.assertEqual(0, res.data['logged'])
         self.assertTrue('login_status' in res.data)
         self.assertEqual(u"Wylogowano", res.data['login_status'])
-        self.assertEqual(0, res.data['logged'])
