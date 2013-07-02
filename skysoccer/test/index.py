@@ -12,10 +12,11 @@ class IndexAppTest(AppTest):
 
 
 class IndexControllerTest(ControllerTest):
+    good_user = {'login': 'name', 'password': 'surname', 'name': 'name', 'surname': 'surname'}
+    bad_user = {'login': 'name bad', 'password': 'surname bad', 'name': 'name bad', 'surname': 'surname bad'}
 
     def test_index(self):
-
-        User(name='s', surname='d').save()
+        User(name='s', surname='d', login='s', password='d').save()
         res = index_view(self.request)
 
         self.assertTrue('players' in res.data)
@@ -23,7 +24,7 @@ class IndexControllerTest(ControllerTest):
         self.assertEqual(1, len(players))
         self.assertEqual('s d', players[0])
 
-        User(name='s2', surname='d2').save()
+        User(name='s2', surname='d2', login='s', password='d').save()
 
         res = index_view(self.request)
 
@@ -43,7 +44,7 @@ class IndexControllerTest(ControllerTest):
         self.assertEqual(1, matches)
 
     def test_player_count(self):
-        User(name='s', surname='d').save()
+        User(name='s', surname='d',login='s', password='d').save()
 
         res = index_view(self.request)
         self.assertTrue('players_count' in res.data)
@@ -52,39 +53,38 @@ class IndexControllerTest(ControllerTest):
         self.assertEqual(1, players)
 
     def test_redirect_admim_succ(self):
-        from pyramid.httpexceptions import HTTPFound
-        good_user = {'login': 'name', 'password': 'surname'}
+        from skysoccer.controllers.base import JinjaResponse
+        User(**self.good_user).save()
+
         self.request.POST['submit_login'] = 'submitting'
-        self.request.POST['login'] = good_user['login']
-        self.request.POST['password'] = good_user['password']
-
+        self.request.POST['login'] = self.good_user['login']
+        self.request.POST['password'] = self.good_user['password']
         res = index_view(self.request)
-
+        
         self.request.POST['submit_admin'] = 'submitting'
 
         res = index_view(self.request)
-
-        self.assertEqual(HTTPFound, type(res))
+        print res.body
+        self.assertEqual(JinjaResponse, type(res))
         self.assertEqual(res.location, self.request.route_path('admin'))
 
     def test_redirect_admin_fail(self):
-        bad_user = {'login': 'name bad', 'password': 'surname bad'}
+        
         self.request.POST['submit_login'] = 'submitting'
-        self.request.POST['login'] = bad_user['login']
-        self.request.POST['password'] = bad_user['password']
+        self.request.POST['login'] = self.bad_user['login']
+        self.request.POST['password'] = self.bad_user['password']
 
         res = index_view(self.request)
-
         self.request.POST['submit_admin'] = 'submitting'
-
         res = index_view(self.request)
 
-        self.assertFalse(u'Panel administracyjny' in res.body)
+        self.assertFalse(u'Panel administracyjny' in unicode(
+            res.body, 'utf-8'))
 
 
 class LoginControllerTest(ControllerTest):
-    good_user = {'login': 'name', 'password': 'surname'}
-    bad_user = {'login': 'name bad', 'password': 'surname bad'}
+    good_user = {'login': 'name', 'password': 'surname', 'name': 'name', 'surname': 'surname'}
+    bad_user = {'login': 'name bad', 'password': 'surname bad', 'name': 'name bad', 'surname': 'surname bad'}
 
     def setUp(self):
         super(LoginControllerTest, self).setUp()

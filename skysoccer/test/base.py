@@ -6,6 +6,7 @@ from pyramid import testing
 from mongoengine import Document
 from mongoengine.document import DynamicDocument
 
+
 class BaseTest(unittest.TestCase):
 
     def _clear_db(self, config):
@@ -30,7 +31,8 @@ class ControllerTest(BaseTest):
         self._clear_db(config)
         self.request = testing.DummyRequest()
         init_render_globals(self.request)
-        self.config = testing.setUp(registry=config.registry, request=self.request, settings=config.registry['settings'])
+        self.config = testing.setUp(
+            registry=config.registry, request=self.request, settings=config.registry['settings'])
         add_render_globals(self.request)
 
     def tearDown(self):
