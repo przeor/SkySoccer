@@ -9,6 +9,7 @@ class RegisteringControllerTest(ControllerTest):
                  'password', 'name': 'name', 'surname': 'surname'}
 
     def test_register_succ(self):
+        from pyramid.httpexceptions import HTTPFound
         self.request.POST['name'] = self.good_user['name']
         self.request.POST['surname'] = self.good_user['surname']
         self.request.POST['login'] = self.good_user['login']
@@ -17,7 +18,7 @@ class RegisteringControllerTest(ControllerTest):
 
         res = register_view(self.request)
 
-        self.assertEqual(u'Użytkownik dodany.', res.data['status'])
+        self.assertEqual(HTTPFound, type(res))
 
     def test_register_fail_1(self):
         self.request.POST['name'] = ''
