@@ -30,9 +30,15 @@
             <li>
               <form class="form-search" method="POST">
                 <input type="text" class="input" placeholder="login" name="login">
-                <input type="text" class="input" placeholder="hasło" name="password">
+                <input type="password" class="input" placeholder="hasło" name="password">
                 <button class="btn btn-small btn-primary" type="submit" name="submit_login" value="submitting">Zaloguj</button>
+                
               </form>
+              <li>
+              <form class="form-search" method="POST">
+                <button class="btn btn-medium btn-danger" type="submit" name="submit_register" value="submitting">Rejestracja</button>
+              </form>
+              </li>
             </li>
             {% endif %}
           </ul>

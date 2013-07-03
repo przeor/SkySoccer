@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+<title>SkySoccer - {{title}}</title>
+<style>
+  body {
+            padding-top: 50px;
+  }
+  .btn {
+    margin-left: 120px;
+  }
+</style>
+<meta charset="utf-8">
+<link rel="stylesheet" href="{{surl("skysoccer:static/bootstrap.css")}}" type="text/css" />
+</head>
+<body>
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="index.html">SkySoccer - {{title}}</a> 
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <p>{{status}}</p>
+    <form class="form-horizontal" method="POST">
+
+      <div class="control-group">
+        <label class="control-label">Imię</label>
+        <div class="controls">
+          <input type="text" class="input" placeholder="imię" name="name">
+        </div>
+      </div>
+
+      <div class="control-group">
+         <label class="control-label">Nazwisko</label>
+        <div class="controls">
+          <input type="text" class="input" placeholder="nazwisko" name="surname">
+        </div>
+      </div>
+
+      <div class="control-group">
+         <label class="control-label">Login</label>
+        <div class="controls">
+          <input type="text" class="input" placeholder="login" name="login">
+        </div>
+      </div>
+
+      <div class="control-group">
+         <label class="control-label">Hasło</label>
+        <div class="controls">
+          <input type="password" class="input" placeholder="password" name="password">
+        </div>
+      </div>
+
+      <button class="btn btn-medium btn-danger" type="submit" name="submit_register" value="submitting">Rejestracja</button>
+    </form>
+  </div>
+</body>
+</html>

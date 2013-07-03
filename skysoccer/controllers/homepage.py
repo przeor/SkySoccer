@@ -16,6 +16,7 @@ def index_view(request):
         return {
             "title": u"Strona główna",
             "games_count": 100,
+            "login_status": u"Niezalogowany.",
         }
 
     def check_user(request):
@@ -27,6 +28,7 @@ def index_view(request):
                 data_for_template['logged'] = request.session['logged'] = 1
                 data_for_template['username'] = request.session[
                     'username'] = user.get_fullname()
+                data_for_template["login_status"] = u"Zalogowano"
                 return True
             else:
                 data_for_template[
@@ -62,5 +64,7 @@ def index_view(request):
     elif request.POST.get('submit_game') == "submitting":
         request.session['players'] = request.POST.items()
         return HTTPFound(location="/game.html")
+    elif request.POST.get('submit_register') == "submitting":
+        return HTTPFound(location="/register.html")
 
     return JinjaResponse(request, 'index2_base.html', data_for_template)
