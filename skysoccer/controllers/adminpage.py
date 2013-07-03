@@ -10,17 +10,15 @@ def admin_view(request):
     def get_players():
         players = []
         for user in User.objects():
-            players.append(user.fullname())
+            players.append(user.get_fullname())
         return players
 
     def get_template():
-        return request.registry['jinja2'].get_template('admin.html')
+        return request.registry['jinja2'].get_template('admin_base.html')
 
     def set_initial_data():
         return {
             "title": "Panel administracyjny",
-            "name": "name",
-            "surname": "surname"
         }
 
     def check_filled_inputs_register():
@@ -33,9 +31,12 @@ def admin_view(request):
     def insert_user_to_db():
         user = {
             'surname': request.POST.get('add_surname'),
-            'name': request.POST.get('add_name')
+            'name': request.POST.get('add_name'),
+            'login': request.POST.get('add_login'),
+            'password': request.POST.get('password')
         }
-        User(name=user['name'], surname=user['surname']).save()
+        User(name=user['name'], surname=user['surname'], login=user[
+             'login'], password=user['password']).save()
         data_for_template['register_status'] = "Uzytkownik dodany"
 
     def delete_user_from_db(username):
