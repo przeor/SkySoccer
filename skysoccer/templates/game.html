@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="{{surl("skysoccer:static/bootstrap.css")}}" type="text/css" />
 </head>
 <body>
+  {% if logged %}
   <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
       <div class="container">
@@ -23,7 +24,7 @@
       </div>
     </div>
   </div>
-  {% if logged %}
+  
   <div class="container">
     
     <legend>Gracze:</legend>
@@ -70,8 +71,8 @@
   
   {% else %}
   <div class="container">
-    <p>BRAK DOSTĘPU</p>
-  </div> 
+        <p>Brak dostępu!</p>
+  </div>
   {% endif %}
   <script>
     var team1Score = 0;

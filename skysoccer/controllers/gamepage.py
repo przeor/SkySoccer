@@ -12,6 +12,7 @@ def game_view(request):
 
     def set_teams(team, request):
         players = request.session['players']
+        # print players
         players_in_team = []
         for player in players:
             if team in player[0]:
@@ -33,9 +34,10 @@ def game_view(request):
 
     #-------------------------------------------------------------------------
     data_for_template = set_initial_data()
-    data_for_template['logged'] = request.session['logged']
-    data_for_template['team1'] = set_teams('d1', request)
-    data_for_template['team2'] = set_teams('d2', request)
+    if request.session['logged']:
+        data_for_template['logged'] = request.session['logged']
+        data_for_template['team1'] = set_teams('d1', request)
+        data_for_template['team2'] = set_teams('d2', request)
 
     if request.POST.get('submit_end_game') == "submitting":
         return submit_score(request)

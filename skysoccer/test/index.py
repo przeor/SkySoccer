@@ -196,5 +196,16 @@ class GameControllerTest(ControllerTest):
         super(GameControllerTest, self).setUp()
         User(**self.good_user).save()
 
-    def test_game_redirect(self):
-        pass
+    def test_game_redirect_succ(self):
+        from pyramid.httpexceptions import HTTPFound
+        self.request.POST['submit_login'] = 'submitting'
+        self.request.POST['login'] = self.good_user['login']
+        self.request.POST['password'] = self.good_user['password']
+        res = index_view(self.request)
+
+        self.request.POST['submit_login'] = ''
+        self.request.POST['submit_game'] = 'submitting'
+        res = index_view(self.request)
+
+        self.assertEqual(HTTPFound, type(res))
+        self.assertEqual(res.location, self.request.route_path('game'))
