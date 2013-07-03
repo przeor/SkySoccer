@@ -1,9 +1,10 @@
 import unittest
 import logging
 
-from .index import IndexAppTest, IndexControllerTest, LoginControllerTest, LogoutControllerTest, GameControllerTest
+from .index import IndexAppTest, IndexControllerTest, LoginControllerTest, LogoutControllerTest, GameControllerTest, RegisterControllerTest
 from .admin import AdminControllerTest, RegisterControllerTest, DeleteControllerTest
-from .game  import GamePageControllerTest
+from .game import GamePageControllerTest
+from .register import RegisteringControllerTest
 
 all_test_cases = [
     IndexAppTest,
@@ -14,12 +15,15 @@ all_test_cases = [
     RegisterControllerTest,
     DeleteControllerTest,
     GameControllerTest,
-    GamePageControllerTest
+    GamePageControllerTest,
+    RegisterControllerTest,
+    RegisteringControllerTest
 ]
 
 
 def get_all_test_suite():
-    logging.basicConfig(level=logging.INFO, format="%(asctime)-15s:%(message)s", filename='data/test.log')
+    logging.basicConfig(level=logging.INFO,
+                        format="%(asctime)-15s:%(message)s", filename='data/test.log')
     logging.getLogger('skysoccer').info('\n\t*** TESTING STARTED ***')
     suite = unittest.TestLoader()
     prepered_all_test_cases = []
