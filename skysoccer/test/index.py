@@ -158,7 +158,7 @@ class LogoutControllerTest(ControllerTest):
 
     def test_no_submit(self):
         res = index_view(self.request)
-        self.assertEqual(u"Niezalogowany." ,res.data['login_status'])
+        self.assertEqual(u"Niezalogowany.", res.data['login_status'])
 
     def test_not_login(self):
         res = index_view(self.request)
@@ -205,6 +205,7 @@ class GameControllerTest(ControllerTest):
 
         self.request.POST['submit_login'] = ''
         self.request.POST['submit_game'] = 'submitting'
+        self.request.session['number_games'] = 15
         res = index_view(self.request)
 
         self.assertEqual(HTTPFound, type(res))

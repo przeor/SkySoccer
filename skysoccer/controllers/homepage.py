@@ -54,6 +54,9 @@ def index_view(request):
     if not 'logged' in request.session:
         data_for_template['logged'] = request.session['logged'] = 0
 
+    if request.session['logged']:
+        data_for_template["login_status"] = u"Zalogowano"
+
     if request.POST.get('submit_login') == "submitting":
         check_user(request)
     elif request.POST.get('submit_logout') == "submitting":
@@ -63,6 +66,7 @@ def index_view(request):
         return HTTPFound(location="/admin.html")
     elif request.POST.get('submit_game') == "submitting":
         request.session['players'] = request.POST.items()
+        request.session['number_games'] = request.POST.get('number_games')
         return HTTPFound(location="/game.html")
     elif request.POST.get('submit_register') == "submitting":
         return HTTPFound(location="/register.html")
