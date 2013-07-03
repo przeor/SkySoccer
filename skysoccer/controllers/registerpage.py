@@ -24,19 +24,26 @@ def register_view(request):
             try:
                 if User.objects().get(name=user['name'], surname=user['surname']) or User.objects().get(login=user['login'], password=user['password']):
                     data_for_template['status'] = u'Użytkownik istnieje.'
+                    return False
             except:
                 data_for_template['status'] = u'Użytkownik nieistnieje.'
                 save_user(user)
+                return True
 
     def save_user(user):
         User(name=user['name'], surname=user[
              'surname'], login=user['login'], password=user['password']).save()
         data_for_template['status'] = u'Użytkownik dodany.'
+        
+        
 
     #-------------------------------------------------------------------------
     data_for_template = get_initial_data()
 
     if request.POST.get('submit_register') == 'submitting':
-        validate_data(request)
+        if validate_data(request):
+            request.session['logged'] = request.session['registered'] = 1
+            request.session['username'] = request.POST.get('name') +' '+ request.POST.get('surname') 
+            return HTTPFound(location="/index2.html")
 
     return JinjaResponse(request, 'register.html', data_for_template)

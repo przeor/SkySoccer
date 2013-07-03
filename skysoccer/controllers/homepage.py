@@ -50,12 +50,17 @@ def index_view(request):
     data_for_template["players"] = get_players()
     data_for_template["matches_count"] = get_number_matches()
     data_for_template["players_count"] = get_number_players()
+    data_for_template['logged'] = request.session['logged']
 
     if not 'logged' in request.session:
         data_for_template['logged'] = request.session['logged'] = 0
 
-    if request.session['logged']:
+    if not 'registered' in request.session:
+        request.session['registered'] = 0
+
+    if request.session['logged'] and request.session['registered']:
         data_for_template["login_status"] = u"Zalogowano"
+        data_for_template['username'] = request.session['username']
 
     if request.POST.get('submit_login') == "submitting":
         check_user(request)
