@@ -1,15 +1,13 @@
-from pymk.task import BaseTask, AddTask
+from pymk.task import Task
 from pymk.dependency import FileChanged, AlwaysRebuild, FileDoesNotExists
-from pymk.extra import find_files, run_cmd, touch
-from pymk.template import mktemplate
+from pymk.extra import find_files, run_cmd, touch, mktemplate
 import os
 import logging
 
 logger = logging.getLogger('pymk')
 
 
-@AddTask
-class clear(BaseTask):
+class clear(Task):
 
     dependencys = [AlwaysRebuild()]
 
@@ -19,7 +17,7 @@ class clear(BaseTask):
             logger.debug('Deleted: %s' % (filename,))
 
 
-class bootstrap(BaseTask):
+class bootstrap(Task):
     output_file = 'bin/buildout'
 
     dependencys = []
@@ -31,7 +29,7 @@ class bootstrap(BaseTask):
         run_cmd(['python2 bootstrap.py'], True)
 
 
-class data_dir(BaseTask):
+class data_dir(Task):
     output_file = 'data'
 
     paths = [
@@ -62,8 +60,7 @@ class data_dir(BaseTask):
             create_dir_without_errors(path)
 
 
-@AddTask
-class buildout(BaseTask):
+class buildout(Task):
     output_file = 'bin/py'
 
     dependencys = [
@@ -79,8 +76,7 @@ class buildout(BaseTask):
         touch('./bin/py')
 
 
-@AddTask
-class frontendini(BaseTask):
+class frontendini(Task):
     output_file = 'data/frontend.ini'
 
     dependencys = [
@@ -102,8 +98,7 @@ class frontendini(BaseTask):
         mktemplate('frontend.ini.tpl', self.output_file, data)
 
 
-@AddTask
-class frontend(BaseTask):
+class frontend(Task):
     dependencys = [
         frontendini.dependency_FileExists(),
         AlwaysRebuild(),
@@ -113,8 +108,7 @@ class frontend(BaseTask):
         run_cmd('./bin/pserve --reload %s' % (frontendini.output_file), True)
 
 
-@AddTask
-class test(BaseTask):
+class test(Task):
     dependencys = [
         frontendini.dependency_FileExists(),
         AlwaysRebuild()
