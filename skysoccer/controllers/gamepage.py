@@ -12,7 +12,6 @@ def game_view(request):
 
     def set_teams(team, request):
         players = request.session['players']
-        # print players
         players_in_team = []
         for player in players:
             if team in player[0]:

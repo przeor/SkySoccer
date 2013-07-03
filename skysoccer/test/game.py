@@ -14,7 +14,8 @@ class GamePageControllerTest(ControllerTest):
 
         res = game_view(self.request)
 
-        self.assertTrue(Match.objects().get(win_team='d3 d3'))
+        self.assertTrue(Match.objects().get(
+            win_team='d3 d3', defeat_team='d1 d1'))
 
     def test_score_save(self):
         self.request.session['logged'] = 1
@@ -25,4 +26,5 @@ class GamePageControllerTest(ControllerTest):
 
         res = game_view(self.request)
 
-        self.assertTrue(Match.objects().get(win_team='d1 d1'))
+        self.assertTrue(Match.objects().get(
+            win_team='d1 d1', defeat_team='d3 d3'))
