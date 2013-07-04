@@ -6,6 +6,12 @@
   body {
             padding-top: 50px;
   }
+  #score_team1_player1, #score_team1_player2, #score_team2_player1, #score_team2_player2 {
+    color: green;
+  }
+  #own_team1_player1, #own_team1_player2, #own_team2_player1, #own_team2_player2 {
+    color: red;
+  }
 
 </style>
 <meta charset="utf-8">
@@ -48,12 +54,14 @@
               <button id="close-button" class="btn btn-small btn-success" onclick="addScoreTeam1Player1()" type="button">GOOL!</button>
               <button id="close-button" class="btn btn-mini btn-warning" onclick="oddScoreTeam1Player1()" type="button">-</button>
               <input class="input-mini" type="text" id="score_team1_player1" value="0" name="score_team1_player1"/>
+              <input class="input-mini" type="text" id="own_team1_player1" value="0" name="own_team1_player1"/>
             </p>
             <p>
               {{team1[1]}}
               <button id="close-button" class="btn btn-small btn-success" onclick="addScoreTeam1Player2()" type="button">GOOL!</button>
               <button id="close-button" class="btn btn-mini btn-warning" onclick="oddScoreTeam1Player2()" type="button">-</button>
               <input class="input-mini" type="text" id="score_team1_player2" value="0" name="score_team1_player2"/>
+              <input class="input-mini" type="text" id="own_team1_player2" value="0" name="own_team1_player2"/>
             </p>
           </td>
           <td>
@@ -62,12 +70,14 @@
               <button id="close-button" class="btn btn-small btn-success" onclick="addScoreTeam2Player1()" type="button">GOOL!</button>
               <button id="close-button" class="btn btn-mini btn-warning" onclick="oddScoreTeam2Player1()" type="button">-</button>
               <input class="input-mini" type="text" id="score_team2_player1" value="0" name="score_team2_player1"/>
+              <input class="input-mini" type="text" id="own_team2_player1" value="0" name="own_team2_player1"/>
             </p>
             <p>
               {{team2[1]}}
               <button id="close-button" class="btn btn-small btn-success" onclick="addScoreTeam2Player2()" type="button">GOOL!</button>
               <button id="close-button" class="btn btn-mini btn-warning" onclick="oddScoreTeam2Player2()" type="button">-</button>
               <input class="input-mini" type="text" id="score_team2_player2" value="0" name="score_team2_player2"/>
+              <input class="input-mini" type="text" id="own_team2_player2" value="0" name="own_team2_player2"/>
             </p>
           </td>
         </tr>
@@ -98,11 +108,15 @@
   <script>
     var team1Score = 0;
     var team1player1score = 0;
-    var team1player2score = 0
+    var team1player1own = 0;
+    var team1player2score = 0;
+    var team1player2own = 0;
 
     var team2Score = 0;
     var team2player1score = 0;
+    var team2player1own = 0;
     var team2player2score = 0
+    var team2player2own = 0;
 
     var bigTeam1Score = 0;
     var bigTeam2Score = 0;
@@ -110,58 +124,66 @@
     var limit = {{number_games}};
     
     function oddScoreTeam1Player1() {
-        if(team1player1score > 0) {
-          team1player1score--;
-          team2Score++;
-          if(team2Score == limit) {
-            team2Score = 0;
-            bigTeam2Score++;
-          }
-        }
-        document.getElementById('score_team1_player1').value = team1player1score;
-        document.getElementById('score_team2').value = team2Score;
-        document.getElementById('big_score_team2').value = bigTeam2Score;
+      team2Score++;
+      team1player1own++;
+      if(team2Score == limit) {
+        team2Score = 0;
+        team1Score = 0;
+        bigTeam2Score++;
+      }
+    
+      document.getElementById('score_team1_player1').value = team1player1score;
+      document.getElementById('own_team1_player1').value = team1player1own;
+      document.getElementById('score_team2').value = team2Score;
+      document.getElementById('score_team1').value = team1Score;
+      document.getElementById('big_score_team2').value = bigTeam2Score;
     }
 
     function oddScoreTeam1Player2() {
-        if(team1player2score > 0) {
-          team1player2score--;
           team2Score++;
+          team1player2own++;
           if(team2Score == limit) {
             team2Score = 0;
+            team1Score = 0;
             bigTeam2Score++;
           }
-        }
+
         document.getElementById('score_team1_player2').value = team1player2score;
+        document.getElementById('own_team1_player2').value = team1player2own;
         document.getElementById('score_team2').value = team2Score;
+        document.getElementById('score_team1').value = team1Score;
         document.getElementById('big_score_team2').value = bigTeam2Score;
     }
 
     function oddScoreTeam2Player1() {
-        if(team2player1score > 0) {
-          team2player1score--;
           team1Score++;
+          team2player1own++;
           if(team1Score == limit) {
             team1Score = 0;
+            team2Score = 0;
             bigTeam1Score++;
           }
-        }
+
         document.getElementById('score_team2_player1').value = team2player1score;
+        document.getElementById('own_team2_player1').value = team2player1own;
         document.getElementById('score_team1').value = team1Score;
+        document.getElementById('score_team2').value = team2Score;
         document.getElementById('big_score_team1').value = bigTeam1Score;
     }
 
     function oddScoreTeam2Player2() {
-        if(team2player2score > 0) {
-          team2player2score--;
           team1Score++;
+          team2player2own++;
           if(team1Score == limit) {
             team1Score = 0;
+            team2Score = 0;
             bigTeam1Score++;
           }
-        }
+
         document.getElementById('score_team2_player2').value = team2player2score;
+        document.getElementById('own_team2_player2').value = team2player2own;
         document.getElementById('score_team1').value = team1Score;
+        document.getElementById('score_team2').value = team2Score;
         document.getElementById('big_score_team1').value = bigTeam1Score;
     }
 
