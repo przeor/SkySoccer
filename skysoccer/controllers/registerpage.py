@@ -23,13 +23,12 @@ def register_view(request):
             data_for_template['status'] = u'Brakuje danych'
         else:
             try:
-                if User.objects().get(name=user['name'], surname=user['surname']) or User.objects().get(login=user['login'], password=user['password']):
-                    data_for_template['status'] = u'Użytkownik istnieje.'
-                    return False
+                data_for_template['status'] = u'Użytkownik istnieje.'
+                User.objects().get(login=user['login'], password=user['password'])
             except:
-                data_for_template['status'] = u'Użytkownik nieistnieje.'
                 save_user(user)
                 request.session['registered'] = 1
+                data_for_template['status'] = u'Użytkownik nieistnieje.'
                 return True
 
     def save_user(user):

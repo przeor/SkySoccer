@@ -134,5 +134,50 @@
         {% endif %}
       </tbody>
     </table>
+
+
+
+    <div id="newgame" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Wybór graczy:</h3>
+      </div>
+      <form class='form-search' method='POST'>
+      <div class="modal-body">
+        <table class='table'> 
+          <thead> 
+            <tr>
+              <th>Drużyna 1</th>
+              <th>Drużyna 2</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <p>Gracz1: <select id='select_player' name='d1g1'>
+                          {% for player in players %}<option>{{player}}</option>{% endfor %}
+                        </select> </p>
+                <p>Gracz2: <select id='select_player' name='d1g2'>
+                          {% for player in players %}<option>{{player}}</option>{% endfor %}
+                        </select></p>
+              </td>
+              <td>
+                <p>Gracz1: <select id='select_player' name='d2g1'>
+                          {% for player in players %}<option>{{player}}</option>{% endfor %}
+                        </select> </p>
+                <p>Gracz2: <select id='select_player' name='d2g2'>
+                          {% for player in players %}<option>{{player}}</option>{% endfor %}
+                        </select></p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        Mecz do ilu punktów?<input type='text' class='input-mini' name='number_games' pattern='[0-9]{1,2}' title='Maksymalnie dwucyfrowa liczba' value='15'/>
+        <button class='btn btn-small btn-primary' type='submit' name='submit_game' value='submitting'>Rozpocznij</button>
+      </div>
+      </form>
+    </div>
 {% endblock %}
 
