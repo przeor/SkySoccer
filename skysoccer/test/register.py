@@ -64,4 +64,4 @@ class RegisteringControllerTest(ControllerTest):
         res = register_view(self.request)
         res = register_view(self.request)
 
-        self.assertEqual(u'Użytkownik istnieje z tym loginem i hasłem.', res.data['status'])
+        self.assertEqual(u'Użytkownik istnieje z tym loginem.', res.data['status'])

@@ -30,7 +30,7 @@ def index_view(request):
     data_for_template["players"] = get_players()
     data_for_template["matches_count"] = get_number_matches()
     data_for_template["players_count"] = get_number_players()
-    
+
     if request.POST.get('submit_login') == "submitting":
         if singin_user(request):
             request = singin_user(request)

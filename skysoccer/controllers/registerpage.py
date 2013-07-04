@@ -25,8 +25,9 @@ def register_view(request):
             data_for_template['status'] = u'Brakuje danych'
         else:
             try:
-                data_for_template['status'] = u'Użytkownik istnieje z tym loginem i hasłem.'
-                User.objects().get(login=user['login'], password=user['password'])
+                data_for_template[
+                    'status'] = u'Użytkownik istnieje z tym loginem.'
+                User.objects().get(login=user['login'])
             except:
                 save_user(user)
                 request.session['registered'] = 1
@@ -36,12 +37,11 @@ def register_view(request):
                 data_for_template['name'] = user['name']
                 data_for_template['surname'] = user['surname']
 
-
     def save_user(user):
         User(name=user['name'], surname=user[
              'surname'], login=user['login'], password=user['password']).save()
         data_for_template['status'] = u'Użytkownik dodany.'
-        
+
     #-------------------------------------------------------------------------
     data_for_template = get_initial_data()
 
