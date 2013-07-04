@@ -99,7 +99,7 @@ class LoginControllerTest(ControllerTest):
         res = index_view(self.request)
         self.assertTrue('login_status' in res.data)
         self.assertEqual(
-            u"Nie wpisano użytkownika/hasła", res.data['login_status'])
+            u"Nie ma takiego użytkownika", res.data['login_status'])
 
     def test_bad_data_1(self):
         self.request.POST['submit_login'] = 'submitting'

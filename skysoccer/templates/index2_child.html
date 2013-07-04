@@ -8,16 +8,22 @@
 {% block statistic %}
     <h3>Statystyki</h3>
     <legend>Podstawowe</legend>
-    <center>
-      <div class="row-fluid">
-        <div class="span2">Liczba graczy:</div>
-        <div class="span2">{{players_count}}</div>
-        <div class="span2">Liczba meczy:</div>
-        <div class="span2">{{matches_count}}</div>
-        <div class="span2">Liczba drużyn:</div>
-        <div class="span2">10</div>
-      </div>
-    </center>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Liczba graczy</th>
+          <th>Liczba meczy</th>
+          <th>Liczba drużyn</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{players_count}}</td>
+          <td>{{matches_count}}</td>
+          <td>2</td>
+        </tr>
+      </tbody>
+    </table>
 
     <!-- ##################################################### -->
     <legend>Top 10</legend>

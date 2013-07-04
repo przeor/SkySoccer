@@ -1,6 +1,7 @@
 # encoding: utf8
 from pyramid.httpexceptions import HTTPFound
 from .base import JinjaResponse
+from .homepage import singin_user
 from skysoccer.models.user import User
 
 
@@ -28,6 +29,7 @@ def register_view(request):
             except:
                 data_for_template['status'] = u'Użytkownik nieistnieje.'
                 save_user(user)
+                request.session['registered'] = 1
                 return True
 
     def save_user(user):
@@ -35,15 +37,12 @@ def register_view(request):
              'surname'], login=user['login'], password=user['password']).save()
         data_for_template['status'] = u'Użytkownik dodany.'
         
-        
-
     #-------------------------------------------------------------------------
     data_for_template = get_initial_data()
 
     if request.POST.get('submit_register') == 'submitting':
         if validate_data(request):
-            request.session['logged'] = request.session['registered'] = 1
-            request.session['username'] = request.POST.get('name') +' '+ request.POST.get('surname') 
+            singin_user(request)
             return HTTPFound(location="/index2.html")
 
     return JinjaResponse(request, 'register.html', data_for_template)
