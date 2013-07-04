@@ -170,9 +170,11 @@
       team1player1score++;
       if (team1Score == limit) {
           team1Score = 0;
+          team2Score = 0;
           bigTeam1Score++;
         }
         document.getElementById('score_team1').value = team1Score;
+        document.getElementById('score_team2').value = team2Score;
         document.getElementById('big_score_team1').value = bigTeam1Score;
         document.getElementById('score_team1_player1').value = team1player1score;
     }
@@ -182,9 +184,11 @@
       team1player2score++;
       if (team1Score == limit) {
           team1Score = 0;
+          team2Score = 0;   
           bigTeam1Score++;
         }
         document.getElementById('score_team1').value = team1Score;
+        document.getElementById('score_team2').value = team2Score;
         document.getElementById('big_score_team1').value = bigTeam1Score;
         document.getElementById('score_team1_player2').value = team1player2score;
     }
@@ -194,9 +198,11 @@
       team2player1score++;
       if (team2Score == limit) {
           team2Score = 0;
+          team1Score = 0;
           bigTeam2Score++;
         }
         document.getElementById('score_team2').value = team2Score;
+        document.getElementById('score_team1').value = team1Score;
         document.getElementById('big_score_team2').value = bigTeam2Score;
         document.getElementById('score_team2_player1').value = team2player1score;
     }
@@ -206,9 +212,11 @@
       team2player2score++;
       if (team2Score == limit) {
           team2Score = 0;
+          team1Score = 0;
           bigTeam2Score++;
         }
         document.getElementById('score_team2').value = team2Score;
+        document.getElementById('score_team1').value = team1Score;
         document.getElementById('big_score_team2').value = bigTeam2Score;
         document.getElementById('score_team2_player2').value = team2player2score;
     }
