@@ -49,43 +49,6 @@
 {% endblock %}
 
 {% block statistics %}
-
-{% endblock %}
-
-{% block new_game %}
-  <h3> Wybór graczy:</h3>     \
-  <form class='form-search' method='POST'> \
-    <table class='table'> \
-      <thead> \
-        <tr>\
-          <th>Drużyna 1</th>\
-          <th>Drużyna 2</th>\
-        </tr>\
-      </thead>\
-      <tbody>\
-        <tr>\
-          <td>\
-            Gracz1: <select id='select_player' name='d1g1'>\
-                      {% for player in players %}<option>{{player}}</option>{% endfor %}\
-                    </select> \
-            Gracz2: <select id='select_player' name='d1g2'>\
-                      {% for player in players %}<option>{{player}}</option>{% endfor %}\
-                    </select>\
-          </td>\
-          <td>\
-            Gracz1: <select id='select_player' name='d2g1'>\
-                      {% for player in players %}<option>{{player}}</option>{% endfor %}\
-                    </select> \
-            Gracz2: <select id='select_player' name='d2g2'>\
-                      {% for player in players %}<option>{{player}}</option>{% endfor %}\
-                    </select>\
-          </td>\
-        </tr>\
-      </tbody>\
-    </table>\
-    <p>Mecz do ilu punktów?\
-    <input type='text' class='input-mini' name='number_games' pattern='[0-9]{1,2}' title='Maksymalnie dwucyfrowa liczba' value='15'/></p>\
-    <button class='btn btn-small btn-primary' type='submit' name='submit_game' value='submitting'>Rozpocznij</button></form>\
 {% endblock %}
 
 {% block footer %}
