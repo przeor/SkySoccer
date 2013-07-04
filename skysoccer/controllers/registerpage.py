@@ -10,6 +10,8 @@ def register_view(request):
         return {
             "title": u"Rejestracja",
             "status": "",
+            "name": "",
+            "surname": ""
         }
 
     def validate_data(request):
@@ -23,13 +25,17 @@ def register_view(request):
             data_for_template['status'] = u'Brakuje danych'
         else:
             try:
-                data_for_template['status'] = u'Użytkownik istnieje.'
+                data_for_template['status'] = u'Użytkownik istnieje z tym loginem i hasłem.'
                 User.objects().get(login=user['login'], password=user['password'])
             except:
                 save_user(user)
                 request.session['registered'] = 1
                 data_for_template['status'] = u'Użytkownik nieistnieje.'
                 return True
+            finally:
+                data_for_template['name'] = user['name']
+                data_for_template['surname'] = user['surname']
+
 
     def save_user(user):
         User(name=user['name'], surname=user[
