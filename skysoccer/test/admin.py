@@ -28,41 +28,6 @@ class AdminControllerTest(ControllerTest):
         self.assertEqual(1, matches)
 
 
-class RegisterControllerTest(ControllerTest):
-
-    def test_no_inputed_data(self):
-        self.request.session['logged'] = 1
-        self.request.POST['add_submit'] = 'submitting'
-        res = admin_view(self.request)
-        self.assertTrue('register_status' in res.data)
-        self.assertEqual(u"Brakuje danych", res.data['register_status'])
-
-    def test_bad_data_1(self):
-        self.request.session['logged'] = 1
-        self.request.POST['add_name'] = u'S1'
-        self.request.POST['add_submit'] = 'submitting'
-        res = admin_view(self.request)
-        self.assertTrue('register_status' in res.data)
-        self.assertEqual(u"Brakuje danych", res.data['register_status'])
-
-    def test_bad_data_2(self):
-        self.request.session['logged'] = 1
-        self.request.POST['add_surname'] = u'S1'
-        self.request.POST['add_submit'] = 'submitting'
-        res = admin_view(self.request)
-        self.assertTrue('register_status' in res.data)
-        self.assertEqual(u"Brakuje danych", res.data['register_status'])
-
-    def test_add_succesfull(self):
-        self.request.session['logged'] = 1
-        self.request.POST['add_name'] = u'S1'
-        self.request.POST['add_surname'] = u'D1'
-        self.request.POST['add_submit'] = 'submitting'
-        res = admin_view(self.request)
-        self.assertTrue('register_status' in res.data)
-        self.assertEqual(u"Uzytkownik dodany", res.data['register_status'])
-
-
 class DeleteControllerTest(ControllerTest):
 
     def setUp(self):
