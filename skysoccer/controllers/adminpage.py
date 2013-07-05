@@ -13,6 +13,10 @@ def admin_view(request):
             players.append(user.get_fullname())
         return players
 
+    def get_matches():
+        return Match.objects
+            
+
     def get_template():
         return request.registry['jinja2'].get_template('admin_base.html')
 
@@ -54,6 +58,7 @@ def admin_view(request):
     template = get_template()
     data_for_template = set_initial_data()
     data_for_template['players'] = get_players()
+    data_for_template['matches'] = get_matches()
     data_for_template['logged'] = request.session['logged']
     data_for_template["players_count"] = get_number_players()
     data_for_template["matches_count"] = get_number_matches()

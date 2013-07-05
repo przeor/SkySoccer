@@ -2,6 +2,21 @@
 <html>
 <head>
 <title>SkySoccer - {% block title %}{% endblock %}</title>
+<style>
+  #player_index, #match_index{
+    font-size: 16px;
+    font-weight: bold;
+  }
+  #player_name {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  #match_score {
+    font-size: 22px;
+    font-weight: bold; 
+  }
+
+</style>
 <link rel="stylesheet" href="{{surl("skysoccer:static/bootstrap.css")}}" type="text/css">
 <script src="{{surl("skysoccer:static/jquery.js")}}"></script>
 <script src="{{surl("skysoccer:static/bootstrap-tab.js")}}"></script>
@@ -13,8 +28,8 @@
 </script>
 <style>
     body {
-            padding-top: 60px;
-  }
+      padding-top: 60px;
+    }
 </style>
 <meta charset="utf-8">
 </head>

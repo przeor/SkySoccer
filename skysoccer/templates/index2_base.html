@@ -2,50 +2,54 @@
 
 {% block menu%}
 <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-      <div class="container-fluid">
-        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </a>
-        <a class="brand" href="index.html">SkySoccer</a>
-        <div class="nav-collapse collapse">
-          <ul class="nav">
-            <li class="inactive"><a href="#">Home</a></li>
-            <li><a href="#stats">Statystyki</a></li>
-            {% if logged%}
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <a class="btn-navbar" data-target=".nav-collapse">
+        <button id="newgame-collapse" class="btn btn-large btn-primary" type="submit_newgame" value="submitting" href="#newgame" data-toggle="modal">Nowa gra</button>
+      </a>
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+      </a>
+      <a class="brand" href="index.html">SkySoccer</a>
+      <div class="nav-collapse collapse">
+        <ul class="nav">
+          <li class="inactive"><a href="#">Home</a></li>
+          <li><a href="#stats">Statystyki</a></li>
+          {% if logged%}
+          <li>
+            <button id="newgame-button" class="btn btn-medium btn-primary" type="submit_newgame" value="submitting" href="#newgame" data-toggle="modal">Nowa gra</button>
+          </li>
+          <li class="inactive"><div class="login">Zalogowany jako {{username}}</div></li>
+          <li>
+            <form class="form-search" method="POST">
+              <button id="adminpanel-button" class="btn btn-small btn-success" type="submit" name="submit_admin" value="submitting">Panel Admin.</button>
+              <button class="btn btn-small btn-primary" type="submit" name="submit_logout" value="submitting">Wyloguj</button>
+            </form>
+          </li>
+          {% else %}
+          <li class="inactive"><div class="login">Logowanie :</div></li>
+          <li>
+            <form class="navbar-form" method="POST">
+              <input id="login-input" type="text" class="input" placeholder="login" name="login">
+              <input type="password" class="input" placeholder="hasło" name="password">
+              <button class="btn btn-small btn-primary" type="submit" name="submit_login" value="submitting">Zaloguj</button>
+            </form>
             <li>
-              <button id="newgame-button" class="btn btn-medium btn-primary" type="submit_newgame" value="submitting" href="#newgame" data-toggle="modal">Nowa gra</button>
+            <form class="form-search" method="POST">
+              <button id="register-button" class="btn btn-medium btn-warning" type="submit" name="submit_register" value="submitting">Rejestracja</button>
+            </form>
             </li>
-            <li class="inactive"><div class="login">Zalogowany jako {{username}}</div></li>
-            <li>
-              <form class="form-search" method="POST">
-                <button id="adminpanel-button" class="btn btn-small btn-success" type="submit" name="submit_admin" value="submitting">Panel Admin.</button>
-                <button class="btn btn-small btn-primary" type="submit" name="submit_logout" value="submitting">Wyloguj</button>
-              </form>
-            </li>
-            {% else %}
-            <li class="inactive"><div class="login">Logowanie :</div></li>
-            <li>
-              <form class="navbar-form" method="POST">
-                <input id="login-input" type="text" class="input" placeholder="login" name="login">
-                <input type="password" class="input" placeholder="hasło" name="password">
-                <button class="btn btn-small btn-primary" type="submit" name="submit_login" value="submitting">Zaloguj</button>
-                
-              </form>
-              <li>
-              <form class="form-search" method="POST">
-                <button id="register-button" class="btn btn-medium btn-warning" type="submit" name="submit_register" value="submitting">Rejestracja</button>
-              </form>
-              </li>
-            </li>
-            {% endif %}
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
+          </li>
+          {% endif %}
+        </ul>
+      </div><!--/.nav-collapse -->
     </div>
   </div>
+</div>
 {% endblock %}
 
 {% block statistics %}
