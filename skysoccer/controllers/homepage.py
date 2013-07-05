@@ -6,25 +6,6 @@ from skysoccer.models.match import Match
 
 
 def index_view(request):
-    def get_goals(players):
-        for player in players:
-            for match in Match.objects():
-                player = match.get_scores(player)
-        return players
-
-    def get_players():
-        players = []
-        player = {}
-        for user in User.objects():
-            player = {'scores': 0, 'own': 0}
-            player['name'] = name = user.get_fullname()
-            player['win_matches'] = Match.objects(__raw__= {'win_team.username': name}).count()
-            player['defeat_matches'] = Match.objects(__raw__= {'defeat_team.username': name}).count()
-            player['matches'] = Match.objects(__raw__= {'$or':[{'win_team.username':name},{'defeat_team.username':name}]}).count()
-            players.append(dict(player))
-        players = get_goals(players)
-        return players
-
     def get_initial_data():
         return {
             "title": u"Strona główna",
@@ -32,6 +13,28 @@ def index_view(request):
             "login_status": u"Niezalogowany.",
             "temp": ''
         }
+
+    def get_players():
+        def get_goals(players):
+            for player in players:
+                for match in Match.objects():
+                    player = match.get_scores(player)
+            return players
+
+        players = []
+        player = {}
+        for user in User.objects():
+            player = {'scores': 0, 'own': 0}
+            player['name'] = name = user.get_fullname()
+            player['win_matches'] = Match.objects(
+                __raw__={'win_team.username': name}).count()
+            player['defeat_matches'] = Match.objects(
+                __raw__={'defeat_team.username': name}).count()
+            player['matches'] = Match.objects(__raw__={'$or': [{
+                                              'win_team.username': name}, {'defeat_team.username': name}]}).count()
+            players.append(dict(player))
+        players = get_goals(players)
+        return players
 
     def get_number_players():
         return User.objects().count()

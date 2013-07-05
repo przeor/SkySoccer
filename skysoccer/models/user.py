@@ -16,18 +16,6 @@ class User(Document):
     def get_login(self):
         return "%s" % (self.login)
 
-    def get_match_count(self):
-        pass
-
-    def set_match_count(self):
-        pass
-
-    def get_match_win(self):
-        pass
-
-    def set_match_win(self):
-        pass
-
     @classmethod
     def is_user_valid(cls, login, password):
         try:
