@@ -99,7 +99,7 @@ class LoginControllerTest(ControllerTest):
         res = index_view(self.request)
         self.assertTrue('login_status' in res.data)
         self.assertEqual(
-            u"Nie wpisano użytkownika/hasła", res.data['login_status'])
+            u"Nie ma takiego użytkownika", res.data['login_status'])
 
     def test_bad_data_1(self):
         self.request.POST['submit_login'] = 'submitting'
@@ -158,7 +158,7 @@ class LogoutControllerTest(ControllerTest):
 
     def test_no_submit(self):
         res = index_view(self.request)
-        self.assertFalse('login_status' in res.data)
+        self.assertEqual(u"Niezalogowany.", res.data['login_status'])
 
     def test_not_login(self):
         res = index_view(self.request)
@@ -205,7 +205,17 @@ class GameControllerTest(ControllerTest):
 
         self.request.POST['submit_login'] = ''
         self.request.POST['submit_game'] = 'submitting'
+        self.request.session['number_games'] = 15
         res = index_view(self.request)
 
         self.assertEqual(HTTPFound, type(res))
         self.assertEqual(res.location, self.request.route_path('game'))
+
+
+class RegisterControllerTest(ControllerTest):
+
+    def test_redirect(self):
+        from pyramid.httpexceptions import HTTPFound
+        self.request.POST['submit_register'] = 'submitting'
+        res = index_view(self.request)
+        self.assertEqual(HTTPFound, type(res))

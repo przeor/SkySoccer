@@ -1,7 +1,7 @@
 {% extends "index2_child.html" %}
 
 {% block menu%}
-<div class="navbar navbar-inverse navbar-fixed-top ">
+<div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
       <div class="container-fluid">
         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -16,23 +16,29 @@
             <li><a href="#stats">Statystyki</a></li>
             {% if logged%}
             <li>
-              <button id="close-button" class="btn btn-medium btn-primary" type="submit_newgame" value="submitting">Nowa gra</button>
+              <button id="newgame-button" class="btn btn-medium btn-primary" type="submit_newgame" value="submitting" href="#newgame" data-toggle="modal">Nowa gra</button>
             </li>
             <li class="inactive"><div class="login">Zalogowany jako {{username}}</div></li>
             <li>
               <form class="form-search" method="POST">
-                <button class="btn btn-small btn-success" type="submit" name="submit_admin" value="submitting">Panel Admin.</button>
+                <button id="adminpanel-button" class="btn btn-small btn-success" type="submit" name="submit_admin" value="submitting">Panel Admin.</button>
                 <button class="btn btn-small btn-primary" type="submit" name="submit_logout" value="submitting">Wyloguj</button>
               </form>
             </li>
             {% else %}
             <li class="inactive"><div class="login">Logowanie :</div></li>
             <li>
-              <form class="form-search" method="POST">
-                <input type="text" class="input" placeholder="login" name="login">
-                <input type="text" class="input" placeholder="hasło" name="password">
+              <form class="navbar-form" method="POST">
+                <input id="login-input" type="text" class="input" placeholder="login" name="login">
+                <input type="password" class="input" placeholder="hasło" name="password">
                 <button class="btn btn-small btn-primary" type="submit" name="submit_login" value="submitting">Zaloguj</button>
+                
               </form>
+              <li>
+              <form class="form-search" method="POST">
+                <button id="register-button" class="btn btn-medium btn-warning" type="submit" name="submit_register" value="submitting">Rejestracja</button>
+              </form>
+              </li>
             </li>
             {% endif %}
           </ul>
@@ -43,41 +49,6 @@
 {% endblock %}
 
 {% block statistics %}
-
-{% endblock %}
-
-{% block new_game %}
-  <h3> Wybór graczy:</h3>     \
-  <form class='form-search' method='POST'> \
-    <table class='table'> \
-      <thead> \
-        <tr>\
-          <th>Drużyna 1</th>\
-          <th>Drużyna 2</th>\
-        </tr>\
-      </thead>\
-      <tbody>\
-        <tr>\
-          <td>\
-            Gracz1: <select class='span2' name='d1g1'>\
-                      {% for player in players %}<option>{{player}}</option>{% endfor %}\
-                    </select> \
-            Gracz2: <select class='span2' name='d1g2'>\
-                      {% for player in players %}<option>{{player}}</option>{% endfor %}\
-                    </select>\
-          </td>\
-          <td>\
-            Gracz1: <select class='span2' name='d2g1'>\
-                      {% for player in players %}<option>{{player}}</option>{% endfor %}\
-                    </select> \
-            Gracz2: <select class='span2' name='d2g2'>\
-                      {% for player in players %}<option>{{player}}</option>{% endfor %}\
-                    </select>\
-          </td>\
-        </tr>\
-      </tbody>\
-    </table>\
-    <button class='btn btn-small btn-primary' type='submit' name='submit_game' value='submitting'>Rozpocznij</button></form>\
 {% endblock %}
 
 {% block footer %}

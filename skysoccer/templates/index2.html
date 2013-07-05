@@ -4,7 +4,7 @@
 <title>SkySoccer - {% block title %}{% endblock %}</title>
 <style>
   body {
-            padding-top: 50px;
+    padding-top: 50px;
   }
   .form-game,
   .form-login {
@@ -19,13 +19,33 @@
     float: none;
     padding: 10px 15px 10px;
   }
+  .btn-warning {
+    margin-left: 5px;
+  }
+  #newgame-button {
+    margin-left: 14px;
+  }
+  #adminpanel-button {
+   margin-left: 14px; 
+  }
+  #login-input {
+   margin-left: 14px;  
+  }
+  #register-button {
+    margin-left: 14px; 
+  }
+  #select_player {
+    width: 140px;
+  }
 
 </style>
 <meta charset="utf-8">
 <link rel="stylesheet" href="{{surl("skysoccer:static/bootstrap.css")}}" type="text/css" />
+<link rel="stylesheet" href="{{surl("skysoccer:static/bootstrap-responsive.css")}}" type="text/css" />
 <link rel="stylesheet" href="{{surl("skysoccer:static/messi.min.css")}}" type="text/css" />
 <script src="{{surl("skysoccer:static/jquery.js")}}"></script>
 <script src="{{surl("skysoccer:static/messi.min.js")}}"></script>
+<script src="{{surl("skysoccer:static/bootstrap.js")}}"></script>
 
 </head>
 <body>
@@ -40,10 +60,5 @@
     {% block footer %}
     {% endblock %}
   </div> <!-- /container -->
-  <script>
-  $('#close-button').on('click', function() {
-          new Messi("\{% block new_game %}{% endblock %}", {title: 'Nowa gra', center: false, viewport: {top: '90px', left: '120px'}});
-        });
-  </script>
 </body>
 </html>

@@ -10,21 +10,21 @@ class GamePageControllerTest(ControllerTest):
     def test_match_save(self):
         self.request.session['logged'] = 1
         self.request.POST['submit_end_game'] = 'submitting'
+        self.request.session['number_games'] = '5'
         self.request.session['players'] = self.players
 
         res = game_view(self.request)
 
-        self.assertTrue(Match.objects().get(
-            win_team='d3 d3', defeat_team='d1 d1'))
+        self.assertTrue(Match.objects().get())
 
     def test_score_save(self):
         self.request.session['logged'] = 1
         self.request.POST['submit_end_game'] = 'submitting'
+        self.request.session['number_games'] = '5'
         self.request.session['players'] = self.players
         self.request.POST['big_score_team1'] = 2
         self.request.POST['big_score_team2'] = 1
 
         res = game_view(self.request)
 
-        self.assertTrue(Match.objects().get(
-            win_team='d1 d1', defeat_team='d3 d3'))
+        self.assertTrue(Match.objects().get())
