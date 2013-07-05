@@ -19,18 +19,14 @@ class Match(Document):
     def get_scores(self, player):
         team = list(self.defeat_team)
         team.extend(list(self.win_team))
-        if player['name'] in team[0].values():
-            player['scores'] += int(team[0]['points']['score'])
-            player['own'] += int(team[0]['points']['own'])
-        elif player['name'] in team[1].values():
-            player['scores'] += int(team[1]['points']['score'])
-            player['own'] += int(team[1]['points']['own'])
-        elif player['name'] in team[2].values():
-            player['scores'] += int(team[2]['points']['score'])
-            player['own'] += int(team[2]['points']['own'])
-        elif player['name'] in team[3].values():
-            player['scores'] += int(team[3]['points']['score'])
-            player['own'] += int(team[3]['points']['own'])
+
+        def update_scores(number):
+            player['scores'] += int(team[number]['points']['score'])
+            player['own'] += int(team[number]['points']['own'])
+
+        for i in range(0, 4):
+            if player['name'] in team[i].values():
+                update_scores(i)
+                break
 
         return player
-
