@@ -4,13 +4,18 @@
 <title>SkySoccer - {{title}}</title>
 <style>
   body {
-            padding-top: 50px;
+    padding-top: 50px;
   }
   #score_team1_player1, #score_team1_player2, #score_team2_player1, #score_team2_player2 {
     color: green;
   }
   #own_team1_player1, #own_team1_player2, #own_team2_player1, #own_team2_player2 {
     color: red;
+  }
+  #big_score_team1, #big_score_team2 {
+    font-size: 30px;
+    height: 35px;
+    width: 18px;
   }
 
 </style>
@@ -50,34 +55,36 @@
         <tr>
           <td>
             <p>
-              {{team1[0]}}
-              <button id="close-button" class="btn btn-small btn-success" onclick="addScoreTeam1Player1()" type="button">GOOL!</button>
-              <button id="close-button" class="btn btn-mini btn-warning" onclick="oddScoreTeam1Player1()" type="button">-</button>
+              <b>{{team1[0]}}</b>
+              <button id="close-button" class="btn btn-large btn-success" onclick="addScoreTeam1Player1()" type="button">GOOL!</button>
               <input class="input-mini" type="text" id="score_team1_player1" value="0" name="score_team1_player1"/>
               <input class="input-mini" type="text" id="own_team1_player1" value="0" name="own_team1_player1"/>
+              <button id="close-button" class="btn btn-mini btn-warning" onclick="oddScoreTeam1Player1()" type="button">-</button>
             </p>
+            <hr>
             <p>
-              {{team1[1]}}
-              <button id="close-button" class="btn btn-small btn-success" onclick="addScoreTeam1Player2()" type="button">GOOL!</button>
-              <button id="close-button" class="btn btn-mini btn-warning" onclick="oddScoreTeam1Player2()" type="button">-</button>
+              <b>{{team1[1]}}</b>
+              <button id="close-button" class="btn btn-large btn-success" onclick="addScoreTeam1Player2()" type="button">GOOL!</button>
               <input class="input-mini" type="text" id="score_team1_player2" value="0" name="score_team1_player2"/>
               <input class="input-mini" type="text" id="own_team1_player2" value="0" name="own_team1_player2"/>
+              <button id="close-button" class="btn btn-mini btn-warning" onclick="oddScoreTeam1Player2()" type="button">-</button>
             </p>
           </td>
           <td>
             <p>
-              {{team2[0]}}
-              <button id="close-button" class="btn btn-small btn-success" onclick="addScoreTeam2Player1()" type="button">GOOL!</button>
-              <button id="close-button" class="btn btn-mini btn-warning" onclick="oddScoreTeam2Player1()" type="button">-</button>
+              <b>{{team2[0]}}</b>
+              <button id="close-button" class="btn btn-large btn-success" onclick="addScoreTeam2Player1()" type="button">GOOL!</button>
               <input class="input-mini" type="text" id="score_team2_player1" value="0" name="score_team2_player1"/>
               <input class="input-mini" type="text" id="own_team2_player1" value="0" name="own_team2_player1"/>
+              <button id="close-button" class="btn btn-mini btn-warning" onclick="oddScoreTeam2Player1()" type="button">-</button>
             </p>
+            <hr>
             <p>
-              {{team2[1]}}
-              <button id="close-button" class="btn btn-small btn-success" onclick="addScoreTeam2Player2()" type="button">GOOL!</button>
-              <button id="close-button" class="btn btn-mini btn-warning" onclick="oddScoreTeam2Player2()" type="button">-</button>
+              <b>{{team2[1]}}</b>
+              <button id="close-button" class="btn btn-large btn-success" onclick="addScoreTeam2Player2()" type="button">GOOL!</button>
               <input class="input-mini" type="text" id="score_team2_player2" value="0" name="score_team2_player2"/>
               <input class="input-mini" type="text" id="own_team2_player2" value="0" name="own_team2_player2"/>
+              <button id="close-button" class="btn btn-mini btn-warning" onclick="oddScoreTeam2Player2()" type="button">-</button>
             </p>
           </td>
         </tr>
