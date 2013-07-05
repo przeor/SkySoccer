@@ -24,7 +24,8 @@ class IndexControllerTest(ControllerTest):
         self.assertTrue('players' in res.data)
         players = res.data['players']
         self.assertEqual(1, len(players))
-        self.assertEqual('s d', players[0])
+        self.assertEqual('s d', players[0]['name'])
+
 
         User(name='s2', surname='d2', login='s', password='d').save()
 
@@ -33,8 +34,8 @@ class IndexControllerTest(ControllerTest):
         self.assertTrue('players' in res.data)
         players = res.data['players']
         self.assertEqual(2, len(players))
-        self.assertEqual('s d', players[0])
-        self.assertEqual('s2 d2', players[1])
+        self.assertEqual('s d', players[0]['name'])
+        self.assertEqual('s2 d2', players[1]['name'])
 
     def test_count_matches(self):
         Match().save()
