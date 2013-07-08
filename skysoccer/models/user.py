@@ -16,10 +16,13 @@ class User(Document):
     def get_login(self):
         return "%s" % (self.login)
 
+    def get_password(self):
+        return "%s" % (self.password)
+
     @classmethod
     def is_user_valid(cls, login, password):
         try:
-            cls.objects().get(login=login, password=password)
+            cls.objects().get(login=login)
             return True
         except queryset.DoesNotExist:
             return False

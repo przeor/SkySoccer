@@ -3,6 +3,7 @@ from pyramid.httpexceptions import HTTPFound
 from .base import JinjaResponse
 from skysoccer.models.user import User
 from skysoccer.models.match import Match
+from passlib.apps import custom_app_context as pwd_context
 
 
 def index_view(request):
@@ -94,9 +95,11 @@ def singin_user(request):
         login = request.POST['login']
         password = request.POST['password']
         if User.is_user_valid(login, password):
-            user = User.objects().get(login=login, password=password)
-            request.session['logged'] = 1
-            request.session['username'] = user.get_fullname()
-            return request
+            user = User.objects().get(login=login)
+            if pwd_context.verify(password, user.get_password()):
+                request.session['logged'] = 1
+                request.session['username'] = user.get_fullname()
+                return request
+            return False
         else:
             return False
