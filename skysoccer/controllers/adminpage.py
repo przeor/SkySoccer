@@ -15,7 +15,6 @@ def admin_view(request):
 
     def get_matches():
         return Match.objects
-            
 
     def get_template():
         return request.registry['jinja2'].get_template('admin_base.html')
@@ -24,24 +23,6 @@ def admin_view(request):
         return {
             "title": "Panel administracyjny",
         }
-
-    def check_filled_inputs_register():
-        if request.POST.get('add_name') and request.POST.get('add_surname'):
-            return True
-        else:
-            data_for_template['register_status'] = "Brakuje danych"
-            return False
-
-    def insert_user_to_db():
-        user = {
-            'surname': request.POST.get('add_surname'),
-            'name': request.POST.get('add_name'),
-            'login': request.POST.get('add_login'),
-            'password': request.POST.get('password')
-        }
-        User(name=user['name'], surname=user['surname'], login=user[
-             'login'], password=user['password']).save()
-        data_for_template['register_status'] = "Uzytkownik dodany"
 
     def delete_user_from_db(username):
         username = username.split()
@@ -65,9 +46,6 @@ def admin_view(request):
 
     if 'username' in request.session:
         data_for_template['username'] = request.session['username']
-
-    if request.POST.get('add_submit') == 'submitting' and check_filled_inputs_register():
-        insert_user_to_db()
 
     if request.POST.get('submit_delete'):
         for key, value in request.POST.items():
