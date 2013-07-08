@@ -49,6 +49,7 @@
                 <tr>
                   <th>#</th>
                   <th>Gracz</th>
+                  <th>Login</th>
                   <th>Usuń</th>
                 </tr>
               </thead>
@@ -57,10 +58,11 @@
               <tbody>
                 <tr>
                   <td id="player_index">{{loop.index}}</td>
-                  <td id="player_name">{{player}}</td>
+                  <td id="player_name">{{player.name}}</td>
+                  <td>{{player.login}}</td>
                   <td>
                     <form class="form-search" method="POST">
-                      <button class="btn btn-default btn-danger" type="submit" name="submit_delete" value="{{player}}" onclick="return confirm('Jestes pewien?')">X</button>
+                      <button class="btn btn-default btn-danger" type="submit" name="submit_delete" value="{{player.login}}" onclick="return confirm('Jestes pewien?')">X</button>
                     </form>
                   </td>
                 </tr>
