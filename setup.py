@@ -10,6 +10,7 @@ install_requires = [
     'pyramid_beaker',
     'pyramid_jinja2',
     'mongoengine',
+    'passlib',
 ]
 
 dependency_links = [
