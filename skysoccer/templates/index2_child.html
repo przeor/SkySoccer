@@ -35,7 +35,7 @@
           <th>Wygrane</th>
           <th>Przegrane</th>
           <th>Mecze</th>
-          <th>Zdobyte punktu</th>
+          <th>Zdobyte gole</th>
           <th>Samobóje</th>
         </tr>
       </thead>
@@ -55,7 +55,32 @@
         {% endif %}
       </tbody>
     </table>
-
+    <!-- ##################################################### -->
+    <legend>Lista wszystkich meczy</legend>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Data i godzina</th>
+          <th>Wygrana drużyna</th>
+          <th>Wynik</th>
+          <th>Przegrana drużyna</th>
+        </tr>
+      </thead>
+      {% if players %}
+        {% for match in matches %}
+        <tbody>
+          <tr>
+            <td id="match_index">{{loop.index}}</td>
+            <td>{{ match.date|reverse }}</td>
+            <td id="player_name"><p>{{match.win_team[0].username}}</p> <p>{{match.win_team[1].username}}</p></td>
+            <td id="match_score">{{match.score[0]}} : {{match.score[1]}}</td>
+            <td id="player_name"><p>{{match.defeat_team[0].username}} <p>{{match.defeat_team[1].username}}</p></td>
+          </tr>
+        </tbody>
+        {% endfor %}
+      {% endif %}
+    </table>
 
 
     <div id="newgame" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

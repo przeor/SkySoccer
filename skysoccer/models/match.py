@@ -13,10 +13,13 @@ class Match(Document):
     def get_win_team(self):
         return list(self.win_team)
 
+    def get_defeat_team(self):
+        return list(self.defeat_team)
+
     def get_score(self):
         return self.score
 
-    def get_scores(self, player):
+    def get_players_scores(self, player):
         team = list(self.defeat_team)
         team.extend(list(self.win_team))
 
