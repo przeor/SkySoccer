@@ -1,8 +1,9 @@
 {% extends "index2.html" %}
 {% block title %}Strona główna{% endblock %}
 {% block plot %}
+{{temp}}
     <h2>System rozgrywek w piłkarzyki SkyGate</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lobortis tempor velit sit amet commodo. Phasellus fringilla, massa ac dictum laoreet, nunc magna eleifend arcu, quis aliquet nibh quam eget felis. Donec tincidunt viverra libero ut ultrices. Vivamus sit amet nisi augue, id ultricies nibh. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean gravida ullamcorper neque vel imperdiet. Vestibulum id eros sit amet dui dapibus vulputate. Mauris sed varius eros. Nunc vel ante a est ullamcorper pharetra non at velit. Morbi suscipit neque et ante bibendum non placerat arcu consequat. Quisque volutpat, massa eget dignissim porttitor, odio diam luctus urna, sed suscipit dolor lectus id erat. Cras eleifend, massa sed tempus luctus, turpis velit venenatis arcu, eget mattis sapien justo sed est. Suspendisse fermentum, quam id feugiat imperdiet, ipsum purus imperdiet ante, vitae sollicitudin lorem leo ac felis. Mauris euismod leo in nulla tincidunt nec molestie lectus adipiscing. Maecenas id dolor quam.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lobortis tempor velit sit amet commodo. Phasellus fringilla, massa ac dictum laoreet, nunc magna eleifend arcu, quis aliquet nibh quam eget felis. </p>
 {% endblock %}
 {% block statistic %}
     <h3>Statystyki</h3>
@@ -23,91 +24,7 @@
         </tr>
       </tbody>
     </table>
-
-    <!-- ##################################################### -->
-    <legend>Top 10</legend>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Gracz</th>
-          <th>Punkty zdobyte</th>
-          <th>Punkty stracone</th>
-          <th>Rozegrane mecze</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Dawid Fajkowski</td>
-          <td>2</td>
-          <td>1</td>
-          <td>3</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Dawid Fajkowski</td>
-          <td>2</td>
-          <td>1</td>
-          <td>3</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Dawid Fajkowski</td>
-          <td>2</td>
-          <td>1</td>
-          <td>3</td>
-        </tr>
-      </tbody>
-    </table>
-    <!-- ##################################################### -->
-    <legend>Ostatnie mecze</legend>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Drużyna 1</th>
-          <th>Drużyna 2</th>
-          <th>Punkty zdobyte</th>
-          <th>Punkty stracone</th>
-          <th>Mecze razem</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td><p>Dawid Fajkowski</p><p>Dawid Fajkowski</p></td>
-          <td><p>Dawid Fajkowski</p><p>Dawid Fajkowski</p></td>
-          <td>2</td>
-          <td>1</td>
-          <td>3</td>
-        </tr>
-      </tbody>
-    </table>
-    <!-- ##################################################### -->
-    <legend>Najlepsze drużyny</legend>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Gracz1</th>
-          <th>Gracz2</th>
-          <th>Punkty zdobyte</th>
-          <th>Punkty stracone</th>
-          <th>Mecze razem</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Dawid Fajkowski</td>
-          <td>Dawid Fajkowski</td>
-          <td>2</td>
-          <td>1</td>
-          <td>3</td>
-        </tr>
-      </tbody>
-    </table>
+    
     <!-- ##################################################### -->
     <legend>Lista wszystkich graczy</legend>
     <table class="table">
@@ -115,9 +32,11 @@
         <tr>
           <th>#</th>
           <th>Gracz</th>
-          <th>Punkty</th>
-          <th>Punkty stracone</th>
+          <th>Wygrane</th>
+          <th>Przegrane</th>
           <th>Mecze</th>
+          <th>Zdobyte gole</th>
+          <th>Samobóje</th>
         </tr>
       </thead>
       <tbody>
@@ -125,16 +44,43 @@
           {% for player in players %}
             <tr>
               <td>{{loop.index}}</td>
-              <td>{{player}}</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
+              <td>{{player.name}}</td>
+              <td>{{player.win_matches}}</td>
+              <td>{{player.defeat_matches}}</td>
+              <td>{{player.matches}}</td>
+              <td>{{player.scores}}</td>
+              <td>{{player.own}}</td>
             </tr>
           {% endfor %}
         {% endif %}
       </tbody>
     </table>
-
+    <!-- ##################################################### -->
+    <legend>Lista wszystkich meczy</legend>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Data i godzina</th>
+          <th>Wygrana drużyna</th>
+          <th>Wynik</th>
+          <th>Przegrana drużyna</th>
+        </tr>
+      </thead>
+      {% if players %}
+        {% for match in matches %}
+        <tbody>
+          <tr>
+            <td id="match_index">{{loop.index}}</td>
+            <td>{{ match.date}}</td>
+            <td id="player_name"><p>{{match.win_team[0].username}}</p> <p>{{match.win_team[1].username}}</p></td>
+            <td id="match_score">{{match.score[0]}} : {{match.score[1]}}</td>
+            <td id="player_name"><p>{{match.defeat_team[0].username}} <p>{{match.defeat_team[1].username}}</p></td>
+          </tr>
+        </tbody>
+        {% endfor %}
+      {% endif %}
+    </table>
 
 
     <div id="newgame" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -155,18 +101,18 @@
             <tr>
               <td>
                 <p>Gracz1: <select id='select_player' name='d1g1'>
-                          {% for player in players %}<option>{{player}}</option>{% endfor %}
+                          {% for player in players %}<option>{{player.name}}</option>{% endfor %}
                         </select> </p>
                 <p>Gracz2: <select id='select_player' name='d1g2'>
-                          {% for player in players %}<option>{{player}}</option>{% endfor %}
+                          {% for player in players %}<option>{{player.name}}</option>{% endfor %}
                         </select></p>
               </td>
               <td>
                 <p>Gracz1: <select id='select_player' name='d2g1'>
-                          {% for player in players %}<option>{{player}}</option>{% endfor %}
+                          {% for player in players %}<option>{{player.name}}</option>{% endfor %}
                         </select> </p>
                 <p>Gracz2: <select id='select_player' name='d2g2'>
-                          {% for player in players %}<option>{{player}}</option>{% endfor %}
+                          {% for player in players %}<option>{{player.name}}</option>{% endfor %}
                         </select></p>
               </td>
             </tr>

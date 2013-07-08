@@ -49,6 +49,7 @@
                 <tr>
                   <th>#</th>
                   <th>Gracz</th>
+                  <th>Login</th>
                   <th>Usuń</th>
                 </tr>
               </thead>
@@ -57,10 +58,11 @@
               <tbody>
                 <tr>
                   <td id="player_index">{{loop.index}}</td>
-                  <td id="player_name">{{player}}</td>
+                  <td id="player_name">{{player.name}}</td>
+                  <td>{{player.login}}</td>
                   <td>
                     <form class="form-search" method="POST">
-                      <button class="btn btn-default btn-danger" type="submit" name="submit_delete" value="{{player}}" onclick="return confirm('Jestes pewien?')">X</button>
+                      <button class="btn btn-default btn-danger" type="submit" name="submit_delete" value="{{player.login}}" onclick="return confirm('Jestes pewien?')">X</button>
                     </form>
                   </td>
                 </tr>
@@ -72,29 +74,29 @@
     </div>
     <div class="tab-pane" id="tab3">
       <table class="table">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Data i godzina</th>
-                  <th>Wygrana drużyna</th>
-                  <th>Wynik</th>
-                  <th>Przegrana drużyna</th>
-                </tr>
-              </thead>
-              {% if players %}
-                {% for match in matches %}
-                <tbody>
-                  <tr>
-                    <td id="match_index">{{loop.index}}</td>
-                    <td>{{match.date}}</td>
-                    <td id="player_name"><p>{{match.win_team[0][0]}}</p> <p>{{match.win_team[1][0]}}</p></td>
-                    <td id="match_score">{{match.score[0]}} : {{match.score[1]}}</td>
-                    <td id="player_name"><p>{{match.defeat_team[0][0]}} <p>{{match.defeat_team[1][0]}}</p></td>
-                  </tr>
-                </tbody>
-                {% endfor %}
-              {% endif %}
-            </table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Data i godzina</th>
+            <th>Wygrana drużyna</th>
+            <th>Wynik</th>
+            <th>Przegrana drużyna</th>
+          </tr>
+        </thead>
+        {% if players %}
+          {% for match in matches %}
+          <tbody>
+            <tr>
+              <td id="match_index">{{loop.index}}</td>
+              <td>{{match.date}}</td>
+              <td id="player_name"><p>{{match.win_team[0].username}}</p> <p>{{match.win_team[1].username}}</p></td>
+              <td id="match_score">{{match.score[0]}} : {{match.score[1]}}</td>
+              <td id="player_name"><p>{{match.defeat_team[0].username}} <p>{{match.defeat_team[1].username}}</p></td>
+            </tr>
+          </tbody>
+          {% endfor %}
+        {% endif %}
+      </table>
     </div>
     <div class="tab-pane" id="tab4">
       <p>Howdy, I'm in Section 4.</p>

@@ -19,19 +19,11 @@ def game_view(request):
         return players_in_team
 
     def submit_score(request):
-        team1 = [
-                [data_for_template['team1'][0], {'score': request.POST.get(
-                    'score_team1_player1'), 'own': request.POST.get('own_team1_player1')}],
-                [data_for_template['team1'][1], {'score': request.POST.get(
-                    'score_team1_player2'), 'own': request.POST.get('own_team1_player2')}]
-        ]
+        team1 = [{'username': data_for_template['team1'][0], 'points': {'score': request.POST.get('score_team1_player1'), 'own': request.POST.get('own_team1_player1')}}, {
+                 'username': data_for_template['team1'][1], 'points': {'score': request.POST.get('score_team1_player2'), 'own': request.POST.get('own_team1_player2')}}]
 
-        team2 = [
-                [data_for_template['team2'][0], {'score': request.POST.get(
-                    'score_team2_player1'), 'own': request.POST.get('own_team2_player1')}],
-                [data_for_template['team2'][1], {'score': request.POST.get(
-                    'score_team2_player2'), 'own': request.POST.get('own_team2_player2')}]
-        ]
+        team2 = [{'username': data_for_template['team2'][0], 'points': {'score': request.POST.get('score_team2_player1'), 'own': request.POST.get('own_team2_player1')}}, {
+                 'username': data_for_template['team2'][1], 'points': {'score': request.POST.get('score_team2_player2'), 'own': request.POST.get('own_team2_player2')}}]
 
         score = [request.POST.get(
             'big_score_team1'), request.POST.get('big_score_team2')]

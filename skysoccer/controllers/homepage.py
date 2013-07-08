@@ -6,18 +6,39 @@ from skysoccer.models.match import Match
 
 
 def index_view(request):
-    def get_players():
-        players = []
-        for user in User.objects():
-            players.append(user.get_fullname())
-        return players
-
     def get_initial_data():
         return {
             "title": u"Strona główna",
             "games_count": 100,
             "login_status": u"Niezalogowany.",
+            "temp": ''
         }
+
+    def get_matches():
+        return Match.objects
+
+    def get_players():
+        def get_goals(players):
+            for player in players:
+                for match in Match.objects():
+                    player = match.get_players_scores(player)
+            return players
+
+        players = []
+        player = {}
+        for user in User.objects():
+            player = {'scores': 0, 'own': 0}
+            player['name'] = name = user.get_fullname()
+            player['win_matches'] = Match.objects(
+                __raw__={'win_team.username': name}).count()
+            player['defeat_matches'] = Match.objects(
+                __raw__={'defeat_team.username': name}).count()
+            query = {'$or': [{'win_team.username': name}, {
+                'defeat_team.username': name}]}
+            player['matches'] = Match.objects(__raw__=query).count()
+            players.append(dict(player))
+        players = get_goals(players)
+        return players
 
     def get_number_players():
         return User.objects().count()
@@ -28,6 +49,7 @@ def index_view(request):
     #-------------------------------------------------------------------------
     data_for_template = get_initial_data()
     data_for_template["players"] = get_players()
+    data_for_template['matches'] = get_matches()
     data_for_template["matches_count"] = get_number_matches()
     data_for_template["players_count"] = get_number_players()
 

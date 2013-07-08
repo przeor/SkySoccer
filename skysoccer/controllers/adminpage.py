@@ -4,29 +4,24 @@ from skysoccer.models.match import Match
 
 
 def admin_view(request):
-    def get_database(database='test'):
-        return request.registry['mongodb'][database]
-
     def get_players():
         players = []
         for user in User.objects():
-            players.append(user.get_fullname())
+            player = {'name': user.get_fullname(),
+                      'login': user.get_login()}
+            players.append(player)
         return players
 
     def get_matches():
         return Match.objects
-
-    def get_template():
-        return request.registry['jinja2'].get_template('admin_base.html')
 
     def set_initial_data():
         return {
             "title": "Panel administracyjny",
         }
 
-    def delete_user_from_db(username):
-        username = username.split()
-        user = User.objects().get(name=username[0], surname=username[1])
+    def delete_user_from_db(userlogin):
+        user = User.objects().get(login=userlogin)
         user.delete()
 
     def get_number_players():
@@ -36,12 +31,10 @@ def admin_view(request):
         return Match.objects().count()
 
     #-------------------------------------------------------------------------
-    template = get_template()
     data_for_template = set_initial_data()
     data_for_template['players'] = get_players()
     data_for_template['matches'] = get_matches()
     data_for_template['logged'] = request.session['logged']
-    data_for_template["players_count"] = get_number_players()
     data_for_template["matches_count"] = get_number_matches()
 
     if 'username' in request.session:
@@ -49,8 +42,11 @@ def admin_view(request):
 
     if request.POST.get('submit_delete'):
         for key, value in request.POST.items():
-            if value in data_for_template['players']:
+            login = data_for_template['players'][0]['login']
+            if value in login:
                 delete_user_from_db(value)
+
     data_for_template['players'] = get_players()
+    data_for_template["players_count"] = get_number_players()
 
     return JinjaResponse(request, 'admin_base.html', data_for_template)
