@@ -3,16 +3,17 @@ from .base import AppTest, ControllerTest
 from skysoccer.controllers.registerpage import register_view
 from skysoccer.models import User
 from pyramid.httpexceptions import HTTPFound
+from passlib.apps import custom_app_context as pwd_context
 
 class RegisteringControllerTest(ControllerTest):
-    good_user = {'login': 'login', 'password':
-                 'password', 'name': 'name', 'surname': 'surname'}
+    good_user = {'login': 'name',  'password': pwd_context.encrypt('password'),
+                'name': 'name', 'surname': 'surname'}
 
     def test_register_succ(self):
         self.request.POST['name'] = self.good_user['name']
         self.request.POST['surname'] = self.good_user['surname']
         self.request.POST['login'] = self.good_user['login']
-        self.request.POST['password'] = self.good_user['password']
+        self.request.POST['password'] = 'password'
         self.request.POST['submit_register'] = 'submitting'
 
         res = register_view(self.request)
@@ -57,7 +58,7 @@ class RegisteringControllerTest(ControllerTest):
         self.request.POST['name'] = self.good_user['name']
         self.request.POST['surname'] = self.good_user['surname']
         self.request.POST['login'] = self.good_user['login']
-        self.request.POST['password'] = self.good_user['password']
+        self.request.POST['password'] = 'password'
         self.request.POST['submit_register'] = 'submitting'
 
         res = register_view(self.request)
@@ -70,7 +71,7 @@ class RegisteringControllerTest(ControllerTest):
         self.request.POST['name'] = self.good_user['name']
         self.request.POST['surname'] = self.good_user['surname']
         self.request.POST['login'] = self.good_user['login']
-        self.request.POST['password'] = self.good_user['password']
+        self.request.POST['password'] = 'password'
         self.request.POST['submit_register'] = 'submitting'
 
         res = register_view(self.request)

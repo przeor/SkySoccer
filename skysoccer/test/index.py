@@ -2,7 +2,7 @@
 from .base import AppTest, ControllerTest
 from skysoccer.controllers.homepage import index_view
 from skysoccer.models import User, Match
-
+from passlib.apps import custom_app_context as pwd_context
 
 class IndexAppTest(AppTest):
 
@@ -12,8 +12,8 @@ class IndexAppTest(AppTest):
 
 
 class IndexControllerTest(ControllerTest):
-    good_user = {'login': 'name', 'password':
-                 'surname', 'name': 'name', 'surname': 'surname'}
+    good_user = {'login': 'name',  'password': pwd_context.encrypt('password'),
+                'name': 'name', 'surname': 'surname'}
     bad_user = {'login': 'name bad', 'password': 'surname bad',
                 'name': 'name bad', 'surname': 'surname bad'}
 
@@ -47,7 +47,7 @@ class IndexControllerTest(ControllerTest):
         self.assertEqual(1, matches)
 
     def test_player_count(self):
-        User(name='s', surname='d', login='s', password='d').save()
+        User(**self.good_user).save()
 
         res = index_view(self.request)
         self.assertTrue('players_count' in res.data)
@@ -58,10 +58,10 @@ class IndexControllerTest(ControllerTest):
     def test_redirect_admim_succ(self):
         from pyramid.httpexceptions import HTTPFound
         User(**self.good_user).save()
-
+   
         self.request.POST['submit_login'] = 'submitting'
         self.request.POST['login'] = self.good_user['login']
-        self.request.POST['password'] = self.good_user['password']
+        self.request.POST['password'] = 'password'
         res = index_view(self.request)
 
         self.request.POST['submit_login'] = ''
@@ -86,8 +86,8 @@ class IndexControllerTest(ControllerTest):
 
 
 class LoginControllerTest(ControllerTest):
-    good_user = {'login': 'name', 'password':
-                 'surname', 'name': 'name', 'surname': 'surname'}
+    good_user = {'login': 'name',  'password': pwd_context.encrypt('password'),
+                'name': 'name', 'surname': 'surname'}
     bad_user = {'login': 'name bad', 'password': 'surname bad',
                 'name': 'name bad', 'surname': 'surname bad'}
 
@@ -115,7 +115,7 @@ class LoginControllerTest(ControllerTest):
     def test_bad_data_2(self):
         self.request.POST['submit_login'] = 'submitting'
         self.request.POST['login'] = self.bad_user['login']
-        self.request.POST['password'] = self.good_user['password']
+        self.request.POST['password'] = 'password'
 
         res = index_view(self.request)
         self.assertTrue('login_status' in res.data)
@@ -123,16 +123,6 @@ class LoginControllerTest(ControllerTest):
             u"Nie ma takiego użytkownika", res.data['login_status'])
 
     def test_bad_data_3(self):
-        self.request.POST['submit_login'] = 'submitting'
-        self.request.POST['login'] = self.good_user['login']
-        self.request.POST['password'] = self.bad_user['password']
-
-        res = index_view(self.request)
-        self.assertTrue('login_status' in res.data)
-        self.assertEqual(
-            u"Nie ma takiego użytkownika", res.data['login_status'])
-
-    def test_bad_data_4(self):
         self.request.POST['submit_login'] = 'submitting'
         self.request.POST['login'] = self.bad_user['login']
         self.request.POST['password'] = self.bad_user['password']
@@ -143,15 +133,15 @@ class LoginControllerTest(ControllerTest):
     def test_success(self):
         self.request.POST['submit_login'] = 'submitting'
         self.request.POST['login'] = self.good_user['login']
-        self.request.POST['password'] = self.good_user['password']
+        self.request.POST['password'] = 'password'
 
         res = index_view(self.request)
         self.assertEqual(1, res.data['logged'])
 
 
 class LogoutControllerTest(ControllerTest):
-    good_user = {'login': 'name', 'password':
-                 'surname', 'name': 'name', 'surname': 'surname'}
+    good_user = {'login': 'name',  'password': pwd_context.encrypt('password'),
+                'name': 'name', 'surname': 'surname'}
 
     def setUp(self):
         super(LogoutControllerTest, self).setUp()
@@ -168,7 +158,7 @@ class LogoutControllerTest(ControllerTest):
     def test_when_login(self):
         self.request.POST['submit_login'] = 'submitting'
         self.request.POST['login'] = self.good_user['login']
-        self.request.POST['password'] = self.good_user['password']
+        self.request.POST['password'] = 'password'
 
         res = index_view(self.request)
         self.assertTrue('submit_logout' in res.body)
@@ -176,7 +166,7 @@ class LogoutControllerTest(ControllerTest):
     def test_logout(self):
         self.request.POST['submit_login'] = 'submitting'
         self.request.POST['login'] = self.good_user['login']
-        self.request.POST['password'] = self.good_user['password']
+        self.request.POST['password'] = 'password'
 
         res = index_view(self.request)
         self.request.POST['submit_login'] = ''
@@ -190,8 +180,8 @@ class LogoutControllerTest(ControllerTest):
 
 
 class GameControllerTest(ControllerTest):
-    good_user = {'login': 'name', 'password':
-                 'surname', 'name': 'name', 'surname': 'surname'}
+    good_user = {'login': 'name',  'password': pwd_context.encrypt('password'),
+                'name': 'name', 'surname': 'surname'}
 
     def setUp(self):
         super(GameControllerTest, self).setUp()
@@ -201,7 +191,7 @@ class GameControllerTest(ControllerTest):
         from pyramid.httpexceptions import HTTPFound
         self.request.POST['submit_login'] = 'submitting'
         self.request.POST['login'] = self.good_user['login']
-        self.request.POST['password'] = self.good_user['password']
+        self.request.POST['password'] = 'password'
         res = index_view(self.request)
 
         self.request.POST['submit_login'] = ''

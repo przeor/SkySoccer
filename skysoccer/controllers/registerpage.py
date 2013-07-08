@@ -19,11 +19,12 @@ def register_view(request):
             'name': request.POST.get('name'),
             'surname': request.POST.get('surname'),
             'login': request.POST.get('login'),
-            'password': pwd_context.encrypt(request.POST.get('password')),
+            'password': request.POST.get('password'),
         }
         if user['name'] == '' or user['surname'] == '' or user['login'] == '' or user['password'] == '':
             data_for_template['status'] = u'Brakuje danych'
         else:
+            user['password'] = pwd_context.encrypt(request.POST.get('password'))
             try:
                 data_for_template[
                     'status'] = u'Użytkownik istnieje z tym loginem.'
