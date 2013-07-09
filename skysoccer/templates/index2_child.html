@@ -100,18 +100,18 @@
           <tbody>
             <tr>
               <td>
-                <p>Gracz1: <select id='select_player' name='d1g1'>
+                <p>Gracz1: <select id='select_player1' name='d1g1'>
                           {% for player in players %}<option>{{player.name}}</option>{% endfor %}
                         </select> </p>
-                <p>Gracz2: <select id='select_player' name='d1g2'>
+                <p>Gracz2: <select id='select_player2' name='d1g2'>
                           {% for player in players %}<option>{{player.name}}</option>{% endfor %}
                         </select></p>
               </td>
               <td>
-                <p>Gracz1: <select id='select_player' name='d2g1'>
+                <p>Gracz1: <select id='select_player3' name='d2g1'>
                           {% for player in players %}<option>{{player.name}}</option>{% endfor %}
                         </select> </p>
-                <p>Gracz2: <select id='select_player' name='d2g2'>
+                <p>Gracz2: <select id='select_player4' name='d2g2'>
                           {% for player in players %}<option>{{player.name}}</option>{% endfor %}
                         </select></p>
               </td>
@@ -121,7 +121,7 @@
       </div>
       <div class="modal-footer">
         Mecz do ilu punktów?<input type='text' class='input-mini' name='number_games' pattern='[0-9]{1,2}' title='Maksymalnie dwucyfrowa liczba' value='15'/>
-        <button class='btn btn-large btn-primary' type='submit' name='submit_game' value='submitting'>Rozpocznij</button>
+        <button class='btn btn-large btn-primary' type='submit' name='submit_game' value='submitting' onclick='return check()'>Rozpocznij</button>
       </div>
       </form>
     </div>

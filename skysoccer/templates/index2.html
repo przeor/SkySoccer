@@ -34,7 +34,7 @@
   #register-button {
     margin-left: 14px; 
   }
-  #select_player {
+  #select_player1, #select_player2, #select_player3, #select_player4 {
     width: 140px;
   }
   #newgame-collapse {
@@ -49,7 +49,31 @@
 <script src="{{surl("skysoccer:static/jquery.js")}}"></script>
 <script src="{{surl("skysoccer:static/messi.min.js")}}"></script>
 <script src="{{surl("skysoccer:static/bootstrap.js")}}"></script>
+<script type="text/javascript">
+function check(){
+  var sel1 = document.getElementById('select_player1');
+  var sel2 = document.getElementById('select_player2');
+  var sel3 = document.getElementById('select_player3');
+  var sel4 = document.getElementById('select_player4');
+  var val1 = sel1.options[sel1.selectedIndex].value;
+  var val2 = sel2.options[sel2.selectedIndex].value;
+  var val3 = sel3.options[sel3.selectedIndex].value;
+  var val4 = sel4.options[sel4.selectedIndex].value;
+  if((val1 == val2) || (val1 == val3) || (val1 == val4)){
+    alert('Gracze nie mogą się powatarzać!');
+    return false
+  }
+  else if((val2 == val3) || (val2 == val4)){
+    alert('Gracze nie mogą się powatarzać!');
+    return false
+  }
+  else if(val3 == val4){
+    alert('Gracze nie mogą się powatarzać!');
+    return false
+  }
+}
 
+</script>
 </head>
 <body>
   {% block menu %}
