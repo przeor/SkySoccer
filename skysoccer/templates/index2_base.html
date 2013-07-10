@@ -4,9 +4,11 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container-fluid">
+      {% if logged%}
       <a class="btn-navbar" data-target=".nav-collapse">
         <button id="newgame-collapse" class="btn btn-large btn-primary" type="submit_newgame" value="submitting" href="#newgame" data-toggle="modal">Nowa gra</button>
       </a>
+      {% endif %}
       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
