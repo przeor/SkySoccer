@@ -6,82 +6,109 @@
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lobortis tempor velit sit amet commodo. Phasellus fringilla, massa ac dictum laoreet, nunc magna eleifend arcu, quis aliquet nibh quam eget felis. </p>
 {% endblock %}
 {% block statistic %}
-    <h3>Statystyki</h3>
-    <legend>Podstawowe</legend>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Liczba graczy</th>
-          <th>Liczba meczy</th>
-          <th>Liczba drużyn</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{{players_count}}</td>
-          <td>{{matches_count}}</td>
-          <td>2</td>
-        </tr>
-      </tbody>
-    </table>
-    
-    <!-- ##################################################### -->
-    <legend>Lista wszystkich graczy</legend>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Gracz</th>
-          <th>Wygrane</th>
-          <th>Przegrane</th>
-          <th>Mecze</th>
-          <th>Zdobyte gole</th>
-          <th>Samobóje</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% if players %}
-          {% for player in players %}
-            <tr>
-              <td>{{loop.index}}</td>
-              <td>{{player.name}}</td>
-              <td>{{player.win_matches}}</td>
-              <td>{{player.defeat_matches}}</td>
-              <td>{{player.matches}}</td>
-              <td>{{player.scores}}</td>
-              <td>{{player.own}}</td>
-            </tr>
-          {% endfor %}
-        {% endif %}
-      </tbody>
-    </table>
-    <!-- ##################################################### -->
-    <legend>Lista wszystkich meczy</legend>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Data i godzina</th>
-          <th>Wygrana drużyna</th>
-          <th>Wynik</th>
-          <th>Przegrana drużyna</th>
-        </tr>
-      </thead>
-      {% if players %}
-        {% for match in matches %}
-        <tbody>
-          <tr>
-            <td id="match_index">{{loop.index}}</td>
-            <td>{{ match.date}}</td>
-            <td id="player_name"><p>{{match.win_team[0].username}}</p> <p>{{match.win_team[1].username}}</p></td>
-            <td id="match_score">{{match.score[0]}} : {{match.score[1]}}</td>
-            <td id="player_name"><p>{{match.defeat_team[0].username}} <p>{{match.defeat_team[1].username}}</p></td>
-          </tr>
-        </tbody>
-        {% endfor %}
-      {% endif %}
-    </table>
-
+    <div class="accordion" id="accordion1">
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne">
+            Statystyki
+          </a>
+        </div>
+        <div id="collapseOne" class="accordion-body collapse" style="height: 0px;">
+          <div class="accordion-inner">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Liczba graczy</th>
+                <th>Liczba meczy</th>
+                <th>Liczba drużyn</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{players_count}}</td>
+                <td>{{matches_count}}</td>
+                <td>2</td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseTwo">
+            Lista wszystkich graczy
+          </a>
+        </div>
+        <div id="collapseTwo" class="accordion-body in collapse" style="height: auto;">
+          <div class="accordion-inner">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Gracz</th>
+                  <th>Wygrane</th>
+                  <th>Przegrane</th>
+                  <th>Mecze</th>
+                  <th>Zdobyte gole</th>
+                  <th>Samobóje</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% if players %}
+                  {% for player in players %}
+                    <tr>
+                      <td>{{loop.index}}</td>
+                      <td>{{player.name}}</td>
+                      <td>{{player.win_matches}}</td>
+                      <td>{{player.defeat_matches}}</td>
+                      <td>{{player.matches}}</td>
+                      <td>{{player.scores}}</td>
+                      <td>{{player.own}}</td>
+                    </tr>
+                  {% endfor %}
+                {% endif %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseThree">
+            Lista wszystkich meczy
+          </a>
+        </div>
+        <div id="collapseThree" class="accordion-body collapse" style="height: 0px;">
+          <div class="accordion-inner">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Data i godzina</th>
+                  <th>Wygrana drużyna</th>
+                  <th>Wynik</th>
+                  <th>Przegrana drużyna</th>
+                </tr>
+              </thead>
+              {% if players %}
+                {% for match in matches %}
+                <tbody>
+                  <tr>
+                    <td id="match_index">{{loop.index}}</td>
+                    <td>{{ match.date}}</td>
+                    <td id="player_name"><p>{{match.win_team[0].username}}</p> <p>{{match.win_team[1].username}}</p></td>
+                    <td id="match_score">{{match.score[0]}} : {{match.score[1]}}</td>
+                    <td id="player_name"><p>{{match.defeat_team[0].username}} <p>{{match.defeat_team[1].username}}</p></td>
+                  </tr>
+                </tbody>
+                {% endfor %}
+              {% endif %}
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div id="newgame" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-header">
@@ -100,18 +127,18 @@
           <tbody>
             <tr>
               <td>
-                <p>Gracz1: <select id='select_player' name='d1g1'>
+                <p>Gracz1: <select id='select_player1' name='d1g1'>
                           {% for player in players %}<option>{{player.name}}</option>{% endfor %}
                         </select> </p>
-                <p>Gracz2: <select id='select_player' name='d1g2'>
+                <p>Gracz2: <select id='select_player2' name='d1g2'>
                           {% for player in players %}<option>{{player.name}}</option>{% endfor %}
                         </select></p>
               </td>
               <td>
-                <p>Gracz1: <select id='select_player' name='d2g1'>
+                <p>Gracz1: <select id='select_player3' name='d2g1'>
                           {% for player in players %}<option>{{player.name}}</option>{% endfor %}
                         </select> </p>
-                <p>Gracz2: <select id='select_player' name='d2g2'>
+                <p>Gracz2: <select id='select_player4' name='d2g2'>
                           {% for player in players %}<option>{{player.name}}</option>{% endfor %}
                         </select></p>
               </td>
@@ -121,7 +148,7 @@
       </div>
       <div class="modal-footer">
         Mecz do ilu punktów?<input type='text' class='input-mini' name='number_games' pattern='[0-9]{1,2}' title='Maksymalnie dwucyfrowa liczba' value='15'/>
-        <button class='btn btn-large btn-primary' type='submit' name='submit_game' value='submitting'>Rozpocznij</button>
+        <button class='btn btn-large btn-primary' type='submit' name='submit_game' value='submitting' onclick='return check()'>Rozpocznij</button>
       </div>
       </form>
     </div>

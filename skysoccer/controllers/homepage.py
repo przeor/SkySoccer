@@ -10,9 +10,7 @@ def index_view(request):
     def get_initial_data():
         return {
             "title": u"Strona główna",
-            "games_count": 100,
             "login_status": u"Niezalogowany.",
-            "temp": ''
         }
 
     def get_matches():
@@ -39,6 +37,7 @@ def index_view(request):
             player['matches'] = Match.objects(__raw__=query).count()
             players.append(dict(player))
         players = get_goals(players)
+        players = sorted(players, key=lambda k: k['scores'], reverse= True)
         return players
 
     def get_number_players():
