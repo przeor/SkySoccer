@@ -10,10 +10,10 @@
       <div class="accordion-group">
         <div class="accordion-heading">
           <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne">
-            Statystyki
+            <h3>Statystyki</h3>
           </a>
         </div>
-        <div id="collapseOne" class="accordion-body collapse" style="height: 0px;">
+        <div id="collapseOne" class="accordion-body in collapse" >
           <div class="accordion-inner">
           <table class="table">
             <thead>
@@ -37,10 +37,10 @@
       <div class="accordion-group">
         <div class="accordion-heading">
           <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseTwo">
-            Lista wszystkich graczy
+            <h3>Lista wszystkich graczy</h3>
           </a>
         </div>
-        <div id="collapseTwo" class="accordion-body in collapse" style="height: auto;">
+        <div id="collapseTwo" class="accordion-body collapse">
           <div class="accordion-inner">
             <table class="table">
               <thead>
@@ -76,10 +76,10 @@
       <div class="accordion-group">
         <div class="accordion-heading">
           <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseThree">
-            Lista wszystkich meczy
+            <h3>Lista wszystkich meczy</h3>
           </a>
         </div>
-        <div id="collapseThree" class="accordion-body collapse" style="height: 0px;">
+        <div id="collapseThree" class="accordion-body collapse" >
           <div class="accordion-inner">
             <table class="table">
               <thead>
@@ -147,7 +147,7 @@
         </table>
       </div>
       <div class="modal-footer">
-        Mecz do ilu punktów?<input type='text' class='input-mini' name='number_games' pattern='[0-9]{1,2}' title='Maksymalnie dwucyfrowa liczba' value='15'/>
+        Mecz do ilu punktów?<input type='text' id="game_numbers" class='input-mini' name='number_games' pattern='[0-9]{1,2}' title='Maksymalnie dwucyfrowa liczba' value='15'/>
         <button class='btn btn-large btn-primary' type='submit' name='submit_game' value='submitting' onclick='return check()'>Rozpocznij</button>
       </div>
       </form>
