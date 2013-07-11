@@ -1,0 +1,20 @@
+[unix_http_server]
+file={{supervisor_path}}/supervisor.sock   ; (the path to the socket file)
+chmod=0777                       ; sockef file mode (default 0700)
+
+[supervisord]
+logfile={{supervisor_path}}/supervisord.log ; (main log file;default $CWD/supervisord.log)
+pidfile={{supervisor_path}}/supervisord.pid ; (supervisord pidfile;default supervisord.pid)
+childlogdir={{supervisor_path}}            ; ('AUTO' child log dir, default $TEMP)
+
+[rpcinterface:supervisor]
+supervisor.rpcinterface_factory = supervisor.rpcinterface:make_main_rpcinterface
+
+[supervisorctl]
+serverurl=unix://{{supervisor_path}}/supervisor.sock ; use a unix:// URL  for a unix socket
+
+[program:skysoccer]
+command = pymk wsgi
+autostart = true
+autorestart = true
+directory = {{project_path}}

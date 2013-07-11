@@ -125,3 +125,6 @@ class wsgi(Task):
 
     def build(self):
         run_cmd('uwsgi --ini-paste %s' % (frontendini.output_file), True)
+
+# Import other modules with pymk tasks
+import pymkmodules.install

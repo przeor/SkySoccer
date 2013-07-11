@@ -61,7 +61,6 @@ format = %(asctime)s %(levelname)-5.5s [%(name)s][%(threadName)s] %(message)s
 
 # End logging configuration
 [uwsgi]
-#socket = {{remote_wsgi_socket}}
 http = 127.0.0.1:8181
 master = true
 
@@ -87,7 +86,7 @@ log-slow = true
 plugins = python
 module = {{project_name}}
 
-pythonpath = {{project}}/eggs/*.egg
-pythonpath = {{project}}/*
-pythonpath = {{project}}/skysoccer/*
+pythonpath = {{here}}/eggs/*.egg
+pythonpath = {{here}}/*
+pythonpath = {{here}}/skysoccer/*
 
