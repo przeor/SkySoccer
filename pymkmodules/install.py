@@ -55,10 +55,6 @@ class PartsSymlink(BaseSymlink):
     output_file = 'parts'
 
 
-class docbuildSymlink(BaseSymlink):
-    output_file = 'docbuild'
-
-
 class supervision(Task):
     help = u'Run supervisord'
 
@@ -116,7 +112,6 @@ class before_install(Task):
         DEggsSymlink.dependency_FileExists(),
         BinSymlink.dependency_FileExists(),
         PartsSymlink.dependency_FileExists(),
-        docbuildSymlink.dependency_FileExists(),
     ]
 
     def build(self):
