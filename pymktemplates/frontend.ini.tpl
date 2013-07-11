@@ -61,11 +61,11 @@ format = %(asctime)s %(levelname)-5.5s [%(name)s][%(threadName)s] %(message)s
 
 # End logging configuration
 [uwsgi]
-http = 127.0.0.1:8181
+socket = 127.0.0.1:8181
 master = true
 
-uid = uwsgiuser
-gid = uwsgiuser
+uid = uwsgi
+gid = uwsgi
 
 processes = 4
 
