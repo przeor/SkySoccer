@@ -10,7 +10,7 @@
     color: green;
     font-size: 30px;
     height: 35px;
-    width: 18px;
+    width: 34px;
 
   }
   #own_team1_player1, #own_team1_player2, #own_team2_player1, #own_team2_player2 {
@@ -38,6 +38,7 @@
 </style>
 <meta charset="utf-8">
 <link rel="stylesheet" href="{{surl("skysoccer:static/bootstrap.css")}}" type="text/css" />
+
 </head>
 <body>
   {% if logged %}
@@ -133,7 +134,16 @@
         <p>Brak dostępu!</p>
   </div>
   {% endif %}
+  <script src="{{surl("skysoccer:static/jquery.js")}}"></script>
   <script>
+    $(".btn").click( function () { 
+      $(".btn").attr('disabled', 'disabled'); 
+      setTimeout('enableBtn()', 1000);
+    });
+    function enableBtn(){
+       $('.btn').removeAttr('disabled');
+    }
+
     var team1Score = 0;
     var team1player1score = 0;
     var team1player1own = 0;
@@ -270,6 +280,8 @@
         document.getElementById('big_score_team2').value = bigTeam2Score;
         document.getElementById('score_team2_player2').value = team2player2score;
     }
+    
   </script>
+
 </body>
 </html>
