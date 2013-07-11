@@ -78,7 +78,7 @@
               <button id="close-button" class="btn btn-large btn-success" onclick="addScoreTeam1Player1()" type="button">GOOL!</button>
               <input class="input-mini" type="text" id="score_team1_player1" value="0" name="score_team1_player1"/>
               <input class="input-mini" type="text" id="own_team1_player1" value="0" name="own_team1_player1"/>
-              <button id="close-button" class="btn btn-medium btn-warning" onclick="oddScoreTeam1Player1()" type="button">-</button>
+              <button id="close-button" class="btn btn-large btn-warning" onclick="oddScoreTeam1Player1()" type="button">-</button>
             </p>
             </div>
             <hr>
@@ -87,7 +87,7 @@
               <button id="close-button" class="btn btn-large btn-success" onclick="addScoreTeam1Player2()" type="button">GOOL!</button>
               <input class="input-mini" type="text" id="score_team1_player2" value="0" name="score_team1_player2"/>
               <input class="input-mini" type="text" id="own_team1_player2" value="0" name="own_team1_player2"/>
-              <button id="close-button" class="btn btn-medium btn-warning" onclick="oddScoreTeam1Player2()" type="button">-</button>
+              <button id="close-button" class="btn btn-large btn-warning" onclick="oddScoreTeam1Player2()" type="button">-</button>
             </p>
           </td>
           <td>
@@ -97,7 +97,7 @@
               <button id="close-button" class="btn btn-large btn-success" onclick="addScoreTeam2Player1()" type="button">GOOL!</button>
               <input class="input-mini" type="text" id="score_team2_player1" value="0" name="score_team2_player1"/>
               <input class="input-mini" type="text" id="own_team2_player1" value="0" name="own_team2_player1"/>
-              <button id="close-button" class="btn btn-medium btn-warning" onclick="oddScoreTeam2Player1()" type="button">-</button>
+              <button id="close-button" class="btn btn-large btn-warning" onclick="oddScoreTeam2Player1()" type="button">-</button>
             </p>
             </div>
             <hr>
@@ -106,7 +106,7 @@
               <button id="close-button" class="btn btn-large btn-success" onclick="addScoreTeam2Player2()" type="button">GOOL!</button>
               <input class="input-mini" type="text" id="score_team2_player2" value="0" name="score_team2_player2"/>
               <input class="input-mini" type="text" id="own_team2_player2" value="0" name="own_team2_player2"/>
-              <button id="close-button" class="btn btn-medium btn-warning" onclick="oddScoreTeam2Player2()" type="button">-</button>
+              <button id="close-button" class="btn btn-large btn-warning" onclick="oddScoreTeam2Player2()" type="button">-</button>
             </p>
           </td>
         </tr>
@@ -123,7 +123,7 @@
       </h3>
     </center>
     
-      <center><button class="btn btn-large btn-inverse" type="submit" name="submit_end_game" value="submitting">Zakończ mecz!</button></center>
+      <center><button class="btn btn-medium btn-inverse" type="submit" name="submit_end_game" value="submitting">Zakończ mecz!</button></center>
     </form>
   </div> 
   
@@ -136,12 +136,12 @@
   {% endif %}
   <script src="{{surl("skysoccer:static/jquery.js")}}"></script>
   <script>
-    $(".btn-success").click( function () { 
-      $(".btn-success").attr('disabled', 'disabled'); 
+    $(".btn-large").click( function () { 
+      $(".btn-large").attr('disabled', 'disabled'); 
       setTimeout('enableBtn()', 1000);
     });
     function enableBtn(){
-       $('.btn-success').removeAttr('disabled');
+       $('.btn-large').removeAttr('disabled');
     }
 
     var team1Score = 0;
