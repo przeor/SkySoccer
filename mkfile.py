@@ -54,7 +54,7 @@ class data_dir(Task):
                 os.mkdir(path)
             except OSError:
                 pass
-        #-----------------------------------------------------------------------
+        #----------------------------------------------------------------------
         paths = self._generate_paths()
         for path in paths:
             create_dir_without_errors(path)
@@ -116,3 +116,12 @@ class test(Task):
 
     def build(self):
         run_cmd(['./bin/tests'], True)
+
+class wsgi(Task):
+    dependencys = [
+        frontendini.dependency_FileExists(),
+        AlwaysRebuild()
+    ]
+
+    def build(self):
+        run_cmd('uwsgi --ini-paste %s' % (frontendini.output_file), True)
