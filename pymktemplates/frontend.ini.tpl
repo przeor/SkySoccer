@@ -86,7 +86,6 @@ no-orphans = true
 log-slow = true
 plugins = python
 module = {{project_name}}
-#wsgi-file = {{wsgi}}
 
 pythonpath = {{project}}/eggs/*.egg
 pythonpath = {{project}}/*
