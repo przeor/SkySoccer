@@ -92,6 +92,30 @@ function check(){
   }
 }
 
+
+function random_players(){
+  rand_players = new Array();
+  var player_count = document.getElementById("select_player1").length;
+
+  for(var i=0;i<player_count;i++) {
+    rand_players[i] = i
+  }
+  rand_players.sort(function() { return 0.5 - Math.random();});
+
+  document.getElementById("select_player1").selectedIndex = rand_players[0];
+  document.getElementById("select_player2").selectedIndex = rand_players[1];
+  document.getElementById("select_player3").selectedIndex = rand_players[2];
+  document.getElementById("select_player4").selectedIndex = rand_players[3];
+  return false;
+}
+
+function rando(player_count) {
+  return Math.floor((Math.random()*player_count));
+}
+
+
+
+
 </script>
 </head>
 <body>
