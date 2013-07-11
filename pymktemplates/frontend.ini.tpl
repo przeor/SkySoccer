@@ -61,7 +61,8 @@ format = %(asctime)s %(levelname)-5.5s [%(name)s][%(threadName)s] %(message)s
 
 # End logging configuration
 [uwsgi]
-socket = {{remote_wsgi_socket}}
+#socket = {{remote_wsgi_socket}}
+http = 127.0.0.1:8181
 master = true
 
 uid = uwsgiuser
@@ -74,7 +75,7 @@ harakiri-verbose = true
 limit-post = 65536
 post-buffering = 8192
 
-listen = 256
+listen = 128
 
 max-requests = 1000
 
@@ -85,8 +86,8 @@ no-orphans = true
 log-slow = true
 plugins = python
 module = {{project_name}}
-wsgi-file = {{remote_unpacked_project}}/wsgi.py
 
 pythonpath = {{project}}/eggs/*.egg
 pythonpath = {{project}}/*
+pythonpath = {{project}}/skysoccer/*
 
