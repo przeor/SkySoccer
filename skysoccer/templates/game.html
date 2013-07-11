@@ -136,12 +136,12 @@
   {% endif %}
   <script src="{{surl("skysoccer:static/jquery.js")}}"></script>
   <script>
-    $(".btn").click( function () { 
-      $(".btn").attr('disabled', 'disabled'); 
+    $(".btn-success").click( function () { 
+      $(".btn-success").attr('disabled', 'disabled'); 
       setTimeout('enableBtn()', 1000);
     });
     function enableBtn(){
-       $('.btn').removeAttr('disabled');
+       $('.btn-success').removeAttr('disabled');
     }
 
     var team1Score = 0;
