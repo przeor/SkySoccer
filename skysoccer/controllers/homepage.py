@@ -85,7 +85,10 @@ def index_view(request):
 
     if request.session['logged'] or request.session['registered']:
         data_for_template['username'] = request.session['username']
-
+    if request.session['username'] == 'Dawid Fajkowski':
+        data_for_template['admin'] = 1
+    else:
+        data_for_template['admin'] = 0
     return JinjaResponse(request, 'index2_base.html', data_for_template)
 
 

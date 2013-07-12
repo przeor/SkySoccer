@@ -7,7 +7,7 @@ class AdminControllerTest(ControllerTest):
 
     def test_count_players(self):
         User(name='s', surname='d').save()
-        self.request.session['logged'] = 1
+        self.request.session['admin'] = 1
 
         res = admin_view(self.request)
 
@@ -17,7 +17,7 @@ class AdminControllerTest(ControllerTest):
 
     def test_match_players(self):
         Match().save()
-        self.request.session['logged'] = 1
+        self.request.session['admin'] = 1
 
         res = admin_view(self.request)
 
@@ -27,7 +27,7 @@ class AdminControllerTest(ControllerTest):
 
     def test_player_data(self):
         User(name='a', surname='a', login='a', password='a').save()
-        self.request.session['logged'] = 1
+        self.request.session['admin'] = 1
 
         res = admin_view(self.request)
 
@@ -44,7 +44,7 @@ class AdminControllerTest(ControllerTest):
         User(name='a', surname='a').save()
         User(name='b', surname='b').save()
 
-        self.request.session['logged'] = 1
+        self.request.session['admin'] = 1
         res = admin_view(self.request)
 
         self.assertTrue('matches_count' in res.data)
@@ -61,13 +61,13 @@ class DeleteControllerTest(ControllerTest):
     def test_if_no_players(self):
         user = User.objects().get(name='B1', surname='C1')
         user.delete()
-        self.request.session['logged'] = 1
+        self.request.session['admin'] = 1
         res = admin_view(self.request)
         self.assertTrue('players' in res.data)
         self.assertEqual([], res.data['players'])
 
     def test_delete_succesfull(self):
-        self.request.session['logged'] = 1
+        self.request.session['admin'] = 1
         res = admin_view(self.request)
         self.assertTrue(u'B1 C1' in res.data['players'][0]['name'])
 

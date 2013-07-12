@@ -34,7 +34,7 @@ def admin_view(request):
     data_for_template = set_initial_data()
     data_for_template['players'] = get_players()
     data_for_template['matches'] = get_matches()
-    data_for_template['logged'] = request.session['logged']
+    data_for_template['admin'] = request.session['admin']
     data_for_template["matches_count"] = get_number_matches()
 
     if 'username' in request.session:
