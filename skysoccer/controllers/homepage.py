@@ -85,10 +85,12 @@ def index_view(request):
 
     if request.session['logged'] or request.session['registered']:
         data_for_template['username'] = request.session['username']
-    if request.session['username'] == 'Dawid Fajkowski':
+
+    if request.session.get('admin', False) == 1:
         data_for_template['admin'] = 1
     else:
         data_for_template['admin'] = 0
+
     return JinjaResponse(request, 'index2_base.html', data_for_template)
 
 
@@ -101,6 +103,10 @@ def singin_user(request):
             if pwd_context.verify(password, user.get_password()):
                 request.session['logged'] = 1
                 request.session['username'] = user.get_fullname()
+                if request.session.get('username', False) == "admin admin":
+                    request.session['admin'] = 1
+                else:
+                    request.session['admin'] = 0
                 return request
             return False
         else:
