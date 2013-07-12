@@ -51,6 +51,7 @@
               <span class="icon-bar"></span>
           </a>
           <a class="brand" href="index.html">SkySoccer - {{title}}</a>
+          <button id="close-button" class="btn btn-medium btn-info" onclick="cancelLastAction()" type="button">COFNIJ</button>
       </div>
     </div>
   </div>
@@ -140,8 +141,39 @@
       $(".btn-large").attr('disabled', 'disabled'); 
       setTimeout('enableBtn()', 1000);
     });
+    var undo = true;
+    var functionNumber;
+
+    $(document).ready(function() {
+      disableUndo();
+    });
+
     function enableBtn(){
        $('.btn-large').removeAttr('disabled');
+    }
+
+    function cancelLastAction() {
+      undo = false;   
+      disableUndo();
+      if (functionNumber == 1) {oddScoreTeam1Player1(); disableUndo();}
+      else if (functionNumber == 2) {oddScoreTeam1Player2(); disableUndo();}
+      else if (functionNumber == 3) {oddScoreTeam2Player1(); disableUndo();}
+      else if (functionNumber == 4) {oddScoreTeam2Player2(); disableUndo();}
+      else if (functionNumber == 5) {addScoreTeam1Player1(); disableUndo();}
+      else if (functionNumber == 6) {addScoreTeam1Player2(); disableUndo();}
+      else if (functionNumber == 7) {addScoreTeam2Player1(); disableUndo();}
+      else if (functionNumber == 8) {addScoreTeam2Player2(); disableUndo();}
+      else {functionNumber = 0;}
+    }
+
+    function disableUndo() {
+      $(".btn-info").attr('disabled', 'disabled'); 
+    }
+
+    function enableUndo(nbr) {
+      $(".btn-info").removeAttr('disabled');
+      functionNumber = nbr;
+      undo = true;
     }
 
     var team1Score = 0;
@@ -162,125 +194,202 @@
     var limit = {{number_games}};
     
     function oddScoreTeam1Player1() {
-      team2Score++;
-      team1player1own++;
-      if(team2Score == limit) {
-        team2Score = 0;
-        team1Score = 0;
-        bigTeam2Score++;
+      if (undo) {
+        team2Score++;
+        team1player1own++;
+        if(team2Score == limit) {
+          team2Score = 0;
+          team1Score = 0;
+          bigTeam2Score++;
+        }
       }
-    
-      document.getElementById('score_team1_player1').value = team1player1score;
-      document.getElementById('own_team1_player1').value = team1player1own;
-      document.getElementById('score_team2').value = team2Score;
-      document.getElementById('score_team1').value = team1Score;
-      document.getElementById('big_score_team2').value = bigTeam2Score;
+      else {
+        team2Score--;
+        team1player1own--;
+        if(team2Score != 0) {
+          team2Score = limit -1; 
+          bigTeam2Score--;
+        }
+      }
+      enableUndo(1);
+      refreshScores();
     }
 
     function oddScoreTeam1Player2() {
-          team2Score++;
-          team1player2own++;
-          if(team2Score == limit) {
-            team2Score = 0;
-            team1Score = 0;
-            bigTeam2Score++;
-          }
-
-        document.getElementById('score_team1_player2').value = team1player2score;
-        document.getElementById('own_team1_player2').value = team1player2own;
-        document.getElementById('score_team2').value = team2Score;
-        document.getElementById('score_team1').value = team1Score;
-        document.getElementById('big_score_team2').value = bigTeam2Score;
+      if (undo) {
+        team2Score++;
+        team1player2own++;
+        if(team2Score == limit) {
+          team2Score = 0;
+          team1Score = 0;
+          bigTeam2Score++;
+        }
+      }
+      else {
+        team2Score--;
+        team1player2own--;
+        if(team2Score != 0) {
+          team2Score = limit -1;
+          bigTeam2Score--;
+        }
+      }
+      enableUndo(2);
+      refreshScores();
     }
 
     function oddScoreTeam2Player1() {
-          team1Score++;
-          team2player1own++;
-          if(team1Score == limit) {
-            team1Score = 0;
-            team2Score = 0;
-            bigTeam1Score++;
-          }
-
-        document.getElementById('score_team2_player1').value = team2player1score;
-        document.getElementById('own_team2_player1').value = team2player1own;
-        document.getElementById('score_team1').value = team1Score;
-        document.getElementById('score_team2').value = team2Score;
-        document.getElementById('big_score_team1').value = bigTeam1Score;
+      if (undo) {
+        team1Score++;
+        team2player1own++;
+        if(team1Score == limit) {
+          team1Score = 0;
+          team2Score = 0;
+          bigTeam1Score++;
+        }
+      }
+      else {
+        team1Score--;
+        team2player1own--;
+        if(team1Score != 0) {
+          team1Score = limit -1;
+          bigTeam1Score--;
+        }
+      }
+      enableUndo(3);
+      refreshScores();
     }
 
     function oddScoreTeam2Player2() {
-          team1Score++;
-          team2player2own++;
-          if(team1Score == limit) {
-            team1Score = 0;
-            team2Score = 0;
-            bigTeam1Score++;
-          }
-
-        document.getElementById('score_team2_player2').value = team2player2score;
-        document.getElementById('own_team2_player2').value = team2player2own;
-        document.getElementById('score_team1').value = team1Score;
-        document.getElementById('score_team2').value = team2Score;
-        document.getElementById('big_score_team1').value = bigTeam1Score;
+      if (undo) {
+        team1Score++;
+        team2player2own++;
+        if(team1Score == limit) {
+          team1Score = 0;
+          team2Score = 0;
+          bigTeam1Score++;
+        }
+      }
+      else {
+        team1Score--;
+        team2player2own--;
+        if(team1Score != 0) {
+          team1Score = limit -1;
+          bigTeam1Score--;
+        }
+      }
+      enableUndo(4);
+      refreshScores();
     }
 
     function addScoreTeam1Player1() {
-      team1Score++;
-      team1player1score++;
-      if (team1Score == limit) {
-          team1Score = 0;
-          team2Score = 0;
-          bigTeam1Score++;
+      if (undo) {
+        team1Score++;
+        team1player1score++;
+        if (team1Score == limit) {
+            team1Score = 0;
+            team2Score = 0;
+            bigTeam1Score++;
         }
-        document.getElementById('score_team1').value = team1Score;
-        document.getElementById('score_team2').value = team2Score;
-        document.getElementById('big_score_team1').value = bigTeam1Score;
-        document.getElementById('score_team1_player1').value = team1player1score;
+      }
+      else {
+        team1Score--;
+        team1player1score--;
+        if(team1Score != 0) {
+          team1Score = limit -1;
+          bigTeam1Score--;
+        }
+      }
+      enableUndo(5);
+      refreshScores();
     }
 
     function addScoreTeam1Player2() {
-      team1Score++;
-      team1player2score++;
-      if (team1Score == limit) {
-          team1Score = 0;
-          team2Score = 0;   
-          bigTeam1Score++;
+      if (undo) {
+        team1Score++;
+        team1player2score++;
+        if (team1Score == limit) {
+            team1Score = 0;
+            team2Score = 0;   
+            bigTeam1Score++;
         }
-        document.getElementById('score_team1').value = team1Score;
-        document.getElementById('score_team2').value = team2Score;
-        document.getElementById('big_score_team1').value = bigTeam1Score;
-        document.getElementById('score_team1_player2').value = team1player2score;
+        if(team1Score != 0) {
+          team1Score = limit -1;
+          bigTeam1Score--;
+        }
+      }
+      else {
+        team1Score--;
+        team1player2score--;
+        if(team1Score != 0) {
+          team1Score = limit -1;
+          bigTeam1Score--;
+        }
+      }
+      enableUndo(6);
+      refreshScores();
     }
 
     function addScoreTeam2Player1() {
-      team2Score++;
-      team2player1score++;
-      if (team2Score == limit) {
-          team2Score = 0;
-          team1Score = 0;
-          bigTeam2Score++;
+      if (undo) {
+        team2Score++;
+        team2player1score++;
+        if (team2Score == limit) {
+            team2Score = 0;
+            team1Score = 0;
+            bigTeam2Score++;
         }
-        document.getElementById('score_team2').value = team2Score;
-        document.getElementById('score_team1').value = team1Score;
-        document.getElementById('big_score_team2').value = bigTeam2Score;
-        document.getElementById('score_team2_player1').value = team2player1score;
+      }
+      else {
+        team2Score--;
+        team2player1score--;
+        if(team2Score != 0) {
+          team2Score = limit -1;
+          bigTeam2Score--;
+        }
+      }
+      enableUndo(7);
+      refreshScores();
     }
 
     function addScoreTeam2Player2() {
-      team2Score++;
-      team2player2score++;
-      if (team2Score == limit) {
-          team2Score = 0;
-          team1Score = 0;
-          bigTeam2Score++;
+      if (undo) {
+        team2Score++;
+        team2player2score++;
+        if (team2Score == limit) {
+            team2Score = 0;
+            team1Score = 0;
+            bigTeam2Score++;
         }
-        document.getElementById('score_team2').value = team2Score;
-        document.getElementById('score_team1').value = team1Score;
-        document.getElementById('big_score_team2').value = bigTeam2Score;
-        document.getElementById('score_team2_player2').value = team2player2score;
+      }        
+      else {
+        team2Score--;
+        team2player2score--;
+        if(team2Score != 0) {
+          team2Score = limit -1;
+          bigTeam2Score--;
+        }
+      }
+      enableUndo(8);
+      refreshScores();
     }
     
+    function refreshScores() {
+      document.getElementById('score_team1_player1').value = team1player1score;
+      document.getElementById('own_team1_player1').value = team1player1own;
+      document.getElementById('score_team1_player2').value = team1player2score;
+      document.getElementById('own_team1_player2').value = team1player2own;
+
+      document.getElementById('score_team2_player1').value = team2player1score;
+      document.getElementById('own_team2_player1').value = team2player1own;
+      document.getElementById('score_team2_player2').value = team2player2score;
+      document.getElementById('own_team2_player2').value = team2player2own;
+
+      document.getElementById('score_team1').value = team1Score;
+      document.getElementById('score_team2').value = team2Score;
+      document.getElementById('big_score_team1').value = bigTeam1Score;
+      document.getElementById('big_score_team2').value = bigTeam2Score;
+    }
+
   </script>
 
 </body>
