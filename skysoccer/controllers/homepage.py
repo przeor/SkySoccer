@@ -103,7 +103,7 @@ def singin_user(request):
             if pwd_context.verify(password, user.get_password()):
                 request.session['logged'] = 1
                 request.session['username'] = user.get_fullname()
-                if request.session.get('username', False) == "admin admin":
+                if user.get_status():
                     request.session['admin'] = 1
                 else:
                     request.session['admin'] = 0
