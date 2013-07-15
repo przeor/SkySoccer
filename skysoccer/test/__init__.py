@@ -2,7 +2,7 @@ import unittest
 import logging
 
 from .index import IndexAppTest, IndexControllerTest, LoginControllerTest, LogoutControllerTest, GameControllerTest, RegisterControllerTest
-from .admin import AdminControllerTest, DeleteControllerTest
+from .admin import AdminControllerTest, DeleteControllerTest, AccesRightsTest
 from .game import GamePageControllerTest
 from .register import RegisteringControllerTest
 
@@ -16,7 +16,8 @@ all_test_cases = [
     DeleteControllerTest,
     GameControllerTest,
     GamePageControllerTest,
-    RegisteringControllerTest
+    RegisteringControllerTest,
+    AccesRightsTest
 ]
 
 

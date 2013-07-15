@@ -153,6 +153,7 @@
     }
 
     function cancelLastAction() {
+      
       undo = false;   
       disableUndo();
       if (functionNumber == 1) {oddScoreTeam1Player1(); disableUndo();}
@@ -192,24 +193,28 @@
     var bigTeam2Score = 0;
 
     var limit = {{number_games}};
+
+    var tmpScore1 = 0;
+    var tmpScore2 = 0;
     
     function oddScoreTeam1Player1() {
       if (undo) {
         team2Score++;
         team1player1own++;
         if(team2Score == limit) {
+          getScores();
           team2Score = 0;
           team1Score = 0;
           bigTeam2Score++;
         }
       }
       else {
-        team2Score--;
+        if (team2Score == 0 && bigTeam2Score > 0) {team2Score = limit -1;bigTeam2Score--;}
+        else if (team2Score > 0) {team2Score--;}
+        else if (bigTeam2Score > 0) {bigTeam2Score--;}
         team1player1own--;
-        if(team2Score != 0) {
-          team2Score = limit -1; 
-          bigTeam2Score--;
-        }
+        team1Score = tmpScore1;
+        
       }
       enableUndo(1);
       refreshScores();
@@ -220,18 +225,18 @@
         team2Score++;
         team1player2own++;
         if(team2Score == limit) {
+          getScores();
           team2Score = 0;
           team1Score = 0;
           bigTeam2Score++;
         }
       }
       else {
-        team2Score--;
+        if (team2Score == 0 && bigTeam2Score > 0) {team2Score = limit -1; bigTeam2Score--;}
+        else if (team2Score > 0) {team2Score--;}
+        else if (bigTeam2Score > 0) {bigTeam2Score--;}
         team1player2own--;
-        if(team2Score != 0) {
-          team2Score = limit -1;
-          bigTeam2Score--;
-        }
+        team1Score = tmpScore1;
       }
       enableUndo(2);
       refreshScores();
@@ -242,18 +247,18 @@
         team1Score++;
         team2player1own++;
         if(team1Score == limit) {
+          getScores();
           team1Score = 0;
           team2Score = 0;
           bigTeam1Score++;
         }
       }
       else {
-        team1Score--;
+        if (team1Score == 0 && bigTeam1Score > 0) {team1Score = limit -1; bigTeam1Score--;}
+        else if (team1Score > 0) {team1Score--;}
+        else if (bigTeam1Score > 0) {bigTeam1Score--;}
         team2player1own--;
-        if(team1Score != 0) {
-          team1Score = limit -1;
-          bigTeam1Score--;
-        }
+        team2Score = tmpScore2;
       }
       enableUndo(3);
       refreshScores();
@@ -264,18 +269,18 @@
         team1Score++;
         team2player2own++;
         if(team1Score == limit) {
+          getScores();
           team1Score = 0;
           team2Score = 0;
           bigTeam1Score++;
         }
       }
       else {
-        team1Score--;
+        if (team1Score == 0 && bigTeam1Score > 0) {team1Score = limit -1; bigTeam1Score--;}
+        else if (team1Score > 0) {team1Score--;}
+        else if (bigTeam1Score > 0) {bigTeam1Score--;}
         team2player2own--;
-        if(team1Score != 0) {
-          team1Score = limit -1;
-          bigTeam1Score--;
-        }
+        team2Score = tmpScore2;
       }
       enableUndo(4);
       refreshScores();
@@ -286,18 +291,18 @@
         team1Score++;
         team1player1score++;
         if (team1Score == limit) {
+            getScores();
             team1Score = 0;
             team2Score = 0;
             bigTeam1Score++;
         }
       }
       else {
-        team1Score--;
+        if (team1Score == 0 && bigTeam1Score > 0) {team1Score = limit -1;bigTeam1Score--;}
+        else if (team1Score > 0) {team1Score--;}
+        else if (bigTeam1Score > 0) {bigTeam1Score--;}
         team1player1score--;
-        if(team1Score != 0) {
-          team1Score = limit -1;
-          bigTeam1Score--;
-        }
+        team2Score = tmpScore2;
       }
       enableUndo(5);
       refreshScores();
@@ -308,22 +313,18 @@
         team1Score++;
         team1player2score++;
         if (team1Score == limit) {
+            getScores();
             team1Score = 0;
             team2Score = 0;   
             bigTeam1Score++;
         }
-        if(team1Score != 0) {
-          team1Score = limit -1;
-          bigTeam1Score--;
-        }
       }
       else {
-        team1Score--;
+        if (team1Score == 0 && bigTeam1Score > 0) {team1Score = limit -1;bigTeam1Score--;}
+        else if (team1Score > 0) {team1Score--;}
+        else if (bigTeam1Score > 0) {bigTeam1Score--;}
         team1player2score--;
-        if(team1Score != 0) {
-          team1Score = limit -1;
-          bigTeam1Score--;
-        }
+        team2Score = tmpScore2;
       }
       enableUndo(6);
       refreshScores();
@@ -334,18 +335,18 @@
         team2Score++;
         team2player1score++;
         if (team2Score == limit) {
+            getScores();
             team2Score = 0;
             team1Score = 0;
             bigTeam2Score++;
         }
       }
       else {
-        team2Score--;
+        if (team2Score == 0 && bigTeam2Score > 0) {team2Score = limit -1;bigTeam2Score--;}
+        else if (team2Score > 0) {team2Score--;}
+        else if (bigTeam2Score > 0) {bigTeam2Score--;}
         team2player1score--;
-        if(team2Score != 0) {
-          team2Score = limit -1;
-          bigTeam2Score--;
-        }
+        team1Score = tmpScore1;
       }
       enableUndo(7);
       refreshScores();
@@ -356,18 +357,18 @@
         team2Score++;
         team2player2score++;
         if (team2Score == limit) {
+            getScores();
             team2Score = 0;
             team1Score = 0;
             bigTeam2Score++;
         }
       }        
       else {
-        team2Score--;
+        if (team2Score == 0 && bigTeam2Score > 0) {team2Score = limit -1;bigTeam2Score--;}
+        else if (team2Score > 0) {team2Score--;}
+        else if (bigTeam2Score > 0) {bigTeam2Score--;}
         team2player2score--;
-        if(team2Score != 0) {
-          team2Score = limit -1;
-          bigTeam2Score--;
-        }
+        team1Score = tmpScore1;
       }
       enableUndo(8);
       refreshScores();
@@ -388,6 +389,11 @@
       document.getElementById('score_team2').value = team2Score;
       document.getElementById('big_score_team1').value = bigTeam1Score;
       document.getElementById('big_score_team2').value = bigTeam2Score;
+    }
+
+    function getScores() {
+      tmpScore1 = document.getElementById('score_team1').value;
+      tmpScore2 = document.getElementById('score_team2').value;
     }
 
   </script>

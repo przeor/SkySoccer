@@ -48,6 +48,7 @@
                   <th>Gracz</th>
                   <th>Login</th>
                   <th>Usuń</th>
+                  <th>Admin</th>
                 </tr>
               </thead>
         {% if players %}
@@ -61,6 +62,17 @@
                     <form class="form-search" method="POST">
                       <button class="btn btn-default btn-danger" type="submit" name="submit_delete" value="{{player.login}}" onclick="return confirm('Jestes pewien?')">X</button>
                     </form>
+                  </td>
+                  <td>
+                    {% if player.admin %}
+                    <form class="form-search" method="POST">
+                      <button class="btn btn-default btn-danger" type="submit" name="submit_admin_remove" value="{{player.login}}" {% if player.name == username %} onclick="alert('Niemozliwe jest odebranie sobie praw'); return false;" {% else %} onclick="return confirm('Jestes pewien?')" {% endif %}>odbierz</button>
+                    </form>
+                    {% else %}
+                    <form class="form-search" method="POST">
+                      <button class="btn btn-default btn-succes" type="submit" name="submit_admin_add" value="{{player.login}}" onclick="return confirm('Jestes pewien?')">dodaj</button>
+                    </form>
+                    {% endif %}
                   </td>
                 </tr>
               </tbody>

@@ -8,7 +8,8 @@ def admin_view(request):
         players = []
         for user in User.objects():
             player = {'name': user.get_fullname(),
-                      'login': user.get_login()}
+                      'login': user.get_login(),
+                      'admin': user.get_status()}
             players.append(player)
         return players
 
@@ -24,6 +25,9 @@ def admin_view(request):
         user = User.objects().get(login=userlogin)
         user.delete()
 
+    def set_admin(userlogin, status):
+        User.objects().get(login=userlogin).update(__raw__={ '$set': {'superuser': status}})
+
     def get_number_players():
         return User.objects().count()
 
@@ -33,18 +37,19 @@ def admin_view(request):
     #-------------------------------------------------------------------------
     data_for_template = set_initial_data()
     data_for_template['players'] = get_players()
+    data_for_template['username'] = request.session.get('username')
     data_for_template['matches'] = get_matches()
-    data_for_template['logged'] = request.session['logged']
+    data_for_template['admin'] = request.session['admin']
     data_for_template["matches_count"] = get_number_matches()
 
-    if 'username' in request.session:
-        data_for_template['username'] = request.session['username']
-
     if request.POST.get('submit_delete'):
-        for key, value in request.POST.items():
-            login = data_for_template['players'][0]['login']
-            if value in login:
-                delete_user_from_db(value)
+        delete_user_from_db(request.POST.items()[0][1])
+
+    elif request.POST.get('submit_admin_add'):
+        set_admin(request.POST.items()[0][1], True)
+
+    elif request.POST.get('submit_admin_remove'):
+        set_admin(request.POST.items()[0][1], False)
 
     data_for_template['players'] = get_players()
     data_for_template["players_count"] = get_number_players()
