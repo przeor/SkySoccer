@@ -5,6 +5,7 @@ from .homepage import singin_user
 from skysoccer.models.user import User
 from passlib.apps import custom_app_context as pwd_context
 
+
 def register_view(request):
     def get_initial_data():
         return {
@@ -24,7 +25,8 @@ def register_view(request):
         if user['name'] == '' or user['surname'] == '' or user['login'] == '' or user['password'] == '':
             data_for_template['status'] = u'Brakuje danych'
         else:
-            user['password'] = pwd_context.encrypt(request.POST.get('password'))
+            user['password'] = pwd_context.encrypt(
+                request.POST.get('password'))
             try:
                 data_for_template[
                     'status'] = u'Użytkownik istnieje z tym loginem.'
@@ -39,8 +41,12 @@ def register_view(request):
                 data_for_template['surname'] = user['surname']
 
     def save_user(user):
+        if User.objects().count() == 0:
+            status = True
+        else:
+            status = False
         User(name=user['name'], surname=user[
-             'surname'], login=user['login'], password=user['password']).save()
+             'surname'], login=user['login'], password=user['password'], superuser=status).save()
         data_for_template['status'] = u'Użytkownik dodany.'
 
     #-------------------------------------------------------------------------
