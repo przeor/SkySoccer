@@ -204,12 +204,10 @@
         }
       }
       else {
-        team2Score--;
+        if (team2Score == 0 && bigTeam2Score > 0) {team2Score = limit -1;bigTeam2Score--;}
+        else if (team2Score > 0) {team2Score--;}
+        else if (bigTeam2Score > 0) {bigTeam2Score--;}
         team1player1own--;
-        if(team2Score != 0) {
-          team2Score = limit -1; 
-          bigTeam2Score--;
-        }
       }
       enableUndo(1);
       refreshScores();
@@ -226,12 +224,10 @@
         }
       }
       else {
-        team2Score--;
+        if (team2Score == 0 && bigTeam2Score > 0) {team2Score = limit -1; bigTeam2Score--;}
+        else if (team2Score > 0) {team2Score--;}
+        else if (bigTeam2Score > 0) {bigTeam2Score--;}
         team1player2own--;
-        if(team2Score != 0) {
-          team2Score = limit -1;
-          bigTeam2Score--;
-        }
       }
       enableUndo(2);
       refreshScores();
@@ -248,12 +244,10 @@
         }
       }
       else {
-        team1Score--;
+        if (team1Score == 0 && bigTeam1Score > 0) {team1Score = limit -1; bigTeam1Score--;}
+        else if (team1Score > 0) {team1Score--;}
+        else if (bigTeam1Score > 0) {bigTeam1Score--;}
         team2player1own--;
-        if(team1Score != 0) {
-          team1Score = limit -1;
-          bigTeam1Score--;
-        }
       }
       enableUndo(3);
       refreshScores();
@@ -270,12 +264,10 @@
         }
       }
       else {
-        team1Score--;
+         if (team1Score == 0 && bigTeam1Score > 0) {team1Score = limit -1; bigTeam1Score--;}
+        else if (team1Score > 0) {team1Score--;}
+        else if (bigTeam1Score > 0) {bigTeam1Score--;}
         team2player2own--;
-        if(team1Score != 0) {
-          team1Score = limit -1;
-          bigTeam1Score--;
-        }
       }
       enableUndo(4);
       refreshScores();
