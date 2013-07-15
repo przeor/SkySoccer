@@ -66,14 +66,13 @@
                   <td>
                     {% if player.admin %}
                     <form class="form-search" method="POST">
-                      <button class="btn btn-default btn-danger" type="submit" name="submit_admin_remove" value="{{player.login}}" onclick="return confirm('Jestes pewien?')">odbierz</button>
+                      <button class="btn btn-default btn-danger" type="submit" name="submit_admin_remove" value="{{player.login}}" {% if player.name == username %} onclick="alert('Niemozliwe jest odebranie sobie praw'); return false;" {% else %} onclick="return confirm('Jestes pewien?')" {% endif %}>odbierz</button>
                     </form>
                     {% else %}
                     <form class="form-search" method="POST">
                       <button class="btn btn-default btn-succes" type="submit" name="submit_admin_add" value="{{player.login}}" onclick="return confirm('Jestes pewien?')">dodaj</button>
                     </form>
                     {% endif %}
-                    </form>
                   </td>
                 </tr>
               </tbody>
