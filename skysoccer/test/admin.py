@@ -75,3 +75,22 @@ class DeleteControllerTest(ControllerTest):
         res = admin_view(self.request)
 
         self.assertEqual([], res.data['players'])
+
+
+class AccesRightsTest(ControllerTest):
+
+    def setUp(self):
+        super(AccesRightsTest, self).setUp()
+        User(name="a", surname="a", login='a', password='a', superuser=True).save()
+
+    def test_admin_succesfull(self):
+        self.request.session['admin'] = 1
+        res = admin_view(self.request)
+        self.assertEqual(res.data['players'][0]['admin'], True)
+
+    def test_admin_take_rights(self):
+        self.request.session['admin'] = 1
+        res = admin_view(self.request)
+        self.request.POST['submit_admin_remove'] = 'a'
+        res = admin_view(self.request)
+        self.assertEqual(res.data['players'][0]['admin'], False)
