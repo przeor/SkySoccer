@@ -61,7 +61,7 @@ def index_view(request):
             data_for_template["login_status"] = u"Nie ma takiego użytkownika"
 
     elif request.POST.get('submit_logout') == "submitting":
-        data_for_template['logged'] = request.session['logged'] = 0
+        data_for_template['logged'] = request.session['logged'] = request.session['admin'] = 0
         data_for_template['login_status'] = u"Wylogowano"
 
     elif request.POST.get('submit_admin') == "submitting":

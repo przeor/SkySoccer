@@ -43,10 +43,7 @@ def admin_view(request):
     data_for_template["matches_count"] = get_number_matches()
 
     if request.POST.get('submit_delete'):
-        for key, value in request.POST.items():
-            login = data_for_template['players'][0]['login']
-            if value in login:
-                delete_user_from_db(value)
+        delete_user_from_db(request.POST.items()[0][1])
 
     elif request.POST.get('submit_admin_add'):
         set_admin(request.POST.items()[0][1], True)
