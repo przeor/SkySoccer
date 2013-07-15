@@ -37,7 +37,7 @@ def index_view(request):
             player['matches'] = Match.objects(__raw__=query).count()
             players.append(dict(player))
         players = get_goals(players)
-        players = sorted(players, key=lambda k: k['scores'], reverse= True)
+        players = sorted(players, key=lambda k: k['scores'], reverse=True)
         return players
 
     def get_number_players():
@@ -75,8 +75,7 @@ def index_view(request):
     elif request.POST.get('submit_register') == "submitting":
         return HTTPFound(location="/register.html")
 
-    if not 'registered' in request.session:
-        request.session['registered'] = 0
+    request.session['registered'] = request.session.get('admin', False)
 
     if not 'logged' in request.session:
         data_for_template['logged'] = request.session['logged'] = 0
@@ -86,10 +85,7 @@ def index_view(request):
     if request.session['logged'] or request.session['registered']:
         data_for_template['username'] = request.session['username']
 
-    if request.session.get('admin', False) == 1:
-        data_for_template['admin'] = 1
-    else:
-        data_for_template['admin'] = 0
+    data_for_template['admin'] = request.session.get('admin', False)
 
     return JinjaResponse(request, 'index2_base.html', data_for_template)
 
@@ -103,10 +99,7 @@ def singin_user(request):
             if pwd_context.verify(password, user.get_password()):
                 request.session['logged'] = 1
                 request.session['username'] = user.get_fullname()
-                if user.get_status():
-                    request.session['admin'] = 1
-                else:
-                    request.session['admin'] = 0
+                request.session['admin'] = user.get_status()
                 return request
             return False
         else:
